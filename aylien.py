@@ -2,6 +2,7 @@
 
 from aylienapiclient import textapi
 import json
+import sys
 from pprint import pprint
 
 client = textapi.Client(" 29bc232d", "53054f1de3f2d79315fb6436eaaf6e19")
@@ -20,3 +21,7 @@ def getCategorySpecific(link):
     for category in classifications['classes']:
         if(category['score'] is not None):
             print '%s , %s' % (category['label'], category['score'])
+
+
+base_url = "https://translate.google.com/translate?hl=th&sl=th&tl=en&u="
+getCategoryTaxonomy(base_url+sys.argv[1])
