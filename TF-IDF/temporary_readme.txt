@@ -1,9 +1,20 @@
 ﻿===========================
+        REQUIREMENT
+===========================
+
+- Python 3.x
+- Module
+	+ nltk (สำหรับ ngram)
+	+ sklearn (สำหรับ TF-IDF)
+
+===========================
         HOW TO RUN
 ===========================
-1.) สั่งรัน python wordParser.py จะได้ภาษาไทยแบ่ง ngram ออกโฟลเดอร์ 'split_out/'
+1.) สั่งรัน python setup.py
 
-2.) สั่งรัน python tfidf.py จะได้ค่าความสำคัญของคำแต่ละคำ(ngram) ในแต่ละไฟล์จาก split_out ในรูปแบบ TF-IDF ออกทางโฟลเดอร์  result/
+2.) สั่งรัน python wordParser.py จะได้ภาษาไทยแบ่ง ngram ออกโฟลเดอร์ 'split_out/'
+
+3.) สั่งรัน python tfidf.py จะได้ค่าความสำคัญของคำแต่ละคำ(ngram) ในแต่ละไฟล์จาก split_out ในรูปแบบ TF-IDF ออกทางโฟลเดอร์  result/
 
 ===========================
          DATA FLOW
