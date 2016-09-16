@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import sys
 
+import os
 from nltk import ngrams
 
 def wordSplit(sentence):
@@ -31,14 +32,26 @@ def ngram(wordArr,n):
     my_ngrams = ngrams(wordArr, n)
     return my_ngrams
 
-f = open('words.txt', 'r', encoding="utf8")
-o = open('outwords.txt', 'w', encoding="utf8")
-sentence = f.read()
-sentence = sentence
-wordArr = wordSplit(sentence)
-word_removed = removeStopWord(wordArr)
-word_ngram = ngram(word_removed,3)
-for w in word_ngram:
-    o.write(str(w))
-f.close()
-o.close()
+def parseAllDocuments(path_in, path_out):
+    token_dict = {}
+    for dirpath, dirs, files in os.walk(path_in):
+        for f in files:
+            finname = os.path.join(dirpath, f)
+            foutname = os.path.join(path_out, f)
+            print("fname=", finname)
+            o = open(foutname, 'w', encoding="utf8")
+            with open(finname,encoding="utf-8-sig") as pearl:
+                sentence = pearl.read()
+                wordArr = wordSplit(sentence)
+                word_removed = removeStopWord(wordArr)
+                word_ngram = ngram(word_removed,3)
+                for w in word_ngram:
+                    gram = "|".join(w)
+                    o.write(gram+" ")
+            o.close()
+
+
+split_path = './split/'
+split_out_path = './split_out/'
+parseAllDocuments(split_path, split_out_path)
+
