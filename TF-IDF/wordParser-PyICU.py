@@ -28,7 +28,7 @@ def warpToArray(txt, return_type=1, delimeter="|"):
     try:
         while(1):
             currentPos = next(bd)
-            retList.append(txt[lastPos:currentPos])
+            retList.append(txt[lastPos:currentPos].encode('utf-8'))
             lastPos = currentPos
     except StopIteration:
         pass
@@ -58,11 +58,11 @@ def parseAllDocuments(path_in, path_out, delimeter='|'):
             finname = os.path.join(dirpath, f)
             foutname = os.path.join(path_out, f)
             print("fname=", finname)
-            with open(finname,encoding="utf-8-sig") as pearl:
-                o = open(foutname, 'w', encoding="utf8")
+            with open(finname) as pearl:
+                o = open(foutname, 'w')
 
                 # Read content from a document
-                content = pearl.read()
+                content = pearl.read().decode('utf-8')
                 # Parse words
                 words = warpToArray(content)
                 # Remove stop words
