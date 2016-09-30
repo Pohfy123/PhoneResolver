@@ -10,14 +10,14 @@ def getGoogleLinks(link):
     br.addheaders = [('User-agent','chrome')]
 
     term = link.replace(" ","+")
-    query = "http://www.google.com/search?num=100&q="+term
+    query = "http://www.google.com/search?num=10&q="+term
     htmltext = br.open(query).read()
 
-    soup = BeautifulSoup(htmltext)
+    soup = BeautifulSoup(htmltext,"lxml")
     search = soup.findAll('div',attrs={ 'id':'search'})
     searchtext = str(search[0])  
 
-    soupSearch = BeautifulSoup(searchtext)
+    soupSearch = BeautifulSoup(searchtext,"lxml")
     searchR = soupSearch.findAll('h3',attrs={ 'class':'r'})
 
     regexURL = "\?q=.*&amp;"

@@ -1,14 +1,13 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import googleSearch
-# import aylien
+import textCrawling
 import sys
+import os
 
 phoneNo = sys.argv[1]
-
 url_array = googleSearch.getGoogleLinks(phoneNo)
-# title_array = googleSearch.getGoogleTitle(phoneNo)
 
-print(url_array)
-
-# for url in url_array:
-#     aylien.getCategorySpecific(url)
+fn = os.path.join(os.path.dirname(__file__), "raw_data/"+phoneNo+".txt")
+f = open(fn,"w")
+textCrawling.fetchText(url_array,f)
