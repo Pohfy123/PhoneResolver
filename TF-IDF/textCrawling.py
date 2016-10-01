@@ -12,10 +12,15 @@ def CssJsStrip(html):
     return pureHTML
 
 def fetchHTML(url):
-    html = urllib.urlopen(url).read()
-    soup = BeautifulSoup(html,"lxml")
-    search = soup.findAll('body')
-    searchtext = str(search[0])  
+    searchtext = ""
+    try: 
+        html = urllib.urlopen(url).read()
+        soup = BeautifulSoup(html,"lxml")
+        search = soup.findAll('body')
+        if len(search) > 0:
+            searchtext = str(search[0]) 
+    except IOError as e:
+        print "I/O error({0}): {1}".format(e.errno, e.strerror)
     return(searchtext)
 
 class MLStripper(HTMLParser):

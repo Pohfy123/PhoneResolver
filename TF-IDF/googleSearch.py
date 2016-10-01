@@ -15,7 +15,9 @@ def getGoogleLinks(link):
 
     soup = BeautifulSoup(htmltext,"lxml")
     search = soup.findAll('div',attrs={ 'id':'search'})
-    searchtext = str(search[0])  
+    searchtext = ""
+    if len(search) > 0:
+        searchtext = str(search[0])  
 
     soupSearch = BeautifulSoup(searchtext,"lxml")
     searchR = soupSearch.findAll('h3',attrs={ 'class':'r'})
@@ -47,7 +49,9 @@ def getGoogleTitle(link):
 
     soup = BeautifulSoup(htmltext)
     search = soup.findAll('div',attrs={ 'id':'search'})
-    searchtext = str(search[0])  
+    searchtext = ""
+    if len(search) > 0:
+        searchtext = str(search[0])
 
     soupSearch = BeautifulSoup(searchtext)
     searchR = soupSearch.findAll('h3',attrs={ 'class':'r'})
