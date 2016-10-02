@@ -8,7 +8,7 @@ import time
 
 # phoneNo = sys.argv[1]
 
-fi = open("numberInput.txt","r")
+fi = open("number_input.txt","r")
 nums = fi.read()
 numArr = nums.split("\n")
 
