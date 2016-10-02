@@ -9,7 +9,7 @@ def applyNgramAllDocuments(path_in, path_out, number_of_gram, delimeter='|'):
         for f in files:
             finname = os.path.join(dirpath, f)
             foutname = os.path.join(path_out, f)
-            print("fname=", finname)
+            print "fname=", finname
             with open(finname) as pearl:
                 o = open(foutname, 'w')
 
