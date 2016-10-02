@@ -2,25 +2,29 @@
         REQUIREMENT
 ===========================
 
-- Python 3.x
+- Python 2.7
 - Module
-	+ nltk (สำหรับ ngram)
-	+ sklearn (สำหรับ TF-IDF)
+	+ nltk		(FOR n-gram)
+	+ sklearn	(FOR TF/TF-IDF)
+	+ PyICU		(FOR Thai word parserf)
+
+
+===========================
+         OVERVIEW
+===========================
+STEP1: Google Crawling
+STEP2: Thai Parser (PyICU)
+STEP3: N-Gram
+STEP4: Extract Feature (TF / TF-IDF)
+
 
 ===========================
         HOW TO RUN
 ===========================
-1.) สั่งรัน python setup.py
+1.) [NOT_COMPLETE] run "setup.py" script
 
-2.) สั่งรัน python wordParser.py จะได้ภาษาไทยแบ่ง ngram ออกโฟลเดอร์ 'split_out/'
-
-3.) สั่งรัน python tfidf.py จะได้ค่าความสำคัญของคำแต่ละคำ(ngram) ในแต่ละไฟล์จาก split_out ในรูปแบบ TF-IDF ออกทางโฟลเดอร์  result/
-
-===========================
-         DATA FLOW
-===========================
-
-  ---[Google Search Result]--->
-  ---[    LexTo    ]----> ./split/*.txt
-  ---[wordParser.py]----> ./split_out/*.txt 
-  ---[   tfidf.py  ]----> ./result/*.txt 
+2.) Run these python script (py2)
+	STEP1 	---[numberSearchMain.py]	----> ./raw_data/*.txt
+	STEP2 	---[wordParser-PyICU.py]	----> ./split/*.txt 
+	STEP3 	---[ngram.py]			----> ./split_out/*.txt 
+	STEP4 	---[extract_feature.py]		----> ./result/*.txt 
