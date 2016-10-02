@@ -20,7 +20,7 @@ def isThai(chr):
         return True
     return False
 
-def warpToArray(txt, return_type=1, delimeter="|"):
+def warpToArray(txt, delimeter="|"):
     bd = PyICU.BreakIterator.createWordInstance(PyICU.Locale("th"))
     bd.setText(txt)
     lastPos = bd.first()
