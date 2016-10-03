@@ -27,10 +27,3 @@ def applyNgramAllDocuments(path_in, path_out, number_of_gram, delimeter='|'):
                     gram = "".join(w)
                     o.write(gram+"\n")
                 o.close()
-
-
-input_path  = './split/'
-output_path = './split_out/'
-number_of_gram = 3
-delimeter = '|'
-applyNgramAllDocuments(input_path, output_path, number_of_gram, delimeter)

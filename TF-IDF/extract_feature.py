@@ -77,12 +77,3 @@ def extract_feature(input_path, output_path, feature_mode) :
         tfidf(input_path, output_path)
     else:
         print('Wrong parameter: (feature_mode should be 1 or 2)')
-
-
-input_path  = './split_out/'
-output_path = './result/'
-
-feature_mode = 1       # TF
-# feature_mode = 2    # TF-IDF
-
-extract_feature(input_path, output_path, feature_mode)

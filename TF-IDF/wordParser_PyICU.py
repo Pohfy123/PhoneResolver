@@ -80,10 +80,3 @@ def parseAllDocuments(path_in, path_out, delimeter='|'):
                 o.write(delimeter.join(words))
 
                 o.close()
-
-
-input_path  = './raw_data/'
-output_path = './split/'
-delimeter = '|'
-parseAllDocuments(input_path, output_path, delimeter)
-
