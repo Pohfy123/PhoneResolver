@@ -7,6 +7,7 @@ import nltk
 import string
 from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.stem.porter import PorterStemmer
+from operator import itemgetter
 
 token_dict = {}
 
@@ -48,9 +49,18 @@ def tfidf(input_path, output_path, use_idf=True):
                 # print(response)
 
                 feature_names = tfidf.get_feature_names()
-                for col in response.nonzero()[1]:
-                    # print(feature_names[col], ' - ', response[0, col])
-                    o.write(  str(feature_names[col].encode('utf-8'))+' - '+str(response[0, col])+'\n'  )
+                
+                # Create freq table
+                keys_freq_table = [str(feature_names[col].encode('utf-8')) for col in response.nonzero()[1] ]
+                vals_freq_table = [response[0, col] for col in response.nonzero()[1] ]
+                freq_table = zip(keys_freq_table, vals_freq_table)
+                
+                # Sort by (value) DESC
+                sorted_freq_table = sorted(freq_table, key=itemgetter(1), reverse=True)
+
+                # Print to file
+                for row in sorted_freq_table:
+                    o.write(row[0]+' - '+str(row[1])+'\n')
             o.close()
 
 # >>>>>>>>>>>>>>>>>>>>>> TF-IDF : Old source >>>>>>>>>>>>>>>>>>>>>>
