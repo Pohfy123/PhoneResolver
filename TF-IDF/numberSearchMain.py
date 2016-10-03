@@ -8,7 +8,7 @@ import time
 
 # phoneNo = sys.argv[1]
 
-def readPhoneNumber(input_path,output_path):
+def searchPhoneNumber(input_path,output_path):
     fi = open(input_path,"r")
     nums = fi.read()
     numArr = nums.split("\n")
@@ -21,11 +21,6 @@ def readPhoneNumber(input_path,output_path):
         textCrawling.fetchText(url_array,fo)
         fo.close()
         time.sleep(30)
-
-input_path = "number_input.txt"
-output_path = "raw_data/"
-
-readPhoneNumber(input_path,output_path)
 
 
 

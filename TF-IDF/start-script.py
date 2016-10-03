@@ -3,8 +3,10 @@
 import wordParser_PyICU
 import ngrams
 import extract_feature
+import numberSearchMain
 
 # Configuration
+path_number = "number_input.txt"
 path_raw_data       = './raw_data/'
 path_parsed_words   = './split/'
 path_ngram_words    = './split_out/'
@@ -16,6 +18,7 @@ feature_mode = 1       # TF
 
 # STEP1: Google Crawling
 print "\n\n############# RUN STEP1: Google Crawling #############"
+numberSearchMain.searchPhoneNumber(path_number,path_raw_data)
 
 # STEP2: Thai Parser (PyICU)
 print "\n\n############# RUN STEP2: Thai Parser (PyICU) #############"
