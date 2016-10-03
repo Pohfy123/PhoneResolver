@@ -3,6 +3,7 @@
 import sys
 import os
 import PyICU
+import re
 
 def removeStopWords(wordArr):
     th_stopWord = ["ไว้","ไม่","ไป","ได้","ให้","ใน","โดย","แห่ง","แล้ว","และ","แรก","แบบ","แต่","เอง","เห็น","เลย","เริ่ม","เรา",\
@@ -34,6 +35,10 @@ def warpToArray(txt, delimeter="|"):
         pass
     return retList
 
+def filterChar(content):
+    content_no_special_char = re.subn(r'[0-9!#$%\'+\[\]\^]', '', content)[0]
+    return content_no_special_char
+
 # def warp(txt, delimeter="|"):
 #     bd = PyICU.BreakIterator.createWordInstance(PyICU.Locale("th"))
 #     bd.setText(txt)
@@ -63,8 +68,12 @@ def parseAllDocuments(path_in, path_out, delimeter='|'):
 
                 # Read content from a document
                 content = pearl.read().decode('utf-8')
+
+                # Remove dont needed character
+                content_no_special_char = filterChar(content)
+
                 # Parse words
-                words = warpToArray(content)
+                words = warpToArray(content_no_special_char)
                 # Remove stop words
                 words = removeStopWords(words)
                     
