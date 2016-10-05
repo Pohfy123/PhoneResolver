@@ -7,9 +7,9 @@ import numberSearchMain
 
 # Configuration
 path_number = "number_input.txt"
-path_raw_data = './temp-processing/01_raw-data/'
-path_parsed_words = './temp-processing/02_parsed-word-data/'
-path_ngram_words = './temp-processing/03_n-gram-data/'
+path_raw_data = './temp-processing-data/01_raw-data/'
+path_parsed_words = './temp-processing-data/02_parsed-word-data/'
+path_ngram_words = './temp-processing-data/03_n-gram-data/'
 path_result_tf = './result/tf/'
 path_result_tfidf = './result/tf-idf/'
 number_of_gram = 3
