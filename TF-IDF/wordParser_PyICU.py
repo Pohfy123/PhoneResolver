@@ -67,7 +67,7 @@ def parseAllDocuments(path_in, path_out, delimeter='|'):
                 o = open(foutname, 'w')
 
                 # Read content from a document
-                content = pearl.read().decode('utf-8')
+                content = pearl.read().decode('utf-8', 'ignore')
 
                 # Remove dont needed character
                 content_no_special_char = filterChar(content)
