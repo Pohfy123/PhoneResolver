@@ -8,6 +8,8 @@ lexto = LexTo()
 text = u"ร้านอาหารจีน"
 words, types = lexto.tokenize(text)
 
+print words
+
 f = open("text.txt","w")
 f.write('|'.join(words).encode('utf-8'))
 f.close()
