@@ -26,6 +26,10 @@
 // Author: Choochart Haruechaiyasak
 // Last update: 28 March 2006
 
+// Pack to jar command
+//   javac -encoding windows-874 LongLexTo.java Trie.java LongParseTree.java
+//   jar cf lexto.jar LongLexTo.class Trie.class LongParseTree.class
+
 import java.io.*;
 import java.util.*;
 
@@ -105,6 +109,23 @@ public class LongLexTo {
     typeList=new Vector();
     ptree=new LongParseTree(dict, indexList, typeList);
   } //Constructor
+
+  /*******************************************************************/
+  /**************** Constructor (dictionary file name) ***************/
+  /*******************************************************************/
+  public LongLexTo(String filePath) throws IOException {
+
+    dict=new Trie();
+    File dictFile=new File(filePath);
+    if(dictFile.exists())
+      addDict(dictFile);
+    else
+      System.out.println(" !!! Error: Missing default dictionary file, " + filePath);
+    indexList=new Vector();
+    lineList=new Vector();
+    typeList=new Vector();
+    ptree=new LongParseTree(dict, indexList, typeList);
+  } //Constructor
   
   /*******************************************************************/
   /**************************** addDict ******************************/
@@ -115,7 +136,8 @@ public class LongLexTo {
     String line, word, word2;
     int index;
     FileReader fr = new FileReader(dictFile);
-    BufferedReader br = new BufferedReader(fr);
+    //BufferedReader br = new BufferedReader(fr);
+    BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(dictFile), "Windows-874"));
     
     while((line=br.readLine())!=null) {
       line=line.trim();
@@ -249,7 +271,7 @@ public class LongLexTo {
   /****************************************************************/
   /*************************** Demo *******************************/
   /****************************************************************/
-  public static void main(String[] args) throws IOException {
+  /*public static void main(String[] args) throws IOException {
      
     LongLexTo tokenizer=new LongLexTo(new File("lexitron.txt"));
     File unknownFile=new File("unknown.txt");
@@ -286,7 +308,8 @@ public class LongLexTo {
       outFile=new File(System.getProperty("user.dir") + "//" + outFileName);
       
       fr=new FileReader(inFile);
-      br=new BufferedReader(fr);
+      //br=new BufferedReader(fr);
+      br=new BufferedReader(new InputStreamReader( new FileInputStream(inFileName), "Windows-874")); 
       fw=new FileWriter(outFile);  
 
       while((line=br.readLine())!=null) {
@@ -341,4 +364,5 @@ public class LongLexTo {
       System.out.println("\n *** Status: Use Web browser to view result: " + outFileName);
     } while(true);
   } //main
+  */
 }
