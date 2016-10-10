@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 TF-IDF/backup/
 TF-IDF/result/tf-idf-lexto/*.txt
 TF-IDF/result/tf-idf-pyicu/*.txt
@@ -14,3 +15,6 @@ TF-IDF/temp-processing-data/03_n-gram-data-pyicu/*.txt
 
 
 
+=======
+*.pyc
+>>>>>>> master
