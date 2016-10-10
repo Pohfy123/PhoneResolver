@@ -58,6 +58,10 @@ def tfidf(input_path, output_path, use_idf=True):
                 # Sort by (value) DESC
                 sorted_freq_table = sorted(freq_table, key=itemgetter(1), reverse=True)
 
+                # Limit number of rows
+                if limitTop is not None:
+                    sorted_freq_table = sorted_freq_table[:limitTop]
+
                 # Print to file
                 for row in sorted_freq_table:
                     o.write(row[0]+' - '+str(row[1])+'\n')
@@ -68,7 +72,7 @@ def tfidf(input_path, output_path, use_idf=True):
 def tf(input_path, output_path):
     tfidf(input_path, output_path, False)
 
-def extract_feature(input_path, output_path, feature_mode) :
+def extract_feature(input_path, output_path, feature_mode, limitTop = None) :
     if(feature_mode == 1): # TF
         print('Mode: 1 TF')
         tf(input_path, output_path)
