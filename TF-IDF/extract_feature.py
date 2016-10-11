@@ -20,7 +20,7 @@ def tokenize(text):
         stems.append(PorterStemmer().stem(item))
     return stems
 
-def tfidf(input_path, output_path, use_idf=True):
+def tfidf(input_path, output_path, use_idf=True, limitTop=None):
     for dirpath, dirs, files in os.walk(input_path):
         for f in files:
             finname = os.path.join(dirpath, f)
