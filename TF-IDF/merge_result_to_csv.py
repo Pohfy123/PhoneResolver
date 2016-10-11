@@ -8,7 +8,14 @@ def mergeResultToCSV(input_path, output_path, file_name="result.csv"):
     foutname = os.path.join(output_path, file_name)
     o = open(foutname, 'w')
 
+    classNo = 1
     for dirpath, dirs, files in os.walk(input_path):
+        # Root dir
+        if dirpath == input_path:
+            print(dirs)
+            continue
+
+        # Each Class folder
         for f in files:
             fin_path = os.path.join(dirpath, f)
             fin_name = os.path.splitext(os.path.basename(fin_path))[0]
@@ -24,9 +31,10 @@ def mergeResultToCSV(input_path, output_path, file_name="result.csv"):
                     words.append(word)
                 data_col1 = fin_name # Phone Number
                 data_col2 = ' '.join(words) # Bag of words
-                data_col3 = '' # Result
+                data_col3 = str(classNo) # Result
                 o.write(data_col1+','+data_col2.encode('utf-8')+','+data_col3)
                 o.write('\n')
+        classNo += 1
     o.close()
 
-mergeResultToCSV('./result/tf-lexto/', './result/tf-lexto/')
+mergeResultToCSV('./train-data/', './train-data/')
