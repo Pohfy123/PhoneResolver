@@ -8,13 +8,15 @@ def mergeResultToCSV(input_path, output_path, file_name="result.csv"):
     foutname = os.path.join(output_path, file_name)
     o = open(foutname, 'w')
 
-    classNo = 1
     for dirpath, dirs, files in os.walk(input_path):
         # Root dir
         if dirpath == input_path:
-            print(dirs)
+            print dirs
             continue
-
+        deepestFolderName = os.path.split(dirpath)[-1]
+        classId = deepestFolderName.split('_')[0]
+        className = deepestFolderName.split('_')[1]
+        print classId,'\t', className,'\t', dirpath
         # Each Class folder
         for f in files:
             fin_path = os.path.join(dirpath, f)
@@ -32,10 +34,9 @@ def mergeResultToCSV(input_path, output_path, file_name="result.csv"):
                     words.append(word.encode('utf-8'))
                 data_col1 = fin_name # Phone Number
                 data_col2 = ' '.join(words) # Bag of words
-                data_col3 = str(classNo) # Result
+                data_col3 = str(classId) # Result
                 o.write(data_col1+','+data_col2.encode('utf-8')+','+data_col3)
                 o.write('\n')
-        classNo += 1
     o.close()
 
 path_train_data = './train-data/'
