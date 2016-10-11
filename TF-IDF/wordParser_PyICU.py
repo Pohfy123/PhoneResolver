@@ -21,6 +21,9 @@ def isThai(chr):
         return True
     return False
 
+def isEnglish(chr):
+    return str.isalpha(chr)
+
 def warpToArray(txt, delimeter="|"):
     bd = PyICU.BreakIterator.createWordInstance(PyICU.Locale("th"))
     bd.setText(txt)
@@ -36,7 +39,10 @@ def warpToArray(txt, delimeter="|"):
     return retList
 
 def filterChar(content):
-    content_no_special_char = re.subn(r'[0-9!#$%?=:·\'+\[\]\^]', '', content)[0]
+    # content_no_special_char = re.subn(r'[0-9!#$%?=:·\'+\[\]\^]', '', content)[0]
+    
+    # Only Thai & English
+    content_no_special_char = ''.join([c for c in x if isThai(c) or isEnglish(c)])
     return content_no_special_char
 
 # def warp(txt, delimeter="|"):
