@@ -19,14 +19,22 @@ def mergeResultToCSV(input_path, output_path, file_name="result.csv"):
             with open(fin_path) as pearl:
                 words = []
                 for line in pearl:
-                    word, freq = line.decode('utf-8').strip().split()
-                    print freq
-                    words.append(word)
+                    # print ">>>>%s"%line
+                    word, freq = line.decode('utf-8').strip().split(" - ")
+                    # print freq
+                    words.append(word.encode('utf-8'))
                 data_col1 = fin_name # Phone Number
                 data_col2 = ' '.join(words) # Bag of words
                 data_col3 = '' # Result
-                o.write(data_col1+','+data_col2.encode('utf-8')+','+data_col3)
+                o.write(data_col1+','+data_col2+','+data_col3)
                 o.write('\n')
     o.close()
 
-mergeResultToCSV('./result/tf-lexto/', './result/tf-lexto/')
+
+path_result_tf_PyICU = './result/tf-pyicu/'
+path_result_tfidf_PyICU = './result/tf-idf-pyicu/'
+
+path_result_tf_Lexto = './result/tf-lexto/'
+path_result_tfidf_Lexto = './result/tf-idf-lexto/'
+
+mergeResultToCSV(path_result_tf_Lexto, path_result_tf_Lexto)
