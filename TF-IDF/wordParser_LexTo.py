@@ -16,15 +16,42 @@ def removeStopWords(wordArr):
     ":",",","&","amp","/",";",".","(",")","\"","-","@","\n"," ","\r","facebook"]
     return [word for word in wordArr if word not in th_stopWord]
 
-def warpToArray(txt, delimeter="|"):
+def isThai(chr):
+    cVal = ord(chr)
+    if(cVal >= 3584 and cVal <= 3711):
+        return True
+    return False
+
+def isEnglish(chr):
+    cVal = ord(chr)
+    if (cVal >= 97 and cVal <= 122 ) or (cVal >= 65 and cVal <= 90):
+        return True
+    return False
+
+def warpToArray_LexTo(txt, delimeter="|"):
     words, types = lexto.tokenize(txt)
     return [word.encode('utf-8','ignore') for word in words]
 
+def warpToArray_PyICU(txt, delimeter="|"):
+    bd = PyICU.BreakIterator.createWordInstance(PyICU.Locale("th"))
+    bd.setText(txt)
+    lastPos = bd.first()
+    retList = []
+    try:
+        while(1):
+            currentPos = next(bd)
+            retList.append(txt[lastPos:currentPos].encode('utf-8'))
+            lastPos = currentPos
+    except StopIteration:
+        pass
+    return retList
+
 def filterChar(content):
-    content_no_special_char = re.subn(r'0-9!#$%?=:·\'+\[\]\^]', '', content)[0]
+    # Only Thai & English
+    content_no_special_char = ''.join([c for c in content if isThai(c) or isEnglish(c)])
     return content_no_special_char
 
-def parseAllDocuments(path_in, path_out, delimeter='|'):
+def parseAllDocuments(path_in, path_out, delimeter='|', isPyICU = False):
     for dirpath, dirs, files in os.walk(path_in):
         for f in files:
             finname = os.path.join(dirpath, f)
@@ -40,7 +67,10 @@ def parseAllDocuments(path_in, path_out, delimeter='|'):
                 content_no_special_char = filterChar(content)
 
                 # Parse words
-                words = warpToArray(content_no_special_char)
+                if isPyICU is True:
+                    words = warpToArray_PyICU(content_no_special_char)
+                else:
+                    words = warpToArray_LexTo(content_no_special_char)
                 # Remove stop words
                 words = removeStopWords(words)
                     

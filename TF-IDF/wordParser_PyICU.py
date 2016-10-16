@@ -42,7 +42,7 @@ def filterChar(content):
     # content_no_special_char = re.subn(r'[0-9!#$%?=:·\'+\[\]\^]', '', content)[0]
     
     # Only Thai & English
-    content_no_special_char = ''.join([c for c in x if isThai(c) or isEnglish(c)])
+    content_no_special_char = ''.join([c for c in content if isThai(c) or isThai(c)])
     return content_no_special_char
 
 # def warp(txt, delimeter="|"):
