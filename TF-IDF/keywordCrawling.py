@@ -3,21 +3,22 @@
 from urllib import urlopen
 from bs4 import BeautifulSoup
 
-def fetchKeyword(url):
+def fetchKeyword(urlArr):
     searchkey = ""
-    try: 
-        html = urlopen(url).read()
-        soup = BeautifulSoup(html,"lxml")
-        search = soup.findAll('meta',attrs={ 'name':'keywords'})
-        if len(search) > 0:
-            searchkey = str(search[0]['content'].encode('utf-8')) 
-    except IOError as e:
-        print "I/O error({0}): {1}".format(e.errno, e.strerror)
-    except:
-        print "Something Error"
+    for url in urlArr:
+        try: 
+            html = urlopen(url).read()
+            soup = BeautifulSoup(html,"lxml")
+            search = soup.findAll('meta',attrs={ 'name':'keywords'})
+            if len(search) > 0:
+                searchkey = searchkey+"\n"+str(search[0]['content'].encode('utf-8')) 
+        except IOError as e:
+            print "I/O error({0}): {1}".format(e.errno, e.strerror)
+        except:
+            print "Something Error"
     return(searchkey)
 
-searchkey = fetchKeyword("https://www.instagram.com/plaavydessertcafe/")
-o = open("keyword.txt", 'w')
-o.write(searchkey)
-o.close()
+# searchkey = fetchKeyword("https://www.instagram.com/plaavydessertcafe/")
+# o = open("keyword.txt", 'w')
+# o.write(searchkey)
+# o.close()

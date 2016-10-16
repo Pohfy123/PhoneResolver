@@ -18,9 +18,11 @@ def fetchHTML(url):
         soup = BeautifulSoup(html,"lxml")
         search = soup.findAll('body')
         if len(search) > 0:
-            searchtext = str(search[0]) 
+            searchtext = str(search[0].encode('utf-8')) 
     except IOError as e:
         print "I/O error({0}): {1}".format(e.errno, e.strerror)
+    except:
+        print "Something Error"
     return(searchtext)
 
 class MLStripper(HTMLParser):
@@ -39,12 +41,13 @@ def strip_tags(html):
     s.feed(html)
     return s.get_data()
 
-def fetchText(urlArr,f):
+def fetchText(urlArr):
+    text = ""
     for url in urlArr:
         html = fetchHTML(url)
         pureHTML = CssJsStrip(html).decode('utf-8')
-        text = strip_tags(pureHTML).encode('utf-8')
-        f.write(text)
+        text = text+"\n=================\n"+strip_tags(pureHTML).encode('utf-8')
+    return text
 
 
 # url = sys.argv[1]
