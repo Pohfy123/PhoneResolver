@@ -1,20 +1,17 @@
-<<<<<<< HEAD
+
 TF-IDF/backup/
 TF-IDF/result/tf-idf-lexto/*.txt
 TF-IDF/result/tf-idf-pyicu/*.txt
 TF-IDF/result/tf-lexto/*.txt
 TF-IDF/result/tf-pyicu/*.txt
+TF-IDF/temp-processing-data/00_url/*.txt
 TF-IDF/temp-processing-data/01_raw-data/*.txt
+TF-IDF/temp-processing-data/01_raw-data_backup/*.txt
 TF-IDF/temp-processing-data/02_parsed-word-data-pyicu/*.txt
 TF-IDF/temp-processing-data/02_parsed-word-data-lexto/*.txt
 TF-IDF/temp-processing-data/03_n-gram-data-lexto/*.txt
 TF-IDF/temp-processing-data/02_parsed-word-data-lexto/*.txt
 TF-IDF/temp-processing-data/03_n-gram-data-pyicu/*.txt
 
-
-
-
-
-=======
 *.pyc
->>>>>>> master
+
