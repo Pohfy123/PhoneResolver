@@ -35,7 +35,7 @@ def mergeResultToCSV(input_path, output_path, file_name="result.csv"):
                 data_col1 = fin_name # Phone Number
                 data_col2 = ' '.join(words) # Bag of words
                 data_col3 = str(classId) # Result
-                o.write(data_col1+','+data_col2.encode('utf-8')+','+data_col3)
+                o.write(data_col1+','+data_col2+','+data_col3)
                 o.write('\n')
     o.close()
 
