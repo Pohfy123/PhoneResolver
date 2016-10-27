@@ -4,7 +4,7 @@
 import sys
 import os
 
-def mergeResultToCSV(input_path, output_path, file_name="result.csv"):
+def mergeResultToCSV(input_path, output_path, file_name="train.csv"):
     foutname = os.path.join(output_path, file_name)
     o = open(foutname, 'w')
 

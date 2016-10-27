@@ -4,7 +4,7 @@ import nltk
 
 fin = open('./train-data/train.csv','r')
 all_words = ""
-number_of_train = 50
+number_of_train = 100
 for line in fin:
     num,words,cat = line.split(",")
     all_words = all_words+" "+words
@@ -38,11 +38,13 @@ for line in fin:
         cat = cat.replace("\n","")
         dist = classifier.prob_classify(test_sent_features)
         print num
-        # diff = 0
-        # for label in dist.samples():
-        #     print "\tlabel >>>",label," prob >>>" , dist.prob(label)
-        #     diff = abs(dist.prob(label)-diff)
-        # print "\tdiff",diff
+
+        diff = 0
+        for label in dist.samples():
+            # print "\tlabel >>>",label," prob >>>" , dist.prob(label)
+            diff = abs(dist.prob(label)-diff)
+        print "\tdiff",diff
+
         print "\tpred =",dist.max(),"\tans =", cat, (dist.max()==cat)
 fin.close()
 
