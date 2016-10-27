@@ -10,8 +10,14 @@ TF-IDF/temp-processing-data/01_raw-data_backup/*.txt
 TF-IDF/temp-processing-data/02_parsed-word-data-pyicu/*.txt
 TF-IDF/temp-processing-data/02_parsed-word-data-lexto/*.txt
 TF-IDF/temp-processing-data/03_n-gram-data-lexto/*.txt
-TF-IDF/temp-processing-data/02_parsed-word-data-lexto/*.txt
 TF-IDF/temp-processing-data/03_n-gram-data-pyicu/*.txt
+
+TF-IDF/train-data/
+TF-IDF/number_input.txt
 
 *.pyc
 
+TF-IDF/resources/PyICU-1.9.3-cp35-cp35m-win_amd64.whl
+TF-IDF/classification_bone/data/result.csv
+TF-IDF/classification_bone/predict_result.txt
+TF-IDF/TF-IDF.rar
