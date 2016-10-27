@@ -13,8 +13,9 @@ def removeStopWords(wordArr):
     "ร่วม","ราย","รับ","ระหว่าง","รวม","ยัง","มี","มาก","มา","พร้อม","พบ","ผ่าน","ผล","บาง","น่า","นี้","นํา","นั้น","นัก","นอกจาก",\
     "ทุก","ที่สุด","ที่","ทําให้","ทํา","ทาง","ทั้งนี้","ทั้ง","ถ้า","ถูก","ถึง","ต้อง","ต่างๆ","ต่าง","ต่อ","ตาม","ตั้งแต่","ตั้ง","ด้าน","ด้วย",\
     "ดัง","ซึ่ง","ช่วง","จึง","จาก","จัด","จะ","คือ","ความ","ครั้ง","คง","ขึ้น","ของ","ขอ","ขณะ","ก่อน","ก็","การ","กับ","กัน","กว่า","กล่าว",\
-    ":",",","&","amp","/",";",".","(",")","\"","-","@","\n"," ","\r","facebook"]
-    return [word for word in wordArr if word not in th_stopWord]
+    "facebook","กรุงเทพมหานคร","ถูกใจ","กำลัง","พูดถึง","คน","กำลัง","ที่นี่","ตา","แก","ส","อิน","รม","ดารา",\
+    "ดีไซน์","ตกแต่ง","นะ","ครับ"]
+    return [word for word in wordArr if word.strip() not in th_stopWord]
 
 def isThai(chr):
     cVal = ord(chr)
@@ -48,7 +49,7 @@ def warpToArray_PyICU(txt, delimeter="|"):
 
 def filterChar(content):
     # Only Thai & English
-    content_no_special_char = ''.join([c for c in content if isThai(c) or isEnglish(c)])
+    content_no_special_char = ''.join([c for c in content if isThai(c)]) #or isEnglish(c)
     return content_no_special_char
 
 def parseAllDocuments(path_in, path_out, delimeter='|', isPyICU = False):

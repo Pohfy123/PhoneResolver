@@ -13,7 +13,7 @@ def getGoogleLinks(link,fo):
     br.addheaders = [('User-agent','chrome')]
 
     term = link.replace(" ","+")
-    query = "http://www.google.com/search?num=10&q="+term
+    query = "http://www.google.com/search?num=20&q="+term
     htmltext = br.open(query).read()
 
     soup = BeautifulSoup(htmltext,"lxml")
@@ -39,7 +39,7 @@ def getGoogleLinks(link,fo):
         tmpUrl = tmpUrl.replace("[\'","")
         tmpUrl = tmpUrl.replace("\']","")
         tmpUrl = re.subn(r'sa=.*', '', tmpUrl)[0]
-        print tmpUrl
+        # print tmpUrl
         if tmpUrl:
             tmpUrl = urllib.unquote(tmpUrl)
             url_array.append(tmpUrl)
