@@ -8,6 +8,7 @@ import urlKeywordSearch
 
 # Configuration
 # PyICU
+print "processing . . ."
 path_url = "./temp-processing-data/00_url/"
 path_raw_data = './temp-processing-data/01_raw-data/'
 path_parsed_words_PyICU = './temp-processing-data/02_parsed-word-data-pyicu/'
@@ -25,7 +26,7 @@ isPyICU = False
 
 # STEP1: Keyword Crawling
 print "\n\n############# RUN STEP1: Text Crawling #############"
-urlKeywordSearch.search(path_url,path_raw_data)
+# urlKeywordSearch.search(path_url,path_raw_data)
 
 if isPyICU is True:
     # STEP2: Thai Parser (LexTo)

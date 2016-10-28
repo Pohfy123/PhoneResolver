@@ -3,9 +3,22 @@
 from urllib import urlopen
 from bs4 import BeautifulSoup
 
+def isPhoneWeb(url):
+    phoneList = ["phonespamfilter.co.nz","kodifikant.ru","forum.thailandfans.com","whois-il.com","anruferauskunft.de",\
+                "anrufer.info","merinfo.se","determinecaller.com","vemsnummer.se","quemliga.com.br","anrufercheck.com",\
+                "lovenumbersphone.it","shareyot.co.il","superforte.netsons.org","telefonforsaljare.nu","whotocall.ru",\
+                "vorwahl-index.de","publicrecordssn.com","ssn-records.org","violetsmile.com","chichiama.com","sync.me",\
+                "b.411note.com","mouser.com"]
+    for phone in phoneList:
+        if phone in url:
+            return True
+    return False
+
 def fetchKeyword(urlArr):
     searchkey = ""
     for url in urlArr:
+        if isPhoneWeb:
+            continue
         try: 
             html = urlopen(url).read()
             soup = BeautifulSoup(html,"lxml")

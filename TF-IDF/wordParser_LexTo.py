@@ -12,20 +12,32 @@ def removeStopWords(wordArr):
     "อะไร","ออก","อย่าง","อยู่","อยาก",	"หาก","หลาย","หลังจาก","หลัง","หรือ","หนึ่ง","ส่วน","ส่ง","สุด","สําหรับ","ว่า","วัน","ลง",\
     "ร่วม","ราย","รับ","ระหว่าง","รวม","ยัง","มี","มาก","มา","พร้อม","พบ","ผ่าน","ผล","บาง","น่า","นี้","นํา","นั้น","นัก","นอกจาก",\
     "ทุก","ที่สุด","ที่","ทําให้","ทํา","ทาง","ทั้งนี้","ทั้ง","ถ้า","ถูก","ถึง","ต้อง","ต่างๆ","ต่าง","ต่อ","ตาม","ตั้งแต่","ตั้ง","ด้าน","ด้วย",\
-    "ดัง","ซึ่ง","ช่วง","จึง","จาก","จัด","จะ","คือ","ความ","ครั้ง","คง","ขึ้น","ของ","ขอ","ขณะ","ก่อน","ก็","การ","กับ","กัน","กว่า","กล่าว",\
-    "facebook","กรุงเทพมหานคร","ถูกใจ","กำลัง","พูดถึง","คน","กำลัง","ที่นี่","ตา","แก","ส","อิน","รม","ดารา",\
-    "ดีไซน์","ตกแต่ง","นะ","ครับ"]
+    "ดัง","ซึ่ง","ช่วง","จึง","จาก","จัด","จะ","คือ","ความ","ครั้ง","คง","ขึ้น","ของ","ขอ","ขณะ","ก่อน","ก็","การ","กับ","กัน","กว่า",\
+    "กล่าว","กรุงเทพมหานคร","ถูกใจ","กำลัง","พูดถึง","คน","กำลัง","ที่นี่","ตา","แก","ส","อิน","รม","ดารา","ดีไซน์","ตกแต่ง","นะ","ครับ",\
+    "instagram","bangkok","facebook","lookup","thailand","a","about","above","after","again","against","all","am","an",\
+    "and","any","are","aren't","as","at","be","because","been","before","being","below","yourself","yourselves",\
+    "between","both","but","by","can't","cannot","could","couldn't","did","didn't","do","does","doesn't","doing","don't",\
+    "down","during","each","few","for","from","further","had","hadn't","has","hasn't","have","haven't","having","he",\
+    "he'd","he'll","he's","her","here","here's","hers","herself","him","himself","his","how","how's","i","i'd","i'll",\
+    "i'm","i've","if","in","into","is","isn't","it","it's","its","itself","let's","me","more","most","mustn't","my",\
+    "myself","no","nor","not","of","off","on","once","only","or","other","ought","our","ours","ourselves","out","over",\
+    "own","same","shan't","she","she'd","she'll","she's","should","shouldn't","so","some","such","than","that","that's",\
+    "the","their","theirs","them","themselves","then","there","there's","these","they","they'd","they'll","they're",\
+    "they've","this","those","through","to","too","under","until","up","very","was","wasn't","we","we'd","we'll",\
+    "we're","we've","were","weren't","what","what's","when","when's","where","where's","which","while","who","who's",\
+    "whom","why","why's","with","won't","would","wouldn't","you","you'd","you'll","you're","you've","your","yours",\
+    "zealand","code","area","a","new","km"]
     return [word for word in wordArr if word.strip() not in th_stopWord]
 
 def isThai(chr):
     cVal = ord(chr)
-    if(cVal >= 3584 and cVal <= 3711):
+    if((cVal >= 3584 and cVal <= 3711) or cVal == 32):
         return True
     return False
 
 def isEnglish(chr):
     cVal = ord(chr)
-    if (cVal >= 97 and cVal <= 122 ) or (cVal >= 65 and cVal <= 90):
+    if (cVal >= 97 and cVal <= 122 ) or (cVal >= 65 and cVal <= 90) or cVal == 32:
         return True
     return False
 
@@ -49,7 +61,7 @@ def warpToArray_PyICU(txt, delimeter="|"):
 
 def filterChar(content):
     # Only Thai & English
-    content_no_special_char = ''.join([c for c in content if isThai(c)]) #or isEnglish(c)
+    content_no_special_char = ''.join([c for c in content if isThai(c) or isEnglish(c)]) #or isEnglish(c)
     return content_no_special_char
 
 def parseAllDocuments(path_in, path_out, delimeter='|', isPyICU = False):
