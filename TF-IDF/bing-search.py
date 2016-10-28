@@ -3,6 +3,7 @@
 import sys
 import os
 from py_bing_search import PyBingWebSearch
+import urllib
 
 # Init value
 bing_api_key = "exBWnPh+Htd8dkXYdW+WtNqDg42WAgzfUZAe9R6vMiU" # Enter your Bing API Key
@@ -25,9 +26,9 @@ def searchRelatedLinks(search_term_list, output_path, db_file_name="bing-search-
 
         # save to each phone no file
         with open(fout_path, 'w') as o:
-            urlList = [link.url for link in result]
+            urlList = [urllib.unquote(link.url) for link in result]
             titleList = [link.title for link in result]
-            resultList = [','.join(row) for row in zip(urlList,titleList)] 
+            resultList = ['|||'.join(row) for row in zip(urlList,titleList)] 
             o.write('\n'.join(resultList).encode('utf-8'))
 
         # save to .csv database file
@@ -35,7 +36,7 @@ def searchRelatedLinks(search_term_list, output_path, db_file_name="bing-search-
             row = []
             row.append(search_term) # Phone Number
             row.append(link.title) # title
-            row.append(link.url) # url
+            row.append(urllib.unquote(link.url)) # url
             row.append(link.description) # description
             row.append(link.id) # id
             row.append(link.meta.uri) # meta.uri
