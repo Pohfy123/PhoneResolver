@@ -14,10 +14,11 @@ def isPhoneWeb(url):
             return True
     return False
 
-def fetchKeyword(urlArr):
+def fetchKeyword(urlTitleArr):
     searchkey = ""
-    for url in urlArr:
-        if isPhoneWeb:
+    for urlTitle in urlTitleArr:
+        url,title = urlTitle.split("|||")
+        if isPhoneWeb(url):
             continue
         try: 
             html = urlopen(url).read()
@@ -25,7 +26,7 @@ def fetchKeyword(urlArr):
             search_key = soup.findAll('meta',attrs={ 'name':'keywords'})
             search_desc = soup.findAll('meta',attrs={ 'name':'description'})
             if len(search_key) > 0:
-                searchkey = searchkey+"\n"+str(search_key[0]['content'].encode('utf-8'))
+                searchkey = searchkey+title+"\n"+str(search_key[0]['content'].encode('utf-8'))
             else:
                 if len(search_desc) > 0:
                     searchkey = searchkey+"\n"+str(search_desc[0]['content'].encode('utf-8'))
