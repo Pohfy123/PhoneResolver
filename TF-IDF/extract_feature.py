@@ -32,9 +32,12 @@ def tfidf(input_path, output_path, use_idf=True, limitTop=None):
                 # translator = str.maketrans({key: None for key in string.punctuation})
                 # token_dict[f] = text.lower().translate(translator)
                 token_dict[f] = text.encode('utf-8')
-
-    tfidf = TfidfVectorizer(tokenizer=tokenize, stop_words=None, use_idf=use_idf)
-    tfs = tfidf.fit_transform(token_dict.values())
+    str_list = filter(None, token_dict.values())
+    if str_list:
+        tfidf = TfidfVectorizer(tokenizer=tokenize, stop_words=None, use_idf=use_idf)
+        tfs = tfidf.fit_transform(token_dict.values())
+    else:
+        return
 
     for dirpath, dirs, files in os.walk(input_path):
         for f in files:
