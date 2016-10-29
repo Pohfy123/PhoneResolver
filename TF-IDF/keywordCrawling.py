@@ -2,13 +2,17 @@
 # -*- coding: utf-8 -*-
 from urllib import urlopen
 from bs4 import BeautifulSoup
+import socket
+
+socket.setdefaulttimeout(30)
 
 def isPhoneWeb(url):
     phoneList = ["phonespamfilter.co.nz","kodifikant.ru","forum.thailandfans.com","whois-il.com","anruferauskunft.de",\
                 "anrufer.info","merinfo.se","determinecaller.com","vemsnummer.se","quemliga.com.br","anrufercheck.com",\
                 "lovenumbersphone.it","shareyot.co.il","superforte.netsons.org","telefonforsaljare.nu","whotocall.ru",\
                 "vorwahl-index.de","publicrecordssn.com","ssn-records.org","violetsmile.com","chichiama.com","sync.me",\
-                "b.411note.com","mouser.com","serials.ws","docplayer.pl","serialsws.org","e-stat.go.jp","mottles-heer.de"]
+                "b.411note.com","mouser.com","serials.ws","docplayer.pl","serialsws.org","e-stat.go.jp","mottles-heer.de",\
+                "whosnumber.com"]
     for phone in phoneList:
         if phone in url:
             return True
@@ -26,8 +30,9 @@ def fetchKeyword(urlTitleArr):
             soup = BeautifulSoup(html,"lxml")
             search_key = soup.findAll('meta',attrs={ 'name':'keywords'})
             search_desc = soup.findAll('meta',attrs={ 'name':'description'})
+            searchkey = searchkey+title+"\n"
             if len(search_key) > 0:
-                searchkey = searchkey+title+"\n"+str(search_key[0]['content'].encode('utf-8'))
+                searchkey = searchkey+"\n"+str(search_key[0]['content'].encode('utf-8'))
             elif len(search_desc) > 0:
                 searchkey = searchkey+"\n"+str(search_desc[0]['content'].encode('utf-8'))
             else:
