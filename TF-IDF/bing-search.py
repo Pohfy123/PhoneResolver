@@ -26,7 +26,7 @@ def searchRelatedLinks(search_term_list, output_path, db_file_name="bing-search-
 
         # save to each phone no file
         with open(fout_path, 'w') as o:
-            urlList = [urllib.unquote(link.url) for link in result]
+            urlList = [link.url for link in result]
             titleList = [link.title for link in result]
             resultList = ['|||'.join(row) for row in zip(urlList,titleList)] 
             o.write('\n'.join(resultList).encode('utf-8'))

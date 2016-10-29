@@ -13,12 +13,18 @@ def search(path_in,path_out):
             if fin_ext != '.txt':
                 continue
             foutname = os.path.join(path_out, f)
+            print ""
             print "fname=", finname
             with open(finname) as pearl:
                 o = open(foutname, 'w')
                 # Read url from a document
-                urls = pearl.read().decode('utf-8', 'ignore')
+                urls = pearl.read().strip()
                 url_title_array = urls.split("\n")
+
+                # Remove empty line
+                url_title_array = map(str.strip, url_title_array)
+                url_title_array = filter(None, url_title_array)
+
                 text = keywordCrawling.fetchKeyword(url_title_array)                
                 o.write(text)
                 o.close()

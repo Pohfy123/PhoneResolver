@@ -8,7 +8,7 @@ def isPhoneWeb(url):
                 "anrufer.info","merinfo.se","determinecaller.com","vemsnummer.se","quemliga.com.br","anrufercheck.com",\
                 "lovenumbersphone.it","shareyot.co.il","superforte.netsons.org","telefonforsaljare.nu","whotocall.ru",\
                 "vorwahl-index.de","publicrecordssn.com","ssn-records.org","violetsmile.com","chichiama.com","sync.me",\
-                "b.411note.com","mouser.com"]
+                "b.411note.com","mouser.com","serials.ws","docplayer.pl","serialsws.org","e-stat.go.jp","mottles-heer.de"]
     for phone in phoneList:
         if phone in url:
             return True
@@ -17,9 +17,10 @@ def isPhoneWeb(url):
 def fetchKeyword(urlTitleArr):
     searchkey = ""
     for urlTitle in urlTitleArr:
-        url,title = urlTitle.split("|||")
+        url,title = urlTitle.strip().split("|||",1)
         if isPhoneWeb(url):
             continue
+        print "  + "+url
         try: 
             html = urlopen(url).read()
             soup = BeautifulSoup(html,"lxml")
@@ -27,9 +28,10 @@ def fetchKeyword(urlTitleArr):
             search_desc = soup.findAll('meta',attrs={ 'name':'description'})
             if len(search_key) > 0:
                 searchkey = searchkey+title+"\n"+str(search_key[0]['content'].encode('utf-8'))
+            elif len(search_desc) > 0:
+                searchkey = searchkey+"\n"+str(search_desc[0]['content'].encode('utf-8'))
             else:
-                if len(search_desc) > 0:
-                    searchkey = searchkey+"\n"+str(search_desc[0]['content'].encode('utf-8'))
+                print "No metadata"
         except IOError as e:
             print "I/O error({0}): {1}".format(e.errno, e.strerror)
         except:
