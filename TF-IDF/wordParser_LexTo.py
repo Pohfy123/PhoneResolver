@@ -59,6 +59,9 @@ def warpToArray_PyICU(txt, delimeter="|"):
         pass
     return retList
 
+def removeEmptyWords(word_list):
+    return filter(None, map(str.strip, word_list))
+
 def filterChar(content):
     # Only Thai & English
     content_no_special_char = ''.join([c for c in content if isThai(c) or isEnglish(c)]) #or isEnglish(c)
@@ -86,6 +89,7 @@ def parseAllDocuments(path_in, path_out, delimeter='|', isPyICU = False):
                     words = warpToArray_LexTo(content_no_special_char)
                 # Remove stop words
                 words = removeStopWords(words)
+                words = removeEmptyWords(words)
                     
                 o.write(delimeter.join(words))
 
