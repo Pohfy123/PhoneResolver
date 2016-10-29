@@ -14,10 +14,7 @@ def searchBing(search_term):
     search_result = bing_web.search(limit=50, format='json')
     return search_result
 
-def searchRelatedLinks(search_term_list, output_path, db_file_name="bing-search-result.csv"):
-    fileDBname = os.path.join(output_path, db_file_name)
-    oResult = open(fileDBname, 'w+')
-    
+def searchRelatedLinks(search_term_list, output_path, db_file_name="bing-search-result.csv"):    
     for search_term in search_term_list:
         print(search_term)
         fout_path = os.path.join(output_path, search_term+'.txt')
@@ -32,20 +29,20 @@ def searchRelatedLinks(search_term_list, output_path, db_file_name="bing-search-
             o.write('\n'.join(resultList).encode('utf-8'))
 
         # save to .csv database file
-        for link in result:
-            row = []
-            row.append(search_term) # Phone Number
-            row.append(link.title) # title
-            row.append(urllib.unquote(link.url)) # url
-            row.append(link.description) # description
-            row.append(link.id) # id
-            row.append(link.meta.uri) # meta.uri
-            row.append(link.meta.type) # meta.type
+        fileDBname = os.path.join(output_path, db_file_name)
+        with open(fileDBname, 'a') as oResult:
+            for link in result:
+                row = []
+                row.append(search_term) # Phone Number
+                row.append(link.title) # title
+                row.append(urllib.unquote(link.url)) # url
+                row.append(link.description) # description
+                row.append(link.id) # id
+                row.append(link.meta.uri) # meta.uri
+                row.append(link.meta.type) # meta.type
 
-            oResult.write(','.join(row).encode('utf-8')) # print each row
-            oResult.write('\n')
-
-    oResult.close()
+                oResult.write(','.join(row).encode('utf-8')) # print each row
+                oResult.write('\n')
 
 
 def readPhoneNoList(path_input_file):
