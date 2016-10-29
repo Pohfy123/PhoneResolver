@@ -23,7 +23,6 @@ def applyNgramAllDocuments(path_in, path_out, number_of_gram, delimeter='|'):
                 word_ngram = ngrams(wordArr, number_of_gram)
 
                 # Write to file
-                for w in word_ngram:
-                    gram = "".join(w)
-                    o.write(gram+"\n")
+                ngram_word_list = ["".join(words) for words in word_ngram]
+                o.write('\n'.join(ngram_word_list))
                 o.close()
