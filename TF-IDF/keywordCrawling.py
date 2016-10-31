@@ -26,7 +26,13 @@ def fetchKeyword(urlTitleArr):
             continue
         print "  + "+url
         try: 
-            html = urlopen(url).read()
+            uopen = urlopen(url)
+            # Avoid downloadable file (Only HTML)
+            if 'text/html' not in uopen.headers.get('Content-Type'):
+                print "Skip downloadable file"
+                continue
+            html = uopen.read()
+
             soup = BeautifulSoup(html,"lxml")
             search_key = soup.findAll('meta',attrs={ 'name':'keywords'})
             search_desc = soup.findAll('meta',attrs={ 'name':'description'})
