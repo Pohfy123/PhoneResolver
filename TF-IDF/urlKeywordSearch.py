@@ -12,8 +12,6 @@ def search(path_in,path_out):
             fin_ext = os.path.splitext(os.path.basename(f))[1]
             if fin_ext == '.txt':
                 done_list.append(f)
-    # Re-process last file
-    done_list = done_list[:-1]
     
     for dirpath, dirs, files in os.walk(path_in):
         for f in files:
