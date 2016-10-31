@@ -64,7 +64,7 @@ def removeEmptyWords(word_list):
 
 def filterChar(content):
     # Only Thai & English
-    content_no_special_char = ''.join([c for c in content if isThai(c) or isEnglish(c)]) #or isEnglish(c)
+    content_no_special_char = ''.join([c if isThai(c) or isEnglish(c) else ' ' for c in content ]) #or isEnglish(c)
     return content_no_special_char
 
 def parseAllDocuments(path_in, path_out, delimeter='|', isPyICU = False):
