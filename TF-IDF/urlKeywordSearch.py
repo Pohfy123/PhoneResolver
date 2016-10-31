@@ -6,8 +6,21 @@ import sys
 import os
 
 def search(path_in,path_out):
+    done_list = []
+    for dirpath, dirs, files in os.walk(path_out):
+        for f in files:
+            fin_ext = os.path.splitext(os.path.basename(f))[1]
+            if fin_ext == '.txt':
+                done_list.append(f)
+    # Re-process last file
+    done_list = done_list[:-1]
+    
     for dirpath, dirs, files in os.walk(path_in):
         for f in files:
+            # Skip done list
+            if(f in done_list):
+                continue
+            
             finname = os.path.join(dirpath, f)
             fin_ext = os.path.splitext(os.path.basename(finname))[1]
             if fin_ext != '.txt':
