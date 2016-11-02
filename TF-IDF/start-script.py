@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import wordParser_PyICU
+# import wordParser_PyICU
 import wordParser_LexTo
-import ngrams
-import extract_feature
-import urlKeywordSearch
+# import ngrams
+# import extract_feature
+# import urlKeywordSearch
 
 # Configuration
 # PyICU
@@ -45,8 +45,8 @@ else:
     wordParser_LexTo.parseAllDocuments(path_raw_data, path_parsed_words_Lexto, delimeter,isPyICU)
     # STEP3: N-Gram
     print "\n\n############# RUN STEP3: N-Gram #############"
-    ngrams.applyNgramAllDocuments(path_parsed_words_Lexto, path_ngram_words_Lexto, number_of_gram, delimeter)
+    #ngrams.applyNgramAllDocuments(path_parsed_words_Lexto, path_ngram_words_Lexto, number_of_gram, delimeter)
     # STEP4: Extract Feature (TF / TF-IDF)
     print "\n\n############# RUN STEP4: Extract Feature (TF & TF-IDF) #############"
-    extract_feature.extract_feature(path_ngram_words_Lexto, path_result_tf_Lexto, feature_mode=1) # TF
-    extract_feature.extract_feature(path_ngram_words_Lexto, path_result_tfidf_Lexto, feature_mode=2) # TF-IDF
+    #extract_feature.extract_feature(path_ngram_words_Lexto, path_result_tf_Lexto, feature_mode=1) # TF
+    #extract_feature.extract_feature(path_ngram_words_Lexto, path_result_tfidf_Lexto, feature_mode=2) # TF-IDF

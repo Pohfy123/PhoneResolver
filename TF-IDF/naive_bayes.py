@@ -7,7 +7,7 @@ print "Start processing . . ."
 
 all_words = ""
 datasets = []
-result_labels = ['is_restaurant','is_travel']
+result_labels = ['Air Travel Ticket Agencies','Home Stay','Hotel','Travel Bureaus','Bakery Cake']
 
 with open('./train-data/train.csv','r') as fin:
     for line in fin:
