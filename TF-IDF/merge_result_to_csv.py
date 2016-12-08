@@ -32,7 +32,7 @@ def mergeResultToCSV(input_path, output_path, file_name="train.csv"):
                     word, freq = line.decode('utf-8').strip().split(" - ")
                     # print freq
                     words.append(word.encode('utf-8'))
-                number_dic[fin_name] = [' '.join(words),0,0]
+                number_dic[fin_name] = [' '.join(words),0,0,0,0,0] # edit here
     for dirpath, dirs, files in os.walk(input_path):
         # Root dir
         if dirpath == input_path:
@@ -46,13 +46,17 @@ def mergeResultToCSV(input_path, output_path, file_name="train.csv"):
             fin_ext = os.path.splitext(os.path.basename(fin_path))[1]
             if fin_ext != '.txt':
                 continue
+            print ">>>>>>>>>",fin_name, classId
             number_dic[fin_name][int(classId)] = 1
     for num in number_dic:
         data_col1 = num # Phone Number
         data_col2 = number_dic[num][0] # Bag of words
         data_col3 = str(number_dic[num][1]) # Result is_travel
         data_col4 = str(number_dic[num][2]) # Result is_restaurant
-        o.write(data_col1+','+data_col2+','+data_col3+','+data_col4)
+        data_col5 = str(number_dic[num][3]) # Result is_restaurant
+        data_col6 = str(number_dic[num][4]) # Result is_restaurant
+        data_col7 = str(number_dic[num][5]) # Result is_restaurant
+        o.write(data_col1+','+data_col2+','+data_col3+','+data_col4+','+data_col5+','+data_col6+','+data_col7)
         o.write('\n')
     o.close()
 

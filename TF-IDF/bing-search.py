@@ -6,7 +6,7 @@ from py_bing_search import PyBingWebSearch
 import urllib
 
 # Init value
-bing_api_key = "exBWnPh+Htd8dkXYdW+WtNqDg42WAgzfUZAe9R6vMiU" # Enter your Bing API Key
+bing_api_key = "yUTb2srhoLDFqS1gerii032iMUn8teYLLgYvAdjRhts" # Enter your Bing API Key
 custom_params = "&Market='th-TH'"
 
 def searchBing(search_term):

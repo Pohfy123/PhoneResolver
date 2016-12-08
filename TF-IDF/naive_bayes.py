@@ -7,7 +7,7 @@ print "Start processing . . ."
 
 all_words = ""
 datasets = []
-result_labels = ['is_restaurant','is_travel']
+result_labels = ['Air Travel Ticket Agencies','Home Stay','Hotel','Travel Bureaus','Bakery Cake']
 
 with open('./train-data/train.csv','r') as fin:
     for line in fin:
@@ -33,7 +33,7 @@ for result_idx in range( len(datasets[0]['result']) ):
     featuresets = [ ({word: (word in data['words']) for word in all_words}, data['result'][result_idx]) for data in datasets ]
             
     # K-fold cross validation
-    cv = cross_validation.KFold(len(featuresets), n_folds=10, shuffle=True, random_state=None)
+    cv = cross_validation.KFold(len(featuresets), n_folds=5, shuffle=True, random_state=None)
     scores = []
     idx = 1
     for traincv, evalcv in cv:
@@ -45,6 +45,7 @@ for result_idx in range( len(datasets[0]['result']) ):
         print 'TEST#%d: accuracy: %lf' % (idx, score)
         scores.append(score)
         idx += 1
+        break
     print 'TOTAL ACCURACY: %lf' % (sum(scores)/len(scores))
 
     # Show result of each
