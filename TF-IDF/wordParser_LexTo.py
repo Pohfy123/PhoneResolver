@@ -67,7 +67,7 @@ def filterChar(content):
     content_no_special_char = ''.join([c if isThai(c) or isEnglish(c) else ' ' for c in content ]) #or isEnglish(c)
     return content_no_special_char
 
-def parseAllDocuments(path_in, path_out, delimeter='|', isPyICU = False):
+def parseAllDocuments(path_in='./temp-processing-data/01_raw-data/', path_out='./temp-processing-data/02_parsed-word-data-lexto/', delimeter='|', isPyICU = False):
     for dirpath, dirs, files in os.walk(path_in):
         for f in files:
             finname = os.path.join(dirpath, f)

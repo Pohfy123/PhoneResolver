@@ -75,7 +75,7 @@ def tfidf(input_path, output_path, use_idf=True, limitTop=None):
 def tf(input_path, output_path):
     tfidf(input_path, output_path, False)
 
-def extract_feature(input_path, output_path, feature_mode, limitTop = None) :
+def extract_feature(input_path='./temp-processing-data/03_n-gram-data-lexto/', output_path='./temp-processing-data/04_tf/', feature_mode=1, limitTop = None) :
     if(feature_mode == 1): # TF
         print('Mode: 1 TF')
         tf(input_path, output_path)
