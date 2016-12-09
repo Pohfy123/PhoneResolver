@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import nltk
 from sklearn import cross_validation
+import pickle
 
 def save_model(classifier, filename_out='my_classifier.pickle'):
     f = open(file_out, 'wb')
