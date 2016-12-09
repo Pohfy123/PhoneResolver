@@ -6,15 +6,19 @@ import pickle
 
 result_labels = ['Air Travel Ticket Agencies','Home Stay','Hotel','Travel Bureaus','Bakery Cake']
 
+def save_dict_words(words_list, filename_out='word_list.txt'):
+    with open('./model/'+filename_out, "w") as outfile:
+        outfile.write('\n'.join(words_list))
+
 def save_model(classifier, filename_out='my_classifier.pickle'):
-    f = open(filename_out, 'wb')
+    f = open('./model/'+filename_out, 'wb')
     pickle.dump(classifier, f)
     f.close()
     print 'Model saved ! :: (' + filename_out + ')'
 
 
 def load_model(filename_in='my_classifier.pickle'):
-    f = open(filename_in, 'rb')
+    f = open('./model/'+filename_in, 'rb')
     classifier = pickle.load(f)
     f.close()
     return classifier
@@ -83,11 +87,12 @@ with open('./train-data/train.csv','r') as fin:
         # Collect all words
         all_words = all_words+" "+words
 
-all_words = set(all_words.split(" "))
+words_set = set(all_words.split(" "))
+save_dict_words(words_set)
 
-# accuracy_test(datasets, all_words, 2)
+# accuracy_test(datasets, words_set, 2)
 
-train_model(datasets, all_words)
+train_model(datasets, words_set)
 
 
 # Show result of each
@@ -98,7 +103,7 @@ train_model(datasets, all_words)
 #         if count >= number_of_train: 
 #             num,words,is_travel,is_rest = line.split(",")
 #             test_word = words.split(" ")
-#             test_sent_features = {word: (word in test_word) for word in all_words}
+#             test_sent_features = {word: (word in test_word) for word in words_set}
 #             is_rest = is_rest.replace("\n","")
 #             dist = classifier.prob_classify(test_sent_features)
 #             print num, "\tpred =",dist.max(),"\tans =", is_travel+""+is_rest, (dist.max()==is_travel+""+is_rest)
