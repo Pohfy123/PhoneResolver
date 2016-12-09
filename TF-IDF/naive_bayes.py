@@ -3,6 +3,31 @@
 import nltk
 from sklearn import cross_validation
 
+
+def accuracy_test(datasets, words_set, nfolds=2):
+    for result_idx in range( len(datasets[0]['result']) ):
+        print "========= TEST FEATURE #%d (%s) =========" % (result_idx+1,result_labels[result_idx]) 
+        featuresets = [ ({word: (word in data['words']) for word in words_set}, data['result'][result_idx]) for data in datasets ]
+                
+        # K-fold cross validation
+        cv = cross_validation.KFold(len(featuresets), n_folds=nfolds, shuffle=True, random_state=None)
+
+        scores = []
+        idx = 1
+        for traincv, evalcv in cv:
+            train_data = featuresets[traincv[0]:traincv[len(traincv)-1]]
+            test_data = featuresets[evalcv[0]:evalcv[len(evalcv)-1]]
+            classifier = nltk.NaiveBayesClassifier.train(train_data)
+            score = nltk.classify.accuracy(classifier, test_data)
+            # classifier.show_most_informative_features()
+            print 'TEST#%d: accuracy: %lf' % (idx, score)
+            scores.append(score)
+            idx += 1
+            break
+        print 'TOTAL ACCURACY: %lf' % (sum(scores)/len(scores)) 
+
+
+
 print "Start processing . . ."
 
 all_words = ""
@@ -28,25 +53,8 @@ with open('./train-data/train.csv','r') as fin:
 
 all_words = set(all_words.split(" "))
 
-for result_idx in range( len(datasets[0]['result']) ):
-    print "========= TEST FEATURE #%d (%s) =========" % (result_idx+1,result_labels[result_idx]) 
-    featuresets = [ ({word: (word in data['words']) for word in all_words}, data['result'][result_idx]) for data in datasets ]
-            
-    # K-fold cross validation
-    cv = cross_validation.KFold(len(featuresets), n_folds=5, shuffle=True, random_state=None)
-    scores = []
-    idx = 1
-    for traincv, evalcv in cv:
-        train_data = featuresets[traincv[0]:traincv[len(traincv)-1]]
-        test_data = featuresets[evalcv[0]:evalcv[len(evalcv)-1]]
-        classifier = nltk.NaiveBayesClassifier.train(train_data)
-        score = nltk.classify.accuracy(classifier, test_data)
-        # classifier.show_most_informative_features()
-        print 'TEST#%d: accuracy: %lf' % (idx, score)
-        scores.append(score)
-        idx += 1
-        break
-    print 'TOTAL ACCURACY: %lf' % (sum(scores)/len(scores))
+accuracy_test(datasets, all_words, 2)
+
 
     # Show result of each
     # with open('./train-data/train.csv','r') as fin:
