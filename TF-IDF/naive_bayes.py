@@ -3,6 +3,16 @@
 import nltk
 from sklearn import cross_validation
 
+def save_model(classifier, filename_out='my_classifier.pickle'):
+    f = open(file_out, 'wb')
+    pickle.dump(classifier, f)
+    f.close()
+
+def load_model(filename_in='my_classifier.pickle'):
+    f = open(filename_in, 'rb')
+    classifier = pickle.load(f)
+    f.close()
+    return classifier
 
 def accuracy_test(datasets, words_set, nfolds=2):
     for result_idx in range( len(datasets[0]['result']) ):
