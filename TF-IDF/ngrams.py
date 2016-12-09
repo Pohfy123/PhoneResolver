@@ -4,7 +4,7 @@ import sys
 import os
 from nltk import ngrams
 
-def applyNgramAllDocuments(path_in, path_out, number_of_gram, delimeter='|'):
+def applyNgramAllDocuments(path_in='./temp-processing-data/02_parsed-word-data-lexto/', path_out='./temp-processing-data/03_n-gram-data-lexto/', number_of_gram=2, delimeter='|'):
     for dirpath, dirs, files in os.walk(path_in):
         for f in files:
             finname = os.path.join(dirpath, f)

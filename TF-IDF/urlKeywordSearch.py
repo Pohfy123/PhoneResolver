@@ -5,7 +5,7 @@ import keywordCrawling
 import sys
 import os
 
-def search(path_in,path_out):
+def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-data/01_raw-data/'):
     done_list = []
     for dirpath, dirs, files in os.walk(path_out):
         for f in files:

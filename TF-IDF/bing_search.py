@@ -46,22 +46,19 @@ def searchRelatedLinks(search_term_list, output_path, db_file_name="bing-search-
 
 
 def readPhoneNoList(path_input_file):
-    with open(path_number_list, "r") as fi:
+    with open(path_input_file, "r") as fi:
         nums = fi.read()
         numArr = nums.split("\n")
     return numArr
 
-
-path_number_list = "./number_input.txt" 
-path_url = "./temp-processing-data/00_url/"
-phoneNoList = readPhoneNoList(path_number_list)
-
-print('Use API Quota = ' + str(len(phoneNoList)) + ' Phone numbers')
-while True:
-    inputConfirm = raw_input('Are you sure? [Y/N]: ')
-    if(inputConfirm.upper()=='Y'):
-        searchRelatedLinks(phoneNoList, path_url)
-        break
-    elif(inputConfirm.upper()=='N'):
-        print 'Good Bye!'
-        break
+def runBingSearch(path_number_list='./number_input.txt',path_url='./temp-processing-data/00_url/'):
+    phoneNoList = readPhoneNoList(path_number_list)
+    print('Use API Quota = ' + str(len(phoneNoList)) + ' Phone numbers')
+    while True:
+        inputConfirm = raw_input('Are you sure? [Y/N]: ')
+        if(inputConfirm.upper()=='Y'):
+            searchRelatedLinks(phoneNoList, path_url)
+            break
+        elif(inputConfirm.upper()=='N'):
+            print 'Good Bye!'
+            break
