@@ -61,7 +61,7 @@ def train_model(datasets, words_set):
         train_data = featuresets
         classifier = nltk.NaiveBayesClassifier.train(train_data)
 
-        model_name = "model_"+str(result_idx)+".pickle"
+        model_name = "model_"+str(result_idx+1)+".pickle"
         save_model(classifier, model_name)
 
 
