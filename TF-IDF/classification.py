@@ -27,13 +27,15 @@ def processData(filename_in='./number_input.txt'):
     merge_test_data_to_csv.mergeResultToCSV()
 
 def predict(filename_in='./number_input.txt',filename_out='./result/prediction.csv'):
-    # processData(filename_in)
+    processData(filename_in)
     all_words = []
     with open('./model/word_list.txt') as pearl:
         words = pearl.read().strip()
         all_words = words.split(" ")
 
     MODEL_FILE_PATH = './model/'
+    result = {}
+    
     for dirpath, dirs, files in os.walk(MODEL_FILE_PATH):
         # Each Class folder 
         for f in files:
@@ -50,7 +52,16 @@ def predict(filename_in='./number_input.txt',filename_out='./result/prediction.c
                     test_word = words.split(" ")
                     test_sent_features = {word: (word in test_word) for word in all_words}
                     dist = classifier.prob_classify(test_sent_features)
-                    with open(filename_out, 'a') as file_out:
-                        file_out.write(num + ',' + dist.max() + '\n')
+                    if result.get( num, None ) == None:
+                        result[num] = [dist.max()]
+                    else:
+                        result[num].append(dist.max())
+
+    with open(filename_out, 'a') as file_out:
+        for num in result:
+            file_out.write(num + ',')
+            for pred in result[num]:
+                file_out.write(pred + ',')
+            file_out.write('\n')
 
 predict()
