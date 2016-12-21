@@ -17,6 +17,8 @@ TF-IDF/temp-processing-data/05_merge-csv/
 TF-IDF/train-data/
 TF-IDF/number_input.txt
 
+TF-IDF/resultss
+
 *.pyc
 
 TF-IDF/resources/PyICU-1.9.3-cp35-cp35m-win_amd64.whl
