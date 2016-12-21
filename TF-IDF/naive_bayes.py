@@ -8,7 +8,7 @@ import numpy as np
 
 from sklearn.feature_extraction.text import CountVectorizer
 
-result_labels = ['Air Travel Ticket Agencies','Home Stay','Hotel','Travel Bureaus','Bakery Cake','CAT6','CAT7','CAT8','CAT9','CAT10','CAT11','CAT12']
+result_labels = ['Air Travel Ticket Agencies','Home Stay','Hotel','Travel Bureaus','Bakery Cake','CAT6','CAT7','CAT8','CAT9','CAT10','CAT11','CAT12','CAT13','CAT14','CAT15','CAT16','CAT17','CAT18','CAT19','CAT20']
 
 def save_dict_words(words_list, filename_out='word_list.txt'):
     with open('./model/'+filename_out, "w") as outfile:
@@ -85,8 +85,6 @@ def new_train_model(featuresets, results):
         train_data_row = min(len(feature_data), len(result)) 
         for i in range(train_data_row):
             train_data.append( [feature_data[i], results[i][result_idx]] )
-#         print train_data[0]
-#         return
         classifier = nltk.NaiveBayesClassifier.train(train_data)
         print "STEP 2: Completed !"
         model_name = "model_"+str(result_idx+1)+".pickle"
@@ -162,5 +160,7 @@ print "Convert to Pandas DataFrame"
 train_datasets = pd.DataFrame(datasets)
 train_datasets['words'] = pd.DataFrame(train_data_features.tolist())
 print "Completed !"
+
+new_train_model(train_data_features.tolist(), train_datasets['result'].tolist())
 
 print "===== Completed All Steps of Training Data ====="
