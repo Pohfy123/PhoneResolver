@@ -115,8 +115,9 @@ def desc_words_to_features(desc_words):
     train_data_features = train_data_features.toarray()
     
     ## Take a look at the words in the vocabulary
-    # vocab = vectorizer.get_feature_names()
-    # print vocab
+    vocab = vectorizer.get_feature_names()
+    vocab = [word.encode('utf-8') for word in vocab]
+    save_dict_words(vocab)
     
     return train_data_features
 
@@ -147,9 +148,9 @@ with open('./train-data/train.csv','r') as fin:
         
         desc_words.append(words)
 
-words_set = set(all_words.split(" "))
+# words_set = set(all_words.split(" "))
 # print "Number of words in dict :  %d words" % len(words_set)
-save_dict_words(words_set)
+# save_dict_words(words_set)
 
 # New method
 print "Convert (words description of each phone no) to (Features) ::"
@@ -162,10 +163,4 @@ train_datasets = pd.DataFrame(datasets)
 train_datasets['words'] = pd.DataFrame(train_data_features.tolist())
 print "Completed !"
 
-
-new_train_model(train_data_features.tolist(), train_datasets['result'].tolist())
-
-
-# accuracy_test(datasets, words_set, 2)
-
-# train_model(datasets, words_set)
+print "===== Completed All Steps of Training Data ====="
