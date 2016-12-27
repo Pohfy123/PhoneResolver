@@ -12,7 +12,7 @@ import extract_feature
 import merge_test_data_to_csv
 
 def load_model(filename_in):
-    f = open(filename_in, 'rb')
+    f = open(filename_in, 'r')
     classifier = pickle.load(f)
     f.close()
     return classifier
@@ -27,7 +27,7 @@ def processData(filename_in='./number_input.txt'):
     merge_test_data_to_csv.mergeResultToCSV()
 
 def predict(filename_in='./number_input.txt',filename_out='./result/prediction.csv'):
-    # processData(filename_in)
+    processData(filename_in)
     all_words = []
     with open('./model/word_list.txt') as pearl:
         words = pearl.read().strip()
