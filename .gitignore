@@ -55,3 +55,6 @@ WebLaravel/public/packages
 WebLaravel/node_modules
 
 WebLaravel/.env
+WebLaravel/bootstrap/cache/services.php
+WebLaravel/storage/framework/sessions/yI7vdUl5GZsGWd6cOvbCremgXZpp6LhJbwhxOEvm
+WebLaravel/storage/framework/views/fcff853ab4977cb94c89dac153f35e3dcfb7d647.php
