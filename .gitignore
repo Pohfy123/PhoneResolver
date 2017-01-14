@@ -29,12 +29,11 @@ TF-IDF/TF-IDF.rar
 
 
 WebLaravel/node_modules
-/public/storage
-/vendor
-/.idea
-Homestead.json
+WebLaravel/public/storage
+WebLaravel/vendor
+WebLaravel/.idea
+WebLaravel/Homestead.json
 WebLaravel/Homestead.yaml
-.env
 
 WebLaravel/bootstrap/compiled.php
 WebLaravel/vendor
@@ -48,7 +47,6 @@ WebLaravel/composer.phar
 
 WebLaravel/.DS_Store
 
-WebLaravel/.idea
 WebLaravel/_ide_helper.php
 
 WebLaravel/app/config/packages
