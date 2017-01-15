@@ -33,4 +33,4 @@ def mergeResultToCSV(path_in = './temp-processing-data/04_tf', path_out = './tem
     with open(foutname, "a") as outfile:
         outfile.write(output_str)
 
-mergeResultToCSV()
+# mergeResultToCSV()
