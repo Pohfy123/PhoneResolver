@@ -1,0 +1,89 @@
+.navbar{
+    border-radius: 0px;
+    background-color: #1f2532;
+}
+body{
+    background-color: #1abc9c;
+}
+footer{
+    background-color: #1f2532;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: #8a8f99;    
+}
+.navbar-inverse .navbar-nav > li >a:hover{
+    color: #fbfbfe;        
+}
+.navbar-inverse .navbar-nav > li >a:focus{
+    color: #fbfbfe;        
+}
+.navbar-inverse .navbar-toggle:before{
+    color: #8a8f99;    
+}
+a{
+    font-family: "Open Sans";
+	font-size: 24px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+}
+
+/* FONT */
+h1 {
+	font-family: "Open Sans";
+	font-size: 24px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+}
+h3 {
+	font-family: "Open Sans";
+	font-size: 14px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 15.4px;
+}
+p {
+	font-family: "Open Sans";
+	font-size: 14px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 20px;
+}
+blockquote {
+	font-family: "Open Sans";
+	font-size: 21px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 30px;
+}
+pre {
+	font-family: "Open Sans";
+	font-size: 13px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 18.5714px;
+}
+/* END FONT*/
+
+.searchForm{
+	/* The search form. */
+	background-color:#f3f3f3;
+	padding:50px 50px 30px;
+	margin:80px 0;
+	position:relative;
+
+	-moz-border-radius:16px;
+	-webkit-border-radius:16px;
+	border-radius:16px;
+
+    width: 500px;
+    margin: 100px auto 0;
+
+}
