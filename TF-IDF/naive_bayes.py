@@ -106,6 +106,7 @@ def desc_words_to_features(desc_words):
     # and learns the vocabulary; second, it transforms our training data
     # into feature vectors. The input to fit_transform should be a list of 
     # strings.
+    desc_words = [x.decode('utf-8','ignore') for x in desc_words]
     train_data_features = vectorizer.fit_transform(desc_words)
 
     # Numpy arrays are easy to work with, so convert the result to an 
