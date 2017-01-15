@@ -56,10 +56,6 @@ def train_model(datasets, words_set):
     # Construct each model (each category)
     print 'all categories ::', result_labels
     for result_idx in range( len(datasets[0]['result']) ):
-
-        if result_idx in range(0, 5):
-            continue
-
         print "========= TRAIN FEATURE #%d (%s) =========" % (result_idx+1,result_labels[result_idx]) 
         featuresets = [ ({word: (word in data['words']) for word in words_set}, data['result'][result_idx]) for data in datasets ]
         
