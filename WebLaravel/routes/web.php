@@ -14,8 +14,8 @@
 Route::get('/', function () {
     return view('masterpage');
 });
-Route::get('/search', function () {
-    return view('search');
+Route::get('/demo', function () {
+    return view('demo');
 });
 
 
