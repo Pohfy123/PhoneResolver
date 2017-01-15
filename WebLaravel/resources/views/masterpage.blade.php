@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">\
 
+@yield('css-js')
+
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700" rel="stylesheet" type="text/css">
 
 <!-- Loading Bootstrap -->
@@ -70,8 +72,7 @@
     </div>
 </div>
 
-<br>
-<br>
+
 @yield('content')
 
 

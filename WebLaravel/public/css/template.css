@@ -72,18 +72,3 @@ pre {
 }
 /* END FONT*/
 
-.searchForm{
-	/* The search form. */
-	background-color:#f3f3f3;
-	padding:50px 50px 30px;
-	margin:80px 0;
-	position:relative;
-
-	-moz-border-radius:16px;
-	-webkit-border-radius:16px;
-	border-radius:16px;
-
-    width: 500px;
-    margin: 100px auto 0;
-
-}
