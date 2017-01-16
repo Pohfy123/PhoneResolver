@@ -2,12 +2,14 @@
     background-color:#f9f9fb;
     padding:15px 30px 30px !important;
     margin-top:80px;
+    min-height: 200px !important;
 }
 
 .container-right{
     background-color:#ffffff;
     padding:15px 30px 30px !important;
     margin-top:80px;
+    min-height: 200px !important;
 }
 
 .input-tag{
@@ -19,6 +21,7 @@
 .input-textarea{
     width: 100% !important;
     resize: none;
+    overflow-y:hidden ;
 }
 
 .container-all{

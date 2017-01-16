@@ -11,7 +11,7 @@
     <div class="container container-all row">
         <div class="col-md-4 container-left">
             <h3><b>Input</b> <span class="tag label label-warning input-tag">URL</span></h3>
-            <textarea class="input-textarea form-control" rows="5"></textarea>
+            <textarea class="input-textarea form-control" rows="1" id="text"></textarea>
             <br>
             <button type="button" class="btn btn-primary">Analyze</button>
         </div>
@@ -22,4 +22,6 @@
             </div>
         </div>
     </div>
+
+    <script src="js/result.js"></script>
 @endsection
