@@ -19,7 +19,35 @@
             <div class="btn-group">
                 <button type="button" class="btn btn-primary active"><span class="fui-eye"></span> Result</button>
                 <button type="button" class="btn btn-primary"><span class="fui-arrow-left"></span><span class="fui-arrow-right"></span> JSON</button>
+                <br>
+                <br>
+                <br>
             </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Category</th>
+                    <th>Score</th>
+                    <th>Confident ?</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Food</td>
+                    <td>0.5342132</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Restaurant</td>
+                    <td>0.2323132</td>
+                    <td>No</td>
+                </tr>
+                </tbody>
+            </table>
+
         </div>
     </div>
 
