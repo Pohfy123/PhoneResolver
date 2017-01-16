@@ -43,9 +43,9 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse-01">
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="#fakelink">Home</a></li>
+                <li><a href="#fakelink" class="active">Home</a></li>
                 <li><a href="#fakelink">Demo</a></li>
-                <li><a href="#fakelink">API & Docs</a></li>
+                <li><a href="#fakelink">API &amp; Docs</a></li>
                 <li><a href="#fakelink">Pricing</a></li>
                 <li><a href="#fakelink">FAQ</a></li>
             </ul>
