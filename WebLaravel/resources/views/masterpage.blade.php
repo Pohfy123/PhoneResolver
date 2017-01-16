@@ -6,7 +6,7 @@
 
 @yield('css-js')
 
-<script src="jquery-3.1.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="fonts/glyphicons">
 

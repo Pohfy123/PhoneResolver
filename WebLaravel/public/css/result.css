@@ -1,20 +1,13 @@
 .container-left{
     background-color:#f9f9fb;
-    padding:15px 30px 30px;
-    margin:80px 0;
-    position:absolute;
-    width: 40%;
-    min-height: 200px;
+    padding:15px 30px 30px !important;
+    margin-top:80px;
 }
 
 .container-right{
     background-color:#ffffff;
-    padding:15px 30px 30px;
-    margin:80px 0;
-    position:absolute;
-    width: 52%;
-    left:40%;
-    min-height: 200px;
+    padding:15px 30px 30px !important;
+    margin-top:80px;
 }
 
 .input-tag{
@@ -23,11 +16,12 @@
     padding-bottom: .1em !important;
 }
 
-.container-all{
-    min-height: 300px;
+.input-textarea{
+    width: 100% !important;
+    resize: none;
 }
 
-.input-textarea{
-    width: 75% !important;
-    resize: none;
+.container-all{
+    margin-right: auto !important;
+    margin-left: auto !important;
 }
