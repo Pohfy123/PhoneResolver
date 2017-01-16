@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">\
 
-@yield('css-js')
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700" rel="stylesheet" type="text/css">
+
+@yield('css-js')
 
 <!-- Loading Bootstrap -->
 <link href="css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -133,19 +133,11 @@
 </script>
 
 <script>
-    $(document).ready(function(){
-        console.log({{Request::is('admin/*')}});
-        @if(Request::url() === '/demo')
-            $('#menu2').addClass('active')
-
-        @endif
-    });
     function goto(page){
         if(page ==2){
             $('#menu2').addClass('active')
         }
     }
-
 </script>
 
 </body>

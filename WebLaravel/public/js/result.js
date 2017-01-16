@@ -31,3 +31,13 @@ $(document).ready(function(){
     resize();
 });
 // end auto resize textareaa
+
+$(document).on('click', '#btn-json', function() {
+    $('#btn-json').addClass('active')
+    $('#btn-result').removeClass('active')
+});
+$(document).on('click', '#btn-result', function() {
+    $('#btn-json').removeClass('active')
+    $('#btn-result').addClass('active')
+});
+

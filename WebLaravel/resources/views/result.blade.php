@@ -5,6 +5,7 @@
 
 @section('css-js')
     <link href="css/result.css" rel="stylesheet">
+    <script src="js/result.js"></script>
 @endsection
 
 @section('content')
@@ -17,8 +18,8 @@
         </div>
         <div class="col-md-8 container-right">
             <div class="btn-group">
-                <button type="button" class="btn btn-primary active"><span class="fui-eye"></span> Result</button>
-                <button type="button" class="btn btn-primary"><span class="fui-arrow-left"></span><span class="fui-arrow-right"></span> JSON</button>
+                <button type="button" class="btn btn-primary active" id="btn-result"><span class="fui-eye"></span> Result</button>
+                <button type="button" class="btn btn-primary" id="btn-json"><span class="fui-arrow-left"></span><span class="fui-arrow-right"></span> JSON</button>
             </div>
             <br>
             <br>
@@ -50,5 +51,4 @@
         </div>
     </div>
 
-    <script src="js/result.js"></script>
 @endsection
