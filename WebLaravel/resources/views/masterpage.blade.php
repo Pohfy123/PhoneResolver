@@ -8,7 +8,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="fonts/glyphicons">
 
 <!-- Loading Bootstrap -->
 <link href="css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -44,7 +43,7 @@
         <div class="collapse navbar-collapse" id="navbar-collapse-01">
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="#fakelink">Home</a></li>
-                <li><a href="#fakelink">Demo</a></li>
+                <li id="menu2"><a href="#fakelink" onclick="goto(2)">Demo</a></li>
                 <li><a href="#fakelink">API &amp; Docs</a></li>
                 <li><a href="#fakelink">Pricing</a></li>
                 <li><a href="#fakelink">FAQ</a></li>
@@ -131,6 +130,22 @@
             x.className = x.className.replace(" w3-show", "");
         }
     }
+</script>
+
+<script>
+    $(document).ready(function(){
+        console.log({{Request::is('admin/*')}});
+        @if(Request::url() === '/demo')
+            $('#menu2').addClass('active')
+
+        @endif
+    });
+    function goto(page){
+        if(page ==2){
+            $('#menu2').addClass('active')
+        }
+    }
+
 </script>
 
 </body>

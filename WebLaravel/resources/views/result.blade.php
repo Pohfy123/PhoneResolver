@@ -19,10 +19,9 @@
             <div class="btn-group">
                 <button type="button" class="btn btn-primary active"><span class="fui-eye"></span> Result</button>
                 <button type="button" class="btn btn-primary"><span class="fui-arrow-left"></span><span class="fui-arrow-right"></span> JSON</button>
-                <br>
-                <br>
-                <br>
             </div>
+            <br>
+            <br>
             <table class="table table-bordered">
                 <thead>
                 <tr>
