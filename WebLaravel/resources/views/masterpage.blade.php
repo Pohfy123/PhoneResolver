@@ -6,15 +6,15 @@
 
 @yield('css-js')
 
+<script src="jquery-3.1.1.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="fonts/glyphicons">
 
 <!-- Loading Bootstrap -->
 <link href="css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Loading Flat UI -->
 <link href="css/flat-ui.css" rel="stylesheet">
-
-<link rel="shortcut icon" href="img/favicon.ico">
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
 <!--[if lt IE 9]>
@@ -103,7 +103,6 @@
 <script src="js/vendor/jquery.min.js"></script>
 <script src="js/vendor/video.js"></script>
 <script src="js/flat-ui.min.js"></script>
-<script src="docs/assets/js/application.js"></script>
 
 <script>
     videojs.options.flash.swf = "js/vendors/video-js.swf"

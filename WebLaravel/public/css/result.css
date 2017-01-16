@@ -1,0 +1,33 @@
+.container-left{
+    background-color:#f9f9fb;
+    padding:15px 30px 30px;
+    margin:80px 0;
+    position:absolute;
+    width: 40%;
+    min-height: 200px;
+}
+
+.container-right{
+    background-color:#ffffff;
+    padding:15px 30px 30px;
+    margin:80px 0;
+    position:absolute;
+    width: 52%;
+    left:40%;
+    min-height: 200px;
+}
+
+.input-tag{
+    margin-left: 15px;
+    font-size: 60% !important;
+    padding-bottom: .1em !important;
+}
+
+.container-all{
+    min-height: 300px;
+}
+
+.input-textarea{
+    width: 75% !important;
+    resize: none;
+}

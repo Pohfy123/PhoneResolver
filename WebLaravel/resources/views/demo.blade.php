@@ -1,6 +1,6 @@
 @extends('masterpage')
 
-@section('title')Search
+@section('title')Demo
 @endsection
 
 @section('css-js')
