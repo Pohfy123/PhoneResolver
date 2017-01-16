@@ -3,12 +3,8 @@
 import nltk
 from sklearn import cross_validation
 import pickle
-import pandas as pd
-import numpy as np
 
-from sklearn.feature_extraction.text import CountVectorizer
-
-result_labels = ['Air Travel Ticket Agencies','Home Stay','Hotel','Travel Bureaus','Bakery Cake','CAT6','CAT7','CAT8','CAT9','CAT10','CAT11','CAT12','CAT13','CAT14','CAT15','CAT16','CAT17','CAT18','CAT19','CAT20']
+result_labels = ['Air Travel Ticket Agencies','Home Stay','Hotel','Travel Bureaus','Bakery Cake','Japanese','Seafood','Sukiyaki Shabu','Lounge Hotel Restaurant','Airline Companies','Barbeque Grill','Coffee Shop','Ice Cream'] ## Edit here
 
 def save_dict_words(words_list, filename_out='word_list.txt'):
     with open('./model/'+filename_out, "w") as outfile:
@@ -58,74 +54,22 @@ def accuracy_test(datasets, words_set, nfolds=2):
 
 def train_model(datasets, words_set):
     # Construct each model (each category)
+    print 'all categories ::', result_labels
     for result_idx in range( len(datasets[0]['result']) ):
         print "========= TRAIN FEATURE #%d (%s) =========" % (result_idx+1,result_labels[result_idx]) 
         featuresets = [ ({word: (word in data['words']) for word in words_set}, data['result'][result_idx]) for data in datasets ]
-        print "STEP 1: Completed !"
+        
         train_data = featuresets
         classifier = nltk.NaiveBayesClassifier.train(train_data)
-        print "STEP 2: Completed !"
+
         model_name = "model_"+str(result_idx+1)+".pickle"
         save_model(classifier, model_name)
-        print "STEP 3: Completed !"
-
-        
-def new_train_model(featuresets, results):
-    # Construct each model (each category)
-    for result_idx in range( len(results[0]) ):
-        print "========= TRAIN FEATURE #%d (%s) =========" % (result_idx+1,result_labels[result_idx]) 
-        print "STEP 1: Completed !"
-        train_data = []
-        feature_data = []
-        for feature in featuresets:
-            feat = {}
-            for i in range(len(feature)):
-                feat[i]=feature[i]
-            feature_data.append(feat)
-        train_data_row = min(len(feature_data), len(result)) 
-        for i in range(train_data_row):
-            train_data.append( [feature_data[i], results[i][result_idx]] )
-        classifier = nltk.NaiveBayesClassifier.train(train_data)
-        print "STEP 2: Completed !"
-        model_name = "model_"+str(result_idx+1)+".pickle"
-        save_model(classifier, model_name)
-        print "STEP 3: Completed !"
-        
-        
-# https://www.kaggle.com/c/word2vec-nlp-tutorial/details/part-1-for-beginners-bag-of-words
-def desc_words_to_features(desc_words):
-    # Initialize the "CountVectorizer" object, which is scikit-learn's
-    # bag of words tool.  
-    vectorizer = CountVectorizer(analyzer = "word",   \
-                                 tokenizer = None,    \
-                                 preprocessor = None, \
-                                 stop_words = None,   \
-                                 max_features = 5000) 
-
-    # fit_transform() does two functions: First, it fits the model
-    # and learns the vocabulary; second, it transforms our training data
-    # into feature vectors. The input to fit_transform should be a list of 
-    # strings.
-    train_data_features = vectorizer.fit_transform(desc_words)
-
-    # Numpy arrays are easy to work with, so convert the result to an 
-    # array
-    train_data_features = train_data_features.toarray()
-    
-    ## Take a look at the words in the vocabulary
-    vocab = vectorizer.get_feature_names()
-    vocab = [word.encode('utf-8') for word in vocab]
-    save_dict_words(vocab)
-    
-    return train_data_features
-
 
 
 print "Start processing . . ."
 
 all_words = ""
 datasets = []
-desc_words = []
 
 with open('./train-data/train.csv','r') as fin:
     for line in fin:
@@ -143,24 +87,31 @@ with open('./train-data/train.csv','r') as fin:
         
         # Collect all words
         all_words = all_words+" "+words
-        
-        desc_words.append(words)
 
-# words_set = set(all_words.split(" "))
-# print "Number of words in dict :  %d words" % len(words_set)
-# save_dict_words(words_set)
+words_set = set(all_words.split(" "))
+save_dict_words(words_set)
 
-# New method
-print "Convert (words description of each phone no) to (Features) ::"
-train_data_features = desc_words_to_features(desc_words)
-print "Completed !"
+# accuracy_test(datasets, words_set, 2)
+
+train_model(datasets, words_set)
 
 
-print "Convert to Pandas DataFrame"
-train_datasets = pd.DataFrame(datasets)
-train_datasets['words'] = pd.DataFrame(train_data_features.tolist())
-print "Completed !"
+# Show result of each
+# with open('./train-data/train.csv','r') as fin:
+#     count = 0
+#     for line in fin:
+#         count += 1
+#         if count >= number_of_train: 
+#             num,words,is_travel,is_rest = line.split(",")
+#             test_word = words.split(" ")
+#             test_sent_features = {word: (word in test_word) for word in words_set}
+#             is_rest = is_rest.replace("\n","")
+#             dist = classifier.prob_classify(test_sent_features)
+#             print num, "\tpred =",dist.max(),"\tans =", is_travel+""+is_rest, (dist.max()==is_travel+""+is_rest)
 
-new_train_model(train_data_features.tolist(), train_datasets['result'].tolist())
+            # diff = 0
+            # for label in dist.samples():
+            #     # print "\tlabel >>>",label," prob >>>" , dist.prob(label)
+            #     diff = abs(dist.prob(label)-diff)
+            # print "\tdiff",diff
 
-print "===== Completed All Steps of Training Data ====="
