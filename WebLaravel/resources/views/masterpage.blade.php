@@ -5,11 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">\
 
+<<<<<<< HEAD
     @yield('css-js')
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="fonts/glyphicons">
+=======
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700" rel="stylesheet" type="text/css">
+
+@yield('css-js')
+>>>>>>> bc720f3583fd0fff088d82434d05b834d9dd6bbe
 
     <!-- Loading Bootstrap -->
     <link href="css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
