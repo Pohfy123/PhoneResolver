@@ -24,7 +24,7 @@
                 </div>
                 <br>
                 <br>
-                <table class="table table-bordered">
+                <table class="table table-bordered table-result">
                     <thead>
                     <tr>
                         <th>#</th>
@@ -48,6 +48,38 @@
                     </tr>
                     </tbody>
                 </table>
+                <pre class="json hide">
+                    {
+                        "request": {
+                            "input": "http://wongnai.com",
+                            "type": "url",
+                            "api": "analyze",
+                            "version": "1.0.0",
+                            "resolvedPageUrl": "https://www.wongnai.com/"
+                        },
+                        "language": "th",
+                        "result": {
+                            "keywords": {
+                            "ร้านอาหาร",
+                            "ร้านซูชิ",
+                            "กรุงเทพมหานคร"
+                            },
+                            "contents": "ร้านอาหารแนะนำ ดูทั้งหมด  Recommended by JOHNNIE WALKER
+                        },
+                        "result": [
+                            "d1": {
+                                "confidence": 0.49049994349479675,
+                                "value": "restaurant"
+                            },
+                            "d2": {
+                                "confidence": 0.31968462467193604,
+                                "value": "seafood restaurant"
+                            }
+                        ]
+                    }
+                </pre>
+                </div>
+
 
             </div>
         </div>

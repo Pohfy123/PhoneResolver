@@ -28,3 +28,21 @@
     margin-right: auto !important;
     margin-left: auto !important;
 }
+
+.hide{
+    display: none;
+}
+
+.json{
+    padding:20px 20px;
+    position:relative;
+    border-style: solid;
+    border-color: #1abc9c;
+    border-width: 2px;
+
+    -moz-border-radius:16px;
+    -webkit-border-radius:16px;
+    border-radius:16px;
+
+    margin: 0 auto 0;
+}
