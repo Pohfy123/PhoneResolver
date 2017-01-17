@@ -27,6 +27,7 @@
 .container-all{
     margin-right: auto !important;
     margin-left: auto !important;
+    display: flex;
 }
 
 .hide{

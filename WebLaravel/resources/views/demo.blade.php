@@ -15,10 +15,10 @@
         <div class="searchForm">
             <h3><b>Input</b></h3>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Enter url, keyword, text ...">
+                <textarea class="input-textarea form-control" rows="1" id="text1" placeholder="Enter url, keyword, text ..."></textarea>
             </div>
             <div class="center">
-                <button type="button" class="btn btn-primary btn-analyze">Analyze</button>
+                <button type="button" class="btn btn-primary btn-analyze1">Analyze</button>
             </div>
         </div>
 
@@ -26,7 +26,7 @@
             <div class="container container-all row">
                 <div class="col-md-4 container-left">
                     <h3><b>Input</b> <span class="tag label label-warning input-tag">URL</span></h3>
-                    <textarea class="input-textarea form-control" rows="1" id="text"></textarea>
+                    <textarea class="input-textarea form-control" rows="1" id="text2" placeholder="Enter url, keyword, text ..."></textarea>
                     <br>
                     <button type="button" class="btn btn-primary">Analyze</button>
                 </div>
