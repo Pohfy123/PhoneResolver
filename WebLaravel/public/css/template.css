@@ -1,9 +1,15 @@
+/*Nav    #1f2532*/
+/*Green  #1abc9c*/
+/*BG1    #f9f9fb*/
+/*BG2    #ffffff*/
+/*BG3    #f3f3f3*/
+
 .navbar{
     border-radius: 0px;
     background-color: #1f2532;
 }
 body{
-    background-color: #1abc9c;
+    background-color: #f9f9fb;
 }
 footer{
     background-color: #1f2532;
@@ -75,6 +81,19 @@ pre {
 .navbar-nav > li > a {
 	font-weight: 400 !important;
 }
-a.active {
+.navbar-nav > li.active > a{
 	color: #fbfbfe;
+}
+
+.content {
+	display: block;
+	position: relative;
+	padding: 31px 0 40px;
+}
+.content-home {
+	background-color: #f9f9fb;
+}
+.content-demo-input {
+	background-color: #f3f3f3;
+	padding-bottom: 100px;
 }

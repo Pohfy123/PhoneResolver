@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html>
-<title>NSC - @yield('title')</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">\
+<head>
+    <title>NSC - @yield('title')</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">\
 
-@yield('css-js')
+    @yield('css-js')
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="fonts/glyphicons">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="fonts/glyphicons">
 
-<!-- Loading Bootstrap -->
-<link href="css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Loading Bootstrap -->
+    <link href="css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Loading Flat UI -->
-<link href="css/flat-ui.css" rel="stylesheet">
+    <!-- Loading Flat UI -->
+    <link href="css/flat-ui.css" rel="stylesheet">
 
-<!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
-<!--[if lt IE 9]>
-<script src="js/vendor/html5shiv.js"></script>
-<script src="js/vendor/respond.min.js"></script>
-<![endif]-->
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+    <script src="js/vendor/html5shiv.js"></script>
+    <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
 
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-black.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<link href="css/template.css" rel="stylesheet">
+    <link href="css/template.css" rel="stylesheet">
+</head>
 
 <body id="myPage">
 
 <!-- Navbar -->
-<div class="w3-top">
+<header class="w3-top">
 
     <nav class="navbar navbar-inverse navbar-embossed" role="navigation">
         <div class="navbar-header">
@@ -43,11 +45,11 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse-01">
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="#fakelink" class="active">Home</a></li>
-                <li><a href="#fakelink">Demo</a></li>
-                <li><a href="#fakelink">API &amp; Docs</a></li>
-                <li><a href="#fakelink">Pricing</a></li>
-                <li><a href="#fakelink">FAQ</a></li>
+                <li class="{{ Request::is('/') ? 'active' : '' }}"><a href="{{ url('/') }}">Home</a></li>
+                <li class="{{ Request::is('demo') || Request::is('result') ? 'active' : '' }}"><a href="{{ url('/demo') }}">Demo</a></li>
+                <li class="{{ Request::is('docs') ? 'active' : '' }}"><a href="{{ url('/docs') }}">API &amp; Docs</a></li>
+                <li class="{{ Request::is('pricing') ? 'active' : '' }}"><a href="{{ url('/pricing') }}">Pricing</a></li>
+                <li class="{{ Request::is('faq') ? 'active' : '' }}"><a href="{{ url('/faq') }}">FAQ</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav><!-- /navbar -->
@@ -70,21 +72,11 @@
             </li>
         </ul>
     </div>
-</div>
+</header>
 
 
 @yield('content')
 
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 <!-- Footer -->
 <footer class="w3-container w3-padding-32 w3-center">
