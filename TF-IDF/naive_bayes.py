@@ -4,7 +4,7 @@ import nltk
 from sklearn import cross_validation
 import pickle
 
-result_labels = ['Air Travel Ticket Agencies','Home Stay','Hotel','Travel Bureaus','Bakery Cake','Japanese','Seafood','Sukiyaki Shabu','Lounge Hotel Restaurant','Airline Companies','Barbeque Grill','Coffee Shop','Ice Cream'] ## Edit here
+result_labels = ['Air Travel Ticket Agencies','Home Stay','Hotel','Travel Bureaus','Bakery Cake','Japanese','Seafood','Sukiyaki Shabu','Lounge Hotel Restaurant','Airline Companies','Barbeque Grill','Coffee Shop','Ice Cream','Resorts & Bungalows'] ## Edit here
 
 def save_dict_words(words_list, filename_out='word_list.txt'):
     with open('./model/'+filename_out, "w") as outfile:
@@ -82,7 +82,7 @@ with open('./train-data/train.csv','r') as fin:
         datasets.append({
             'phone_no' : num,
             'words' : words.split(" "),
-            'result' : results
+            'result' : results  
         })
         
         # Collect all words
