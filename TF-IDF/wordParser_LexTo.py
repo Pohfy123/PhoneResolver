@@ -93,8 +93,8 @@ def parseAllDocuments(path_in='./temp-processing-data/01_raw-data/', path_out='.
                 else:
                     words = warpToArray_LexTo(content_no_special_char)
                 # Remove stop words
-                words = removeEmptyWords(words)
                 words = removeStopWords(words)
+                words = removeEmptyWords(words)
                     
                 o.write(delimeter.join(words))
 
