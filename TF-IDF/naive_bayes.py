@@ -5,6 +5,7 @@ from sklearn import cross_validation
 import pickle
 import time
 from sklearn.feature_extraction import DictVectorizer
+import os
 
 result_labels = ['1_Air Travel Ticket Agencies','2_Home Stay','3_Hotel','4_Travel Bureaus','5_Airline Companies','6_Resorts & Bungalows','7_Seafood','8_Sukiyaki Shabu','9_Lounge Hotel Restaurant','10_Bakery Cake','11_Barbeque Grill','12_Coffee Shop','13_Ice Cream','14_Japanese'] ## Edit here
 
@@ -26,83 +27,108 @@ def load_model(filename_in='my_classifier.pickle'):
     return classifier
 
 
-def accuracy_test(datasets, nfolds=2):
-    # Construct each model (each category)
-    for result_idx in range( len(datasets[0]['result']) ):
-        print "========= TEST FEATURE #%d (%s) =========" % (result_idx+1,result_labels[result_idx]) 
-        featuresets = [ (DictVec.inverse_transform(data['words'])[0], data['result'][result_idx]) for data in datasets ]
-                
-        # K-fold cross validation
-        cv = cross_validation.KFold(len(featuresets), n_folds=nfolds, shuffle=True, random_state=None)
+def accuracy_test(datasets, nfolds=5):
+    # K-fold cross validation
+    cv = cross_validation.KFold(len(datasets), n_folds=nfolds, shuffle=True, random_state=None)
 
-        scores = []
-        idx = 1
-        for traincv, evalcv in cv:
-            # Train model
-            train_data = featuresets[traincv[0]:traincv[len(traincv)-1]]
-            classifier = nltk.NaiveBayesClassifier.train(train_data)
-
-            # Evaluate model
-            test_data = featuresets[evalcv[0]:evalcv[len(evalcv)-1]]
-            score = nltk.classify.accuracy(classifier, test_data)
-
-            # classifier.show_most_informative_features()
-            print 'TEST#%d: accuracy: %lf' % (idx, score)
-            scores.append(score)
-            idx += 1
-        print 'TOTAL ACCURACY: %lf' % (sum(scores)/len(scores)) 
-
-
-def train_model(datasets):
-    # Construct each model (each category)
-    print 'all categories ::', result_labels
-    for result_idx in range( len(datasets[0]['result']) ):
-        start_time = time.time()
-        print "========= TRAIN FEATURE #%d (%s) =========" % (result_idx+1,result_labels[result_idx]) 
-        
-        # Convert to labeled_featuresets: A list of tuples ``(featureset, label)``.
-        train_data = [ (DictVec.inverse_transform(data['words'])[0], data['result'][result_idx]) for data in datasets ]
-        
+    scores = []
+    idx = 1
+    for traincv, evalcv in cv:
         # Train model
+        train_data = datasets[traincv[0]:traincv[len(traincv)-1]]
         classifier = nltk.NaiveBayesClassifier.train(train_data)
 
-        model_name = "model_"+str(result_idx+1)+".pickle"
-        save_model(classifier, model_name)
-        
-        print "--- %s seconds ---" % (time.time() - start_time)
+        # Evaluate model
+        test_data = datasets[evalcv[0]:evalcv[len(evalcv)-1]]
+        score = nltk.classify.accuracy(classifier, test_data)
+
+        # classifier.show_most_informative_features()
+        print 'TEST#%d: accuracy: %lf' % (idx, score)
+        scores.append(score)
+        idx += 1
+    print 'TOTAL ACCURACY: %lf' % (sum(scores)/len(scores)) 
 
 
+def train_model(train_data):    
+    classifier = nltk.NaiveBayesClassifier.train(train_data)
+    return classifier
+
+
+def process_data(raw_datasets):
+    # Convert word freq to Sparse matrix
+    v = DictVectorizer(sparse=True)
+    DictVec = v.fit([document['words'] for document in raw_datasets])
+    for document in raw_datasets:
+        document['words'] = DictVec.transform(document['words'])
+    
+    # Convert to ready-for-train format :: labeled_featuresets: A list of tuples ``(featureset, label)``.
+    datasets = [ (DictVec.inverse_transform(data['words'])[0], data['result']) for data in raw_datasets ]
+    
+    # Save DictVectorizer model & word list
+    save_model(DictVec, 'dictvect_'+file_id+'.pickle')
+    save_dict_words(DictVec.get_feature_names(), 'wordlist_'+file_id+'.txt')
+
+    return datasets, DictVec
+
+
+def import_training_data(filename):
+    datasets = []
+    with open(filename,'r') as fin:        
+        for line in fin:
+            num,words,result = line.split(",",2)
+            
+            phone_no = num.strip()
+            
+            words = dict([x.split(':') for x in words.strip().split(' ')])
+            words = dict((k,float(v)) for k,v in words.iteritems())
+            
+            result = result.strip()
+            
+            data = {
+                'phone_no' : phone_no, # no need
+                'words' : words,
+                'result' : result
+            }
+            datasets.append(data)
+    return datasets
+
+
+# Gather the filename of all training data files
+filenames = []
+for file in os.listdir("./train-data/"):
+    if file.endswith(".csv") and file.startswith('train-model'):
+        filenames.append(file)
+filenames = [os.path.join('./train-data/', filename) for filename in filenames]
+
+print 'All phone categories :\n', '\n'.join(result_labels) , '\n\n'
+print 'All training data files :\n', '\n'.join(filenames) , '\n\n'
 print "Start processing . . ."
 
-datasets = []
+global_start_time = time.time()
 
-with open('./train-data/train.csv','r') as fin:
-    for line in fin:
-        num,words,result_str = line.split(",",2)
-        # Split result results = [is_rest, is_travel]
-        results = result_str.split(",")
-        results = [result.strip() for result in results]
+for filename in filenames:    
+    # Initialization for each model    
+    file_id = filename[filename.index('train-model')+11: filename.index('.csv')]
+    print "========= TRAIN MODEL :: Category #%s (%s) =========" % (file_id,result_labels[int(file_id)-1]) 
+    start_time = time.time()
+    
+    # Import datasets
+    raw_datasets = import_training_data(filename)
         
-        # datasets.append((words,is_travel+""+is_rest))
-        datasets.append({
-            'phone_no' : num,
-            'words' : dict.fromkeys(words.split(" "), 1),
-            'result' : results  
-        })
+    # Preprocess data
+    datasets, DictVec = process_data(raw_datasets)
 
-# Convert word freq to Sparse matrix
-v = DictVectorizer(sparse=True)
-DictVec = v.fit([document['words'] for document in datasets])
-for document in datasets:
-    document['words'] = DictVec.transform(document['words'])
-save_model(DictVec, 'dictvect_xxx.pickle')
-save_dict_words(DictVec.get_feature_names())
+    # Train and save models
+    classifier = train_model(datasets)
+    save_model(classifier, "model_"+file_id+".pickle")
 
-# Train and save models
-train_model(datasets)
+    # K-Fold Cross Validation (Accuracy test)
+    # accuracy_test(datasets)
+    print "--- %s seconds ---" % (time.time() - start_time)
 
-# K-Fold Cross Validation (Accuracy test)
-# accuracy_test(datasets, 5)
+print "========================"
+print "Training Model SUCCESS!"
+print "--- Total time: %s seconds ---" % (time.time() - global_start_time)
 
 
 # Show result of each
