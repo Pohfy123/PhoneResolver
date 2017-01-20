@@ -14,7 +14,9 @@ def removeStopWords(wordArr):
     "ทุก","ที่สุด","ที่","ทําให้","ทํา","ทาง","ทั้งนี้","ทั้ง","ถ้า","ถูก","ถึง","ต้อง","ต่างๆ","ต่าง","ต่อ","ตาม","ตั้งแต่","ตั้ง","ด้าน","ด้วย",\
     "ดัง","ซึ่ง","ช่วง","จึง","จาก","จัด","จะ","คือ","ความ","ครั้ง","คง","ขึ้น","ของ","ขอ","ขณะ","ก่อน","ก็","การ","กับ","กัน","กว่า",\
     "กล่าว","กรุงเทพมหานคร","ถูกใจ","กำลัง","พูดถึง","คน","กำลัง","ที่นี่","ตา","แก","ส","อิน","รม","ดารา","ดีไซน์","ตกแต่ง","นะ","ครับ",\
-    "instagram","bangkok","facebook","lookup","thailand","a","about","above","after","again","against","all","am","an",\
+    "สมัครงาน","เค","ค่ะ","คุณ"]
+
+    en_stopWord = ["instagram","bangkok","facebook","lookup","thailand","a","about","above","after","again","against",\
     "and","any","are","aren't","as","at","be","because","been","before","being","below","yourself","yourselves",\
     "between","both","but","by","can't","cannot","could","couldn't","did","didn't","do","does","doesn't","doing","don't",\
     "down","during","each","few","for","from","further","had","hadn't","has","hasn't","have","haven't","having","he",\
@@ -26,8 +28,9 @@ def removeStopWords(wordArr):
     "they've","this","those","through","to","too","under","until","up","very","was","wasn't","we","we'd","we'll",\
     "we're","we've","were","weren't","what","what's","when","when's","where","where's","which","while","who","who's",\
     "whom","why","why's","with","won't","would","wouldn't","you","you'd","you'll","you're","you've","your","yours",\
-    "zealand","code","area","a","new","km"]
-    return [word for word in wordArr if word.strip() not in th_stopWord]
+    "zealand","code","area","a","new","km","all","am","an","co","th","com"]
+    tmp = [word for word in wordArr if word.strip() not in th_stopWord]
+    return [word for word in tmp if word.strip().lower() not in en_stopWord]
 
 def isThai(chr):
     cVal = ord(chr)
@@ -88,8 +91,8 @@ def parseAllDocuments(path_in='./temp-processing-data/01_raw-data/', path_out='.
                 else:
                     words = warpToArray_LexTo(content_no_special_char)
                 # Remove stop words
-                words = removeStopWords(words)
                 words = removeEmptyWords(words)
+                words = removeStopWords(words)
                     
                 o.write(delimeter.join(words))
 
