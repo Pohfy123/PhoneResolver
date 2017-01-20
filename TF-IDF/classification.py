@@ -26,7 +26,7 @@ def processData(filename_in='./number_input.txt'):
     extract_feature.extract_feature()
     merge_test_data_to_csv.mergeResultToCSV()
 
-def predict(filename_in='./number_input.txt',filename_out='./result/prediction.csv'):
+def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'):
     processData(filename_in)
     all_words = []
     with open('./model/word_list.txt') as pearl:
