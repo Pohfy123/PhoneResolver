@@ -33,7 +33,7 @@ def removeStopWords(wordArr):
     "one","and","timeline","oct","baidu","oct","peso","online","cop","scr","eli","rupee","rupia","rupija","cambio",\
     "seychelles","colombiano","columbian","convertizor","eller","keitimo","kolombia","kolombiya","kolumbijos",\
     "kolumbijski","kolumbijskie","konverter","konverteris","kurs","mata","para","pesas","pesosu","pezo","przetwornik",\
-    "rupisi","sei","sej","seszelska","sey","tukar","valiut","valuta"]
+    "rupisi","sei","sej","seszelska","sey","tukar","valiut","valuta","www","net","ltd"]
     tmp = [word for word in wordArr if word.strip() not in th_stopWord]
     return [word for word in tmp if word.strip().lower() not in en_stopWord]
 
