@@ -14,9 +14,9 @@ def removeStopWords(wordArr):
     "ทุก","ที่สุด","ที่","ทําให้","ทํา","ทาง","ทั้งนี้","ทั้ง","ถ้า","ถูก","ถึง","ต้อง","ต่างๆ","ต่าง","ต่อ","ตาม","ตั้งแต่","ตั้ง","ด้าน","ด้วย",\
     "ดัง","ซึ่ง","ช่วง","จึง","จาก","จัด","จะ","คือ","ความ","ครั้ง","คง","ขึ้น","ของ","ขอ","ขณะ","ก่อน","ก็","การ","กับ","กัน","กว่า",\
     "กล่าว","กรุงเทพมหานคร","ถูกใจ","กำลัง","พูดถึง","คน","กำลัง","ที่นี่","ตา","แก","ส","อิน","รม","ดารา","ดีไซน์","ตกแต่ง","นะ","ครับ",\
-    "สมัครงาน","เค","ค่ะ","คุณ"]
+    "สมัครงาน","เค","ค่ะ","คุณ","เด็ด","กรุงเทพฯ","บาท","จำกัด","ค้นหา","หล่อ","รายละเอียด","อำเภอ","อื่นๆ","ใคร","นี่","วันนี้","เว็บไซต์"]
 
-    en_stopWord = ["instagram","bangkok","facebook","lookup","thailand","a","about","above","after","again","against",\
+    en_stopWord = ["instagram","bangkok","facebook","lookup","a","about","above","after","again","against",\
     "and","any","are","aren't","as","at","be","because","been","before","being","below","yourself","yourselves",\
     "between","both","but","by","can't","cannot","could","couldn't","did","didn't","do","does","doesn't","doing","don't",\
     "down","during","each","few","for","from","further","had","hadn't","has","hasn't","have","haven't","having","he",\
@@ -28,7 +28,9 @@ def removeStopWords(wordArr):
     "they've","this","those","through","to","too","under","until","up","very","was","wasn't","we","we'd","we'll",\
     "we're","we've","were","weren't","what","what's","when","when's","where","where's","which","while","who","who's",\
     "whom","why","why's","with","won't","would","wouldn't","you","you'd","you'll","you're","you've","your","yours",\
-    "zealand","code","area","a","new","km","all","am","an","co","th","com"]
+    "zealand","code","area","a","new","km","all","am","an","co","th","com","download","software","soi","instagram",\
+    "pdf","likes","profiles","reward","photo","new","all","contact","google","love","reviews","org","jobs","youtube",\
+    "one","and","timeline"]
     tmp = [word for word in wordArr if word.strip() not in th_stopWord]
     return [word for word in tmp if word.strip().lower() not in en_stopWord]
 
