@@ -13,12 +13,15 @@ token_dict = {}
 
 # <<<<<<<<<<<<<<<<<<<<<< TF-IDF : Old source <<<<<<<<<<<<<<<<<<<<<<
 
-def tokenize(text):
-    tokens = nltk.word_tokenize(text)
-    stems = []
-    for item in tokens:
-        stems.append(PorterStemmer().stem(item))
-    return stems
+def tokenize(x):
+    return ( w for w in nltk.word_tokenize(x) if len(w) >=3)
+
+# def tokenize(text):
+#     tokens = nltk.word_tokenize(text)
+#     stems = []
+#     for item in tokens:
+#         stems.append(PorterStemmer().stem(item))
+#     return stems
 
 def tfidf(input_path, output_path, use_idf=True, limitTop=None):
     for dirpath, dirs, files in os.walk(input_path):
