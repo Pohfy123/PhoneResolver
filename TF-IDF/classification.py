@@ -1,15 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import nltk
 import pickle
 import os
-
 import bing_search
 import urlKeywordSearch
 import wordParser_LexTo
 import ngrams
 import extract_feature
 import merge_test_data_to_csv
+from collections import defaultdict
 
 def load_model(filename_in):
     f = open(filename_in, 'r')
@@ -17,8 +16,26 @@ def load_model(filename_in):
     f.close()
     return classifier
 
+def import_test_data(filename='./temp-processing-data/05_merge-csv/test_data.csv'):
+    datasets = []
+    with open(filename,'r') as fin:        
+        for line in fin:
+            num,words = line.split(",",1)
+            
+            phone_no = num.strip()
+            
+            words = dict([x.split(':') for x in words.strip().split(' ')])
+            words = dict((k,float(v)) for k,v in words.iteritems())
+            
+            data = {
+                'phone_no' : phone_no, # no need
+                'words' : words
+            }
+            datasets.append(data)
+    return datasets
+
+
 def processData(filename_in='./number_input.txt'):
-    ## Processing Data
     bing_search.runBingSearch(filename_in)
     urlKeywordSearch.search()
     wordParser_LexTo.parseAllDocuments()
@@ -28,46 +45,48 @@ def processData(filename_in='./number_input.txt'):
 
 def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'):
     processData(filename_in)
-    all_words = []
-    with open('./model/word_list.txt') as pearl:
-        words = pearl.read().strip()
-        all_words = set(words.split("\n"))
 
-    MODEL_FILE_PATH = './model/'
-    result = {}
+    MODEL_DIR_PATH = './model/'
+    N_MODEL = 14
     
-    for dirpath, dirs, files in os.walk(MODEL_FILE_PATH):
-        # Each Class folder 
-        for f in files:
-            fin_path = os.path.join(dirpath, f)
-            fin_name = os.path.splitext(os.path.basename(fin_path))[0]
-            fin_ext = os.path.splitext(os.path.basename(fin_path))[1]
-            if fin_ext != '.pickle':
-                continue
-            print "model: fname=", fin_name
-            classifier = load_model(fin_path)
-            with open('./temp-processing-data/05_merge-csv/test_data.csv','r') as fin:
-                for line in fin:
-                    num,words = line.split(",")
-                    test_word = words.split(" ")
-                    test_sent_features = {word: (word in test_word) for word in all_words}
-                    # print 'words ====> ',test_word
-                    dist = classifier.prob_classify(test_sent_features)
-                    if result.get( num, None ) == None:
-                        result[num] = [dist.max()]
-                    else:
-                        result[num].append(dist.max())
+    result = defaultdict(list)
+    
+    # Each model
+    for model_id in range(1,N_MODEL+1,1):        
+        # Load Classification Model
+        model_file_name = 'model_'+str(model_id)+'.pickle'
+        model_file_path = os.path.join(MODEL_DIR_PATH, model_file_name)
+        print "Model#%d:" % model_id, model_file_path
+        classifier = load_model(model_file_path)
+        
+        # Load DictVectorizer Model
+        dv_model_file_name = 'dictvect_'+str(model_id)+'.pickle'
+        dv_model_file_path = os.path.join(MODEL_DIR_PATH, dv_model_file_name)
+        DictVec = load_model(dv_model_file_path)
+        
+        # Load Testing Data
+        test_data = import_test_data()
 
-                    print 'number : ', num
-                    print 'prediction :', dist.max()
-                    for label in dist.samples():
-                        print "\tlabel >>>",label," prob >>>" , dist.prob(label)
+        for test_row in test_data:
+            dist = classifier.prob_classify(test_row['words'])
+            result[test_row['phone_no']].append(dist.max())
+            
+            # Show Prediction Result
+            print 'phone number : ', test_row['phone_no']
+            print 'prediction :', dist.max()
+            for label in dist.samples():
+                print "\tlabel >>>",label," prob >>>" , dist.prob(label)
 
-    with open(filename_out, 'a') as file_out:
-        for num in result:
-            file_out.write(num + ',')
-            for pred in result[num]:
-                file_out.write(pred + ',')
-            file_out.write('\n')
+    # Write Result
+    with open(filename_out, 'w') as file_out:
+        key_str_list = result.keys()
+        value_str_list = [','.join(result_row) for result_row in result.values()]
+        pair_str_list = zip(key_str_list, value_str_list)
 
-predict()
+        result_str_list = [','.join(row) for row in pair_str_list]
+        file_out.write('\n'.join(result_str_list))
+    print "Success :: Result is saved !"
+    
+    return dict(result)
+
+result = predict()
