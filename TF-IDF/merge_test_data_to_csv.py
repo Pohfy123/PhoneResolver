@@ -23,7 +23,7 @@ def mergeResultToCSV(path_in = './temp-processing-data/04_tf', path_out = './tem
                 words = []
                 for line in pearl:
                     word, freq = line.decode('utf-8').strip().split(" - ")
-                    words.append(word.encode('utf-8'))
+                    words.append(word.encode('utf-8')+':'+freq.encode('utf-8'))
                     
                 data_col1 = fin_name # Phone Number
                 data_col2 = ' '.join(words) # Bag of words
