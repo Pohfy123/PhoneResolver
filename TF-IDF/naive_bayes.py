@@ -49,7 +49,6 @@ def accuracy_test(datasets, words_set, nfolds=2):
             print 'TEST#%d: accuracy: %lf' % (idx, score)
             scores.append(score)
             idx += 1
-            break
         print 'TOTAL ACCURACY: %lf' % (sum(scores)/len(scores)) 
 
 
