@@ -19,6 +19,11 @@ def isEnglish(chr):
 def applyNgramAllDocuments(path_in='./temp-processing-data/02_parsed-word-data-lexto/', path_out='./temp-processing-data/03_n-gram-data-lexto/', number_of_gram=2, delimeter='|'):
     for dirpath, dirs, files in os.walk(path_in):
         for f in files:
+            fin_path = os.path.join(dirpath, f)
+            _, fin_ext = os.path.splitext(os.path.basename(fin_path))
+            if fin_ext != '.txt':
+                continue
+            
             finname = os.path.join(dirpath, f)
             foutname = os.path.join(path_out, f)
             print "fname=", finname
