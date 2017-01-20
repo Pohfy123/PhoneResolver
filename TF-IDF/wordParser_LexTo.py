@@ -30,7 +30,10 @@ def removeStopWords(wordArr):
     "whom","why","why's","with","won't","would","wouldn't","you","you'd","you'll","you're","you've","your","yours",\
     "zealand","code","area","a","new","km","all","am","an","co","th","com","download","software","soi","instagram",\
     "pdf","likes","profiles","reward","photo","new","all","contact","google","love","reviews","org","jobs","youtube",\
-    "one","and","timeline"]
+    "one","and","timeline","oct","baidu","oct","peso","online","cop","scr","eli","rupee","rupia","rupija","cambio",\
+    "seychelles","colombiano","columbian","convertizor","eller","keitimo","kolombia","kolombiya","kolumbijos",\
+    "kolumbijski","kolumbijskie","konverter","konverteris","kurs","mata","para","pesas","pesosu","pezo","przetwornik",\
+    "rupisi","sei","sej","seszelska","sey","tukar","valiut","valuta"]
     tmp = [word for word in wordArr if word.strip() not in th_stopWord]
     return [word for word in tmp if word.strip().lower() not in en_stopWord]
 
