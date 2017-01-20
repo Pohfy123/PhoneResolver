@@ -3,6 +3,7 @@
 import nltk
 from sklearn import cross_validation
 import pickle
+import time
 
 result_labels = ['1_Air Travel Ticket Agencies','2_Home Stay','3_Hotel','4_Travel Bureaus','5_Airline Companies','6_Resorts & Bungalows','7_Seafood','8_Sukiyaki Shabu','9_Lounge Hotel Restaurant','10_Bakery Cake','11_Barbeque Grill','12_Coffee Shop','13_Ice Cream','14_Japanese'] ## Edit here
 
@@ -56,6 +57,7 @@ def train_model(datasets, words_set):
     # Construct each model (each category)
     print 'all categories ::', result_labels
     for result_idx in range( len(datasets[0]['result']) ):
+        start_time = time.time()
         print "========= TRAIN FEATURE #%d (%s) =========" % (result_idx+1,result_labels[result_idx]) 
         featuresets = [ ({word: (word in data['words']) for word in words_set}, data['result'][result_idx]) for data in datasets ]
         
@@ -64,6 +66,8 @@ def train_model(datasets, words_set):
 
         model_name = "model_"+str(result_idx+1)+".pickle"
         save_model(classifier, model_name)
+        
+        print "--- %s seconds ---" % (time.time() - start_time)
 
 
 print "Start processing . . ."
