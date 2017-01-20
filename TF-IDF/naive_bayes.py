@@ -4,6 +4,7 @@ import nltk
 from sklearn import cross_validation
 import pickle
 import time
+from sklearn.feature_extraction import DictVectorizer
 
 result_labels = ['1_Air Travel Ticket Agencies','2_Home Stay','3_Hotel','4_Travel Bureaus','5_Airline Companies','6_Resorts & Bungalows','7_Seafood','8_Sukiyaki Shabu','9_Lounge Hotel Restaurant','10_Bakery Cake','11_Barbeque Grill','12_Coffee Shop','13_Ice Cream','14_Japanese'] ## Edit here
 
@@ -25,11 +26,11 @@ def load_model(filename_in='my_classifier.pickle'):
     return classifier
 
 
-def accuracy_test(datasets, words_set, nfolds=2):
+def accuracy_test(datasets, nfolds=2):
     # Construct each model (each category)
     for result_idx in range( len(datasets[0]['result']) ):
         print "========= TEST FEATURE #%d (%s) =========" % (result_idx+1,result_labels[result_idx]) 
-        featuresets = [ ({word: (word in data['words']) for word in words_set}, data['result'][result_idx]) for data in datasets ]
+        featuresets = [ (DictVec.inverse_transform(data['words'])[0], data['result'][result_idx]) for data in datasets ]
                 
         # K-fold cross validation
         cv = cross_validation.KFold(len(featuresets), n_folds=nfolds, shuffle=True, random_state=None)
@@ -52,15 +53,17 @@ def accuracy_test(datasets, words_set, nfolds=2):
         print 'TOTAL ACCURACY: %lf' % (sum(scores)/len(scores)) 
 
 
-def train_model(datasets, words_set):
+def train_model(datasets):
     # Construct each model (each category)
     print 'all categories ::', result_labels
     for result_idx in range( len(datasets[0]['result']) ):
         start_time = time.time()
         print "========= TRAIN FEATURE #%d (%s) =========" % (result_idx+1,result_labels[result_idx]) 
-        featuresets = [ ({word: (word in data['words']) for word in words_set}, data['result'][result_idx]) for data in datasets ]
         
-        train_data = featuresets
+        # Convert to labeled_featuresets: A list of tuples ``(featureset, label)``.
+        train_data = [ (DictVec.inverse_transform(data['words'])[0], data['result'][result_idx]) for data in datasets ]
+        
+        # Train model
         classifier = nltk.NaiveBayesClassifier.train(train_data)
 
         model_name = "model_"+str(result_idx+1)+".pickle"
@@ -71,7 +74,6 @@ def train_model(datasets, words_set):
 
 print "Start processing . . ."
 
-all_words = ""
 datasets = []
 
 with open('./train-data/train.csv','r') as fin:
@@ -84,19 +86,23 @@ with open('./train-data/train.csv','r') as fin:
         # datasets.append((words,is_travel+""+is_rest))
         datasets.append({
             'phone_no' : num,
-            'words' : words.split(" "),
+            'words' : dict.fromkeys(words.split(" "), 1),
             'result' : results  
         })
-        
-        # Collect all words
-        all_words = all_words+" "+words
 
-words_set = set(all_words.split(" "))
-save_dict_words(words_set)
+# Convert word freq to Sparse matrix
+v = DictVectorizer(sparse=True)
+DictVec = v.fit([document['words'] for document in datasets])
+for document in datasets:
+    document['words'] = DictVec.transform(document['words'])
+save_model(DictVec, 'dictvect_xxx.pickle')
+save_dict_words(DictVec.get_feature_names())
 
-# accuracy_test(datasets, words_set, 2)
+# Train and save models
+train_model(datasets)
 
-train_model(datasets, words_set)
+# K-Fold Cross Validation (Accuracy test)
+# accuracy_test(datasets, 5)
 
 
 # Show result of each
