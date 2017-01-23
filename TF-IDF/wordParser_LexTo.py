@@ -14,7 +14,9 @@ def removeStopWords(wordArr):
     "ทุก","ที่สุด","ที่","ทําให้","ทํา","ทาง","ทั้งนี้","ทั้ง","ถ้า","ถูก","ถึง","ต้อง","ต่างๆ","ต่าง","ต่อ","ตาม","ตั้งแต่","ตั้ง","ด้าน","ด้วย",\
     "ดัง","ซึ่ง","ช่วง","จึง","จาก","จัด","จะ","คือ","ความ","ครั้ง","คง","ขึ้น","ของ","ขอ","ขณะ","ก่อน","ก็","การ","กับ","กัน","กว่า",\
     "กล่าว","กรุงเทพมหานคร","ถูกใจ","กำลัง","พูดถึง","คน","กำลัง","ที่นี่","ตา","แก","ส","อิน","รม","ดารา","ดีไซน์","ตกแต่ง","นะ","ครับ",\
-    "สมัครงาน","เค","ค่ะ","คะ","คุณ","เด็ด","กรุงเทพฯ","บาท","จำกัด","ค้นหา","หล่อ","รายละเอียด","อำเภอ","อื่นๆ","ใคร","นี่","วันนี้","เว็บไซต์"]
+    "สมัครงาน","เค","ค่ะ","คะ","คุณ","เด็ด","กรุงเทพฯ","บาท","จำกัด","ค้นหา","หล่อ","รายละเอียด","อำเภอ","อื่นๆ","ใคร","นี่","วันนี้","เว็บไซต์"\
+    "เบอร์","โทร","ดี","เกี่ยวกับ","ผม","ยังไง","พยายาม","เว็บ","ไม่ได้","กู","จัง","คุณ","น้า","ฟรี","อาทิ","เช่น","บางครั้ง","ต้องการ","พิเศษ",\
+    "ครับผม","น้อยใจ","สำหรับ","น่ารัก","สุดยอด","ไหน","ณ","ทำให้","แค่","แน่นอน","ไง","ข้อมูล","ใดๆ"]
 
     en_stopWord = ["instagram","bangkok","facebook","lookup","a","about","above","after","again","against",\
     "and","any","are","aren't","as","at","be","because","been","before","being","below","yourself","yourselves",\
@@ -33,7 +35,7 @@ def removeStopWords(wordArr):
     "one","and","timeline","oct","baidu","oct","peso","online","cop","scr","eli","rupee","rupia","rupija","cambio",\
     "seychelles","colombiano","columbian","convertizor","eller","keitimo","kolombia","kolombiya","kolumbijos",\
     "kolumbijski","kolumbijskie","konverter","konverteris","kurs","mata","para","pesas","pesosu","pezo","przetwornik",\
-    "rupisi","sei","sej","seszelska","sey","tukar","valiut","valuta","www","net","ltd"]
+    "rupisi","sei","sej","seszelska","sey","tukar","valiut","valuta","www","net","ltd","etc","need","information","also"]
     tmp = [word for word in wordArr if word.strip() not in th_stopWord]
     return [word for word in tmp if word.strip().lower() not in en_stopWord]
 
