@@ -3,6 +3,7 @@
 from urllib import urlopen
 from bs4 import BeautifulSoup
 import socket
+import textCrawling
 
 socket.setdefaulttimeout(30)
 
@@ -18,8 +19,9 @@ def isPhoneWeb(url):
             return True
     return False
 
-def fetchKeyword(urlTitleArr):
+def fetchKeyword(urlTitleArr,include_content):
     searchkey = ""
+    searchtext = ""
     for urlTitle in urlTitleArr:
         url,title = urlTitle.strip().split("|||",1)
         if isPhoneWeb(url):
@@ -36,6 +38,17 @@ def fetchKeyword(urlTitleArr):
             soup = BeautifulSoup(html,"lxml")
             search_key = soup.findAll('meta',attrs={ 'name':'keywords'})
             search_desc = soup.findAll('meta',attrs={ 'name':'description'})
+
+            ## Include Content
+            if include_content:
+                search = soup.findAll('body')
+                html = ""
+                if len(search) > 0:
+                    html = str(search[0].encode('utf-8'))
+                pureHTML = textCrawling.CssJsStrip(html).decode('utf-8')
+                searchtext = searchtext+textCrawling.strip_tags(pureHTML).encode('utf-8')
+            ## End Include Content
+
             searchkey = searchkey+title+"\n"
             if len(search_key) > 0:
                 searchkey = searchkey+"\n"+str(search_key[0]['content'].encode('utf-8'))
@@ -43,13 +56,16 @@ def fetchKeyword(urlTitleArr):
                 searchkey = searchkey+"\n"+str(search_desc[0]['content'].encode('utf-8'))
             else:
                 print "No metadata"
+            
         except IOError as e:
             print "I/O error({0}): {1}".format(e.errno, e.strerror)
         except:
             print "Something Error"
-    return(searchkey)
+            
+        searchtext = searchtext.replace('\n', ' ')
+    return([searchkey,searchtext])
 
-# searchkey = fetchKeyword("https://www.instagram.com/plaavydessertcafe/")
+# searchkey = fetchKeyword("https://www.instagram.com/plaavydessertcafe/",True)
 # o = open("keyword.txt", 'w')
 # o.write(searchkey)
 # o.close()

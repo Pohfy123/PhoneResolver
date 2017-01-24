@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# import textCrawling
 import keywordCrawling
 import sys
 import os
 
-def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-data/01_raw-data/'):
+def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-data/01_raw-data-keyword/',include_content=True,path_raw_data_content='./temp-processing-data/01_raw-data-content/'):
     done_list = []
     for dirpath, dirs, files in os.walk(path_out):
         for f in files:
@@ -23,11 +22,18 @@ def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-
             fin_ext = os.path.splitext(os.path.basename(finname))[1]
             if fin_ext != '.txt':
                 continue
-            foutname = os.path.join(path_out, f)
+            foutname_keyword = os.path.join(path_out, f)
+            foutname_content = ""
+            if include_content:
+                foutname_content = os.path.join(path_raw_data_content, f)
+
             print ""
             print "fname=", finname
             with open(finname) as pearl:
-                o = open(foutname, 'w')
+                o_keyword = open(foutname_keyword, 'w')
+                o_content = ""
+                if include_content:
+                    o_content = open(foutname_content, 'w')
                 # Read url from a document
                 urls = pearl.read().strip()
                 url_title_array = urls.split("\n")
@@ -36,8 +42,17 @@ def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-
                 url_title_array = map(str.strip, url_title_array)
                 url_title_array = filter(None, url_title_array)
 
-                text = keywordCrawling.fetchKeyword(url_title_array)                
-                o.write(text)
-                o.close()
+                textArr = keywordCrawling.fetchKeyword(url_title_array,include_content)
+                keyword = textArr[0]
+                content = textArr[1]
+
+                o_keyword.write(keyword)
+                o_keyword.close()
+                
+                if include_content:
+                    o_content.write(content)
+                    o_content.close()
+                
+                    
 
 

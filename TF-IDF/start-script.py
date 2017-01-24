@@ -10,7 +10,8 @@ import urlKeywordSearch
 # PyICU
 print "processing . . ."
 path_url = "./temp-processing-data/00_url/"
-path_raw_data = './temp-processing-data/01_raw-data/'
+path_raw_data_keyword = './temp-processing-data/01_raw-data-keyword/'
+path_raw_data_content = './temp-processing-data/01_raw-data-content/'
 path_parsed_words_PyICU = './temp-processing-data/02_parsed-word-data-pyicu/'
 path_ngram_words_PyICU = './temp-processing-data/03_n-gram-data-pyicu/'
 path_result_tf_PyICU = './result/tf-pyicu/'
@@ -23,15 +24,16 @@ path_result_tfidf_Lexto = './result/tf-idf-lexto/'
 number_of_gram = 2
 delimeter = '|'
 isPyICU = False
+include_content = True
 
-# # # STEP1: Keyword Crawling
-# print "\n\n############# RUN STEP1: Text Crawling #############"
-# urlKeywordSearch.search(path_url,path_raw_data)
+# # STEP1: Keyword Crawling
+print "\n\n############# RUN STEP1: Text Crawling #############"
+urlKeywordSearch.search(path_url,path_raw_data_keyword,include_content,path_raw_data_content)
 
 if isPyICU is True:
-    # STEP2: Thai Parser (LexTo)
-    print "\n\n############# RUN STEP2: Thai Parser (LexTo) #############"
-    wordParser_PyICU.parseAllDocuments(path_raw_data, path_parsed_words_PyICU, delimeter,isPyICU)
+    # # STEP2: Thai Parser (LexTo)
+    # print "\n\n############# RUN STEP2: Thai Parser (LexTo) #############"
+    # wordParser_PyICU.parseAllDocuments(path_raw_data, path_parsed_words_PyICU, delimeter,isPyICU)
     # STEP3: N-Gram
     print "\n\n############# RUN STEP3: N-Gram #############"
     ngrams.applyNgramAllDocuments(path_parsed_words_PyICU, path_ngram_words_PyICU, number_of_gram, delimeter)
