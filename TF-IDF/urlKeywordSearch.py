@@ -4,7 +4,7 @@ import keywordCrawling
 import sys
 import os
 
-def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-data/01_raw-data-keyword/',include_content=True,path_raw_data_content='./temp-processing-data/01_raw-data-content/'):
+def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-data/01_raw-data/',path_raw_data_keyword='./temp-processing-data/01_raw-data-keyword/',path_raw_data_content='./temp-processing-data/01_raw-data-content/',include_content=True):
     done_list = []
     for dirpath, dirs, files in os.walk(path_out):
         for f in files:
@@ -22,7 +22,8 @@ def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-
             fin_ext = os.path.splitext(os.path.basename(finname))[1]
             if fin_ext != '.txt':
                 continue
-            foutname_keyword = os.path.join(path_out, f)
+            foutname = os.path.join(path_out, f)
+            foutname_keyword = os.path.join(path_raw_data_keyword, f)
             foutname_content = ""
             if include_content:
                 foutname_content = os.path.join(path_raw_data_content, f)
@@ -30,6 +31,7 @@ def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-
             print ""
             print "fname=", finname
             with open(finname) as pearl:
+                o = open(foutname, 'w')
                 o_keyword = open(foutname_keyword, 'w')
                 o_content = ""
                 if include_content:
@@ -53,6 +55,7 @@ def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-
                     o_content.write(content)
                     o_content.close()
                 
+                o.write(keyword+'\n'+content)
                     
 
 

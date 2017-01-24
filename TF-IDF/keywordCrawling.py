@@ -3,7 +3,9 @@
 from urllib import urlopen
 from bs4 import BeautifulSoup
 import socket
-import textCrawling
+from HTMLParser import HTMLParser
+import re
+
 
 socket.setdefaulttimeout(30)
 
@@ -13,11 +15,34 @@ def isPhoneWeb(url):
                 "lovenumbersphone.it","shareyot.co.il","superforte.netsons.org","telefonforsaljare.nu","whotocall.ru",\
                 "vorwahl-index.de","publicrecordssn.com","ssn-records.org","violetsmile.com","chichiama.com","sync.me",\
                 "b.411note.com","mouser.com","serials.ws","docplayer.pl","serialsws.org","e-stat.go.jp","mottles-heer.de",\
-                "whosnumber.com"]
+                "whosnumber.com","phonenumber.cmcm.com"]
     for phone in phoneList:
         if phone in url:
             return True
     return False
+
+### For content crawling
+def CssJsStrip(html):
+    pureHtmlCss = re.subn(r'<(script).*?</\1>(?s)', '', html)[0]
+    pureHTML = re.subn(r'<(style).*?</\1>(?s)', '', pureHtmlCss)[0]
+    return pureHTML
+
+class MLStripper(HTMLParser):
+    def __init__(self):
+        self.reset()
+        self.strict = False
+        self.convert_charrefs= True
+        self.fed = []
+    def handle_data(self, d):
+        self.fed.append(d)
+    def get_data(self):
+        return ''.join(self.fed)
+
+def strip_tags(html):
+    s = MLStripper()
+    s.feed(html)
+    return s.get_data()
+### End For content crawling
 
 def fetchKeyword(urlTitleArr,include_content):
     searchkey = ""
@@ -45,8 +70,8 @@ def fetchKeyword(urlTitleArr,include_content):
                 html = ""
                 if len(search) > 0:
                     html = str(search[0].encode('utf-8'))
-                pureHTML = textCrawling.CssJsStrip(html).decode('utf-8')
-                searchtext = searchtext+textCrawling.strip_tags(pureHTML).encode('utf-8')
+                pureHTML = CssJsStrip(html).decode('utf-8')
+                searchtext = searchtext+strip_tags(pureHTML).encode('utf-8')
             ## End Include Content
 
             searchkey = searchkey+title+"\n"

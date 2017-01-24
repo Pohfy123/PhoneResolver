@@ -10,6 +10,7 @@ import urlKeywordSearch
 # PyICU
 print "processing . . ."
 path_url = "./temp-processing-data/00_url/"
+path_raw_data = './temp-processing-data/01_raw-data/'
 path_raw_data_keyword = './temp-processing-data/01_raw-data-keyword/'
 path_raw_data_content = './temp-processing-data/01_raw-data-content/'
 path_parsed_words_PyICU = './temp-processing-data/02_parsed-word-data-pyicu/'
@@ -28,7 +29,7 @@ include_content = True
 
 # # STEP1: Keyword Crawling
 print "\n\n############# RUN STEP1: Text Crawling #############"
-urlKeywordSearch.search(path_url,path_raw_data_keyword,include_content,path_raw_data_content)
+urlKeywordSearch.search(path_url,path_raw_data,path_raw_data_keyword,path_raw_data_content,include_content)
 
 if isPyICU is True:
     # # STEP2: Thai Parser (LexTo)
@@ -44,7 +45,7 @@ if isPyICU is True:
 else:
     # # STEP2: Thai Parser (LexTo)
     print "\n\n############# RUN STEP2: Thai Parser (LexTo) #############"
-    wordParser_LexTo.parseAllDocuments(path_raw_data, path_parsed_words_Lexto, delimeter,isPyICU)
+    wordParser_LexTo.parseAllDocuments(path_raw_data, path_parsed_words_Lexto, delimeter, isPyICU)
     # # STEP3: N-Gram
     print "\n\n############# RUN STEP3: N-Gram #############"
     ngrams.applyNgramAllDocuments(path_parsed_words_Lexto, path_ngram_words_Lexto, number_of_gram, delimeter)
