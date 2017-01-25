@@ -1,8 +1,61 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import keywordCrawling
+
 import sys
 import os
+import threading, urllib, urlparse
+
+
+class CrawlerThread(threading.Thread):
+    def __init__(self, limitSemaphore, path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f):
+        self.limitSemaphore = limitSemaphore
+        self.url = url
+        self.threadId = hash(self)
+        threading.Thread.__init__(self)
+
+    def run(self):
+        self.limitSemaphore.acquire() # wait
+        ## Processing each filles
+        crawl(path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f)
+        self.limitSemaphore.release()
+        print "Finishhhh"
+
+def crawl(path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f):
+    foutname = os.path.join(path_out, f)
+    foutname_keyword = os.path.join(path_raw_data_keyword, f)
+    foutname_content = ""
+    if include_content:
+        foutname_content = os.path.join(path_raw_data_content, f)
+
+    print ""
+    print "fname=", finname
+    with open(finname) as pearl:
+        o = open(foutname, 'w')
+        o_keyword = open(foutname_keyword, 'w')
+        o_content = ""
+        if include_content:
+            o_content = open(foutname_content, 'w')
+        # Read url from a document
+        urls = pearl.read().strip()
+        url_title_array = urls.split("\n")
+
+        # Remove empty line
+        url_title_array = map(str.strip, url_title_array)
+        url_title_array = filter(None, url_title_array)
+
+        textArr = keywordCrawling.fetchKeyword(url_title_array,include_content)
+        keyword = textArr[0]
+        content = textArr[1]
+
+        o_keyword.write(keyword)
+        o_keyword.close()
+        
+        if include_content:
+            o_content.write(content)
+            o_content.close()
+        
+        o.write(keyword+'\n'+content)
 
 def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-data/01_raw-data/',path_raw_data_keyword='./temp-processing-data/01_raw-data-keyword/',path_raw_data_content='./temp-processing-data/01_raw-data-content/',include_content=True):
     done_list = []
@@ -17,45 +70,18 @@ def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-
             # Skip done list
             if(f in done_list):
                 continue
-            
+
             finname = os.path.join(dirpath, f)
             fin_ext = os.path.splitext(os.path.basename(finname))[1]
             if fin_ext != '.txt':
                 continue
-            foutname = os.path.join(path_out, f)
-            foutname_keyword = os.path.join(path_raw_data_keyword, f)
-            foutname_content = ""
-            if include_content:
-                foutname_content = os.path.join(path_raw_data_content, f)
 
-            print ""
-            print "fname=", finname
-            with open(finname) as pearl:
-                o = open(foutname, 'w')
-                o_keyword = open(foutname_keyword, 'w')
-                o_content = ""
-                if include_content:
-                    o_content = open(foutname_content, 'w')
-                # Read url from a document
-                urls = pearl.read().strip()
-                url_title_array = urls.split("\n")
+            limitSemaphore = threading.Semaphore(10) # Limit 10 files
+            for url in urls:
+                print "start url:: "+ url
+                CrawlerThread(limitSemaphore, path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f).start()
 
-                # Remove empty line
-                url_title_array = map(str.strip, url_title_array)
-                url_title_array = filter(None, url_title_array)
-
-                textArr = keywordCrawling.fetchKeyword(url_title_array,include_content)
-                keyword = textArr[0]
-                content = textArr[1]
-
-                o_keyword.write(keyword)
-                o_keyword.close()
-                
-                if include_content:
-                    o_content.write(content)
-                    o_content.close()
-                
-                o.write(keyword+'\n'+content)
+            
                     
 
 
