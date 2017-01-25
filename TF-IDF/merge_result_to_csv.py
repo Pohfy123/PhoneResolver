@@ -4,7 +4,7 @@
 import sys
 import os
 
-def mergeResultToCSV(input_path, output_path, file_name="train.csv"):
+def mergeResultToCSV(input_path, output_path, file_name="train_for_test.csv"):
     foutname = os.path.join(output_path, file_name)
     o = open(foutname, 'w')
     number_dic = {}
@@ -31,7 +31,7 @@ def mergeResultToCSV(input_path, output_path, file_name="train.csv"):
                     # print ">>>>%s"%line
                     word, freq = line.decode('utf-8').strip().split(" - ")
                     # print freq
-                    words.append(word.encode('utf-8'))
+                    words.append(word.encode('utf-8')+':'+freq.encode('utf-8'))
                 number_dic[fin_name] = [' '.join(words),0,0,0,0,0,0,0,0,0,0,0,0,0,0] # edit here
     for dirpath, dirs, files in os.walk(input_path):
         # Root dir

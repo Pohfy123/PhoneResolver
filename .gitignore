@@ -9,6 +9,8 @@ TF-IDF/result/tf-lexto/
 TF-IDF/result/tf-pyicu/
 TF-IDF/temp-processing-data/00_url/
 TF-IDF/temp-processing-data/01_raw-data/
+TF-IDF/temp-processing-data/01_raw-data-keyword/
+TF-IDF/temp-processing-data/01_raw-data-content/
 TF-IDF/temp-processing-data/01_raw-data_backup/
 TF-IDF/temp-processing-data/02_parsed-word-data-pyicu/
 TF-IDF/temp-processing-data/02_parsed-word-data-lexto/
