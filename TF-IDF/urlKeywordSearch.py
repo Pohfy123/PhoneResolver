@@ -10,16 +10,22 @@ import threading, urllib, urlparse
 class CrawlerThread(threading.Thread):
     def __init__(self, limitSemaphore, path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f):
         self.limitSemaphore = limitSemaphore
-        self.url = url
         self.threadId = hash(self)
+        self.path_out = path_out
+        self.path_raw_data_keyword = path_raw_data_keyword
+        self.path_raw_data_content = path_raw_data_content
+        self.include_content = include_content
+        self.finname = finname
+        self.f = f
         threading.Thread.__init__(self)
 
     def run(self):
         self.limitSemaphore.acquire() # wait
+        print ">>>>>>>>>>>>>>>> Start :: ",self.finname
         ## Processing each filles
-        crawl(path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f)
+        crawl(self.path_out,self.path_raw_data_keyword,self.path_raw_data_content,self.include_content,self.finname,self.f)
         self.limitSemaphore.release()
-        print "Finishhhh"
+        print "<<<<<<<<<<<<<<<< Finish :: ",self.finname
 
 def crawl(path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f):
     foutname = os.path.join(path_out, f)
@@ -28,8 +34,8 @@ def crawl(path_out,path_raw_data_keyword,path_raw_data_content,include_content,f
     if include_content:
         foutname_content = os.path.join(path_raw_data_content, f)
 
-    print ""
-    print "fname=", finname
+    # print ""
+    # print "fname=", finname
     with open(finname) as pearl:
         o = open(foutname, 'w')
         o_keyword = open(foutname_keyword, 'w')
@@ -76,10 +82,8 @@ def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-
             if fin_ext != '.txt':
                 continue
 
-            limitSemaphore = threading.Semaphore(10) # Limit 10 files
-            for url in urls:
-                print "start url:: "+ url
-                CrawlerThread(limitSemaphore, path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f).start()
+            limitSemaphore = threading.Semaphore(20) # Limit 10 files
+            CrawlerThread(limitSemaphore, path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f).start()
 
             
                     
