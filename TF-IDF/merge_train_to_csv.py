@@ -23,9 +23,11 @@ def mergeResultToCSV(input_path, output_path, file_name_path="train-model"):
             fin_path = os.path.join(dirpath, f)
             fin_name = os.path.splitext(os.path.basename(fin_path))[0]
             fin_ext = os.path.splitext(os.path.basename(fin_path))[1]
+            
             if fin_ext != '.txt':
                 continue
             print "result: fname=", fin_name
+            # print "===============", fin_path            
             with open(fin_path) as pearl:
                 words = []
                 for line in pearl:
@@ -47,17 +49,26 @@ def mergeResultToCSV(input_path, output_path, file_name_path="train-model"):
             classId2 = deepestFolderName2.split('_')[0]
             className2 = deepestFolderName2.split('_')[1]
             c = 0
-            for f in files2:
+            for f2 in files2:
                 if c >= picked_files[classId2]:
                     break
-                fin_path = os.path.join(dirpath, f)
+                fin_path = os.path.join(dirpath2, f2)
                 fin_name = os.path.splitext(os.path.basename(fin_path))[0]
                 fin_ext = os.path.splitext(os.path.basename(fin_path))[1]
                 if fin_ext != '.txt':
                     continue
                 if fin_name in number_dic:
-                    continue                    
-                number_dic[fin_name] = [' '.join(words),0]
+                    continue    
+                # print "f2", f2
+                # print ">>>>>>>>>>>>", fin_path
+                with open(fin_path) as pearl:
+                    words2 = []
+                    for line in pearl:
+                        # print ">>>>%s"%line
+                        word2, freq2 = line.decode('utf-8').strip().split(" - ")
+                        # print freq
+                        words2.append(word2.encode('utf-8')+':'+freq2.encode('utf-8'))
+                    number_dic[fin_name] = [' '.join(words2),0]
                 c = c+1
     # ===============================================================
 
