@@ -4,6 +4,7 @@ import sys
 import os
 import re
 from LexTo import LexTo
+# import threading, urllib, urlparse
 
 lexto = LexTo()
 def removeStopWords(wordArr):
@@ -77,6 +78,49 @@ def filterChar(content):
     content_no_special_char = ''.join([c if isThai(c) or isEnglish(c) else ' ' for c in content ]) #or isEnglish(c)
     return content_no_special_char
 
+# class CrawlerThread(threading.Thread):
+#     def __init__(self, limitSemaphore,finname,foutname,isPyICU):
+#         self.limitSemaphore = limitSemaphore
+#         self.threadId = hash(self)
+#         self.finname = finname
+#         self.foutname = foutname
+#         self.isPyICU = isPyICU
+#         threading.Thread.__init__(self)
+
+#     def run(self):
+#         self.limitSemaphore.acquire() # wait
+
+#         print ">>>>>>>>>>>>>>>> Start :: ",self.finname
+#         ## Processing each filles
+#         do(self.finname,self.foutname,self.isPyICU)
+
+#         self.limitSemaphore.release()
+#         print "<<<<<<<<<<<<<<<< Finish :: ",self.finname
+
+# def do(finname,foutname,isPyICU):
+#     with open(finname) as pearl:
+#         o = open(foutname, 'w')
+
+#         # Read content from a document
+#         content = pearl.read().decode('utf-8', 'ignore')
+
+#         # Remove dont needed character
+#         content_no_special_char = filterChar(content)
+
+#         # Parse words
+#         if isPyICU is True:
+#             words = warpToArray_PyICU(content_no_special_char)
+#         else:
+#             words = warpToArray_LexTo(content_no_special_char)
+#         # Remove stop words
+#         words = removeStopWords(words)
+#         words = removeEmptyWords(words)
+            
+#         o.write(delimeter.join(words))
+
+#         o.close()
+
+
 def parseAllDocuments(path_in='./temp-processing-data/01_raw-data/', path_out='./temp-processing-data/02_parsed-word-data-lexto/', delimeter='|', isPyICU = False):
     for dirpath, dirs, files in os.walk(path_in):
         for f in files:
@@ -104,3 +148,7 @@ def parseAllDocuments(path_in='./temp-processing-data/01_raw-data/', path_out='.
                 o.write(delimeter.join(words))
 
                 o.close()
+
+
+            # limitSemaphore = threading.Semaphore(10) # Limit 10 files
+            # CrawlerThread(limitSemaphore,finname,foutname,isPyICU).start()
