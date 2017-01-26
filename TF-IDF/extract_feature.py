@@ -24,8 +24,18 @@ def tokenize(x):
 #     return stems
 
 def tfidf(input_path, output_path, use_idf=True, limitTop=None):
+    done_list = []
+    for dirpath, dirs, files in os.walk(output_path):
+        for f in files:
+            fin_ext = os.path.splitext(os.path.basename(f))[1]
+            if fin_ext == '.txt':
+                done_list.append(f)
+
     for dirpath, dirs, files in os.walk(input_path):
         for f in files:
+            # Skip done list
+            if(f in done_list):
+                continue
             finname = os.path.join(dirpath, f)
             print "fname=", finname
             with open(finname) as pearl:

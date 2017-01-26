@@ -122,8 +122,17 @@ def filterChar(content):
 
 
 def parseAllDocuments(path_in='./temp-processing-data/01_raw-data/', path_out='./temp-processing-data/02_parsed-word-data-lexto/', delimeter='|', isPyICU = False):
+    done_list = []
+    for dirpath, dirs, files in os.walk(path_out):
+        for f in files:
+            fin_ext = os.path.splitext(os.path.basename(f))[1]
+            if fin_ext == '.txt':
+                done_list.append(f)
+
     for dirpath, dirs, files in os.walk(path_in):
         for f in files:
+            if(f in done_list):
+                continue
             finname = os.path.join(dirpath, f)
             foutname = os.path.join(path_out, f)
             print "fname=", finname

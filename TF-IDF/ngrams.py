@@ -17,8 +17,18 @@ def isEnglish(chr):
     return False
 
 def applyNgramAllDocuments(path_in='./temp-processing-data/02_parsed-word-data-lexto/', path_out='./temp-processing-data/03_n-gram-data-lexto/', number_of_gram=2, delimeter='|'):
+    done_list = []
+    for dirpath, dirs, files in os.walk(path_out):
+        for f in files:
+            fin_ext = os.path.splitext(os.path.basename(f))[1]
+            if fin_ext == '.txt':
+                done_list.append(f)
+    
     for dirpath, dirs, files in os.walk(path_in):
         for f in files:
+            # Skip done list
+            if(f in done_list):
+                continue
             fin_path = os.path.join(dirpath, f)
             _, fin_ext = os.path.splitext(os.path.basename(fin_path))
             if fin_ext != '.txt':
