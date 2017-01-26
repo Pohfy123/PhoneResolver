@@ -6,7 +6,7 @@ import sys
 import os
 import threading, urllib, urlparse
 
-limitSemaphore = threading.Semaphore(100) # Limit 20 files
+limitSemaphore = threading.Semaphore(20) # Limit 20 files
 class CrawlerThread(threading.Thread):
     def __init__(self, limitSemaphore, path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f):
         self.limitSemaphore = limitSemaphore
