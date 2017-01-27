@@ -5,7 +5,7 @@ import sys
 import os
 import one_vs_all
 
-def mergeResultToCSV(input_path, output_path, file_name_path="train-model"):
+def mergeResultToCSV(input_path, output_path, file_name_path="train-model", limit_count_word=100):
 
     for dirpath, dirs, files in os.walk(input_path):
         # Root dir
@@ -30,11 +30,15 @@ def mergeResultToCSV(input_path, output_path, file_name_path="train-model"):
             # print "===============", fin_path            
             with open(fin_path) as pearl:
                 words = []
+                count_word = 0
                 for line in pearl:
+                    if count_word > limit_count_word:
+                        break
                     # print ">>>>%s"%line
                     word, freq = line.decode('utf-8').strip().split(" - ")
                     # print freq
                     words.append(word.encode('utf-8')+':'+freq.encode('utf-8'))
+                    count_word += 1
                 number_dic[fin_name] = [' '.join(words),1]
         
         # one vs all
@@ -63,11 +67,15 @@ def mergeResultToCSV(input_path, output_path, file_name_path="train-model"):
                 # print ">>>>>>>>>>>>", fin_path
                 with open(fin_path) as pearl:
                     words2 = []
+                    count_word = 0
                     for line in pearl:
+                        if count_word > limit_count_word:
+                            break
                         # print ">>>>%s"%line
                         word2, freq2 = line.decode('utf-8').strip().split(" - ")
                         # print freq
                         words2.append(word2.encode('utf-8')+':'+freq2.encode('utf-8'))
+                        count_word += 1
                     number_dic[fin_name] = [' '.join(words2),0]
                 c = c+1
     # ===============================================================

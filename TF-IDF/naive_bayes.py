@@ -7,7 +7,14 @@ import time
 from sklearn.feature_extraction import DictVectorizer
 import os
 
+import itertools
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix
+
+
 result_labels = ['01_Airline','02_Accommodation','04_Restaurant & Delivery','05_Sweet','06_Beverage'] ## Edit here
+
 
 def save_dict_words(words_list, filename_out='word_list.txt'):
     with open('./model/'+filename_out, "w") as outfile:
@@ -27,10 +34,76 @@ def load_model(filename_in='my_classifier.pickle'):
     return classifier
 
 
+
+def plot_confusion_matrix(cm, classes,
+                          normalize=False,
+                          title='Confusion matrix',
+                          cmap=plt.cm.Blues,
+                          showGraphic=True):
+    """
+    This function prints and plots the confusion matrix.
+    Normalization can be applied by setting `normalize=True`.
+    """
+    
+    if showGraphic:
+        plt.imshow(cm, interpolation='nearest', cmap=cmap)
+        plt.title(title)
+        plt.colorbar()
+        tick_marks = np.arange(len(classes))
+        plt.xticks(tick_marks, classes, rotation=45)
+        plt.yticks(tick_marks, classes)
+
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        print("Normalized confusion matrix")
+    else:
+        print('Confusion matrix, without normalization')
+
+    print(cm)
+
+    if showGraphic:
+        thresh = cm.max() / 2.
+        for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+            plt.text(j, i, cm[i, j],
+                     horizontalalignment="center",
+                     color="white" if cm[i, j] > thresh else "black")
+
+        plt.tight_layout()
+        plt.ylabel('True label')
+        plt.xlabel('Predicted label')
+
+        
+def display_confusion_matrix(classifier, test_data, showGraphic=True):
+    # Compute confusion matrix
+    y_pred = []
+    y_test = []
+    for tc in test_data:
+        dist = classifier.prob_classify(tc[0])
+        y_pred.append( dist.max() )
+        y_test.append( tc[1] )
+
+    cnf_matrix = confusion_matrix(y_test, y_pred)
+    np.set_printoptions(precision=2)
+
+    # Plot non-normalized confusion matrix
+    plt.figure()
+    plot_confusion_matrix(cnf_matrix, classes="Class"+str(idx),
+                        title='Confusion matrix, without normalization')
+
+    # Plot normalized confusion matrix
+    plt.figure()
+    plot_confusion_matrix(cnf_matrix, classes="Class"+str(idx), normalize=True,
+                        title='Normalized confusion matrix')
+
+    plt.show()
+
+    
 def accuracy_test(datasets, nfolds=5):
     # K-fold cross validation
     cv = cross_validation.KFold(len(datasets), n_folds=nfolds, shuffle=True, random_state=None)
 
+    print "Datasets |N|=%d" % len(datasets)
+    
     scores = []
     idx = 1
     for traincv, evalcv in cv:
@@ -41,6 +114,9 @@ def accuracy_test(datasets, nfolds=5):
         # Evaluate model
         test_data = datasets[evalcv[0]:evalcv[len(evalcv)-1]]
         score = nltk.classify.accuracy(classifier, test_data)
+
+        # Display confusion matrix
+        display_confusion_matrix(classifier, test_data, showGraphic=False)
 
         # classifier.show_most_informative_features()
         print 'TEST#%d: accuracy: %lf' % (idx, score)
@@ -77,6 +153,10 @@ def import_training_data(filename):
         for line in fin:
             num,words,result = line.split(",",2)
             
+            # Skip empty file
+            if len(words)==0 or len(result)==0:
+                continue
+                
             phone_no = num.strip()
             
             words = dict([x.split(':') for x in words.strip().split(' ')])
@@ -110,21 +190,29 @@ for filename in filenames:
     # Initialization for each model    
     file_id = filename[filename.index('train-model')+11: filename.index('.csv')]
     print "========= TRAIN MODEL :: Category #%s (%s) =========" % (file_id,result_labels[int(file_id)-1]) 
-    start_time = time.time()
+    round_time = time.time()
     
     # Import datasets
+    start_time = time.time()
     raw_datasets = import_training_data(filename)
+    print "> Imported data! (%f secs)" % (time.time() - start_time)
         
     # Preprocess data
+    start_time = time.time()
     datasets, DictVec = process_data(raw_datasets)
+    print "> Preprocessed data! (%f secs)" % (time.time() - start_time)
 
     # Train and save models
+    start_time = time.time()
     classifier = train_model(datasets)
     save_model(classifier, "model_"+file_id+".pickle")
+    print "> Trained model! (%f secs)" % (time.time() - start_time)
 
     # K-Fold Cross Validation (Accuracy test)
-    # accuracy_test(datasets)
-    print "--- %s seconds ---" % (time.time() - start_time)
+    start_time = time.time()
+    accuracy_test(datasets)
+    print "> Evaluation model! (%f secs)" % (time.time() - start_time)
+    print "--- %s seconds ---\n\n" % (time.time() - round_time)
 
 print "========================"
 print "Training Model SUCCESS!"
