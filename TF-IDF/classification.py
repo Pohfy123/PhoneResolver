@@ -22,6 +22,8 @@ def import_test_data(filename='./temp-processing-data/05_merge-csv/test_data.csv
     with open(filename,'r') as fin:        
         for line in fin:
             num,words = line.split(",",1)
+            if num == '087-476-8327':
+                print '>>>>>>>>>>>>',len(words.strip())
             
             phone_no = num.strip()
             
@@ -72,14 +74,19 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
         test_data = import_test_data()
 
         for test_row in test_data:
-            dist = classifier.prob_classify(test_row['words'])
-            result[test_row['phone_no']].append(str(dist.prob('1')))
+            if test_row['words'] == {}:
+                result[test_row['phone_no']].append('0')
+                print 'phone number : ', test_row['phone_no']
+                print 'NOT FOUND'
+            else:
+                dist = classifier.prob_classify(test_row['words'])
+                result[test_row['phone_no']].append(str(dist.prob('1')))
             
-            # Show Prediction Result
-            print 'phone number : ', test_row['phone_no']
-            print 'prediction :', dist.max()
-            for label in dist.samples():
-                print "\tlabel >>>",label," prob >>>" , dist.prob(label)
+                # Show Prediction Result
+                print 'phone number : ', test_row['phone_no']
+                print 'prediction :', dist.max()
+                for label in dist.samples():
+                    print "\tlabel >>>",label," prob >>>" , dist.prob(label)
 
     # Write Result
     with open(filename_out, 'w') as file_out:
