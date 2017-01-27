@@ -9,6 +9,7 @@ import ngrams
 import extract_feature
 import merge_test_data_to_csv
 from collections import defaultdict
+import datetime
 
 def load_model(filename_in):
     f = open(filename_in, 'r')
@@ -24,8 +25,11 @@ def import_test_data(filename='./temp-processing-data/05_merge-csv/test_data.csv
             
             phone_no = num.strip()
             
-            words = dict([x.split(':') for x in words.strip().split(' ')])
-            words = dict((k,float(v)) for k,v in words.iteritems())
+            if len(words.strip())==0:
+                words = dict()
+            else:
+                words = dict([x.split(':') for x in words.strip().split(' ')])
+                words = dict((k,float(v)) for k,v in words.iteritems())
             
             data = {
                 'phone_no' : phone_no, # no need
@@ -44,10 +48,10 @@ def processData(filename_in='./number_input.txt'):
     merge_test_data_to_csv.mergeResultToCSV()
 
 def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'):
-    processData(filename_in)
+    # processData(filename_in)
 
     MODEL_DIR_PATH = './model/'
-    N_MODEL = 14
+    N_MODEL = 16 #edit here
     
     result = defaultdict(list)
     
@@ -69,7 +73,7 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
 
         for test_row in test_data:
             dist = classifier.prob_classify(test_row['words'])
-            result[test_row['phone_no']].append(dist.max())
+            result[test_row['phone_no']].append(str(dist.prob(1)))
             
             # Show Prediction Result
             print 'phone number : ', test_row['phone_no']
@@ -89,4 +93,6 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
     
     return dict(result)
 
-result = predict()
+dt = datetime.datetime.now().time().strftime("%Y%m%d_%H-%M")
+filename_out = './results/result'+dt+'.csv'
+result = predict(filename_out=filename_out)

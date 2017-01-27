@@ -54,6 +54,9 @@ def tfidf(input_path, output_path, use_idf=True, limitTop=None):
 
     for dirpath, dirs, files in os.walk(input_path):
         for f in files:
+            # Skip done list
+            if(f in done_list):
+                continue
             finname = os.path.join(dirpath, f)
             foutname = os.path.join(output_path, f)
             print "result: fname=", finname
