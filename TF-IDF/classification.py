@@ -9,7 +9,7 @@ import ngrams
 import extract_feature
 import merge_test_data_to_csv
 from collections import defaultdict
-import datetime
+import time
 
 def load_model(filename_in):
     f = open(filename_in, 'r')
@@ -73,7 +73,7 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
 
         for test_row in test_data:
             dist = classifier.prob_classify(test_row['words'])
-            result[test_row['phone_no']].append(str(dist.prob(1)))
+            result[test_row['phone_no']].append(str(dist.prob('1')))
             
             # Show Prediction Result
             print 'phone number : ', test_row['phone_no']
@@ -93,6 +93,6 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
     
     return dict(result)
 
-dt = datetime.datetime.now().time().strftime("%Y%m%d_%H-%M")
+dt = time.strftime("%Y%m%d_%H-%M",time.localtime())
 filename_out = './results/result'+dt+'.csv'
 result = predict(filename_out=filename_out)
