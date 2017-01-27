@@ -7,7 +7,7 @@ import time
 from sklearn.feature_extraction import DictVectorizer
 import os
 
-result_labels = ['1_Air Travel Ticket Agencies','2_Home Stay','3_Hotel','4_Travel Bureaus','5_Airline Companies','6_Resorts & Bungalows','7_Seafood','8_Sukiyaki Shabu','9_Lounge Hotel Restaurant','10_Bakery Cake','11_Barbeque Grill','12_Coffee Shop','13_Ice Cream','14_Japanese'] ## Edit here
+result_labels = ['01_Airline','02_Accommodation','04_Restaurant & Delivery','05_Sweet','06_Beverage'] ## Edit here
 
 def save_dict_words(words_list, filename_out='word_list.txt'):
     with open('./model/'+filename_out, "w") as outfile:
