@@ -71,6 +71,8 @@ def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-
             if fin_ext == '.txt':
                 done_list.append(f)
     
+    threadPool = []
+    
     for dirpath, dirs, files in os.walk(path_in):
         for f in files:
             # Skip done list
@@ -82,9 +84,17 @@ def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-
             if fin_ext != '.txt':
                 continue
 
-            CrawlerThread(limitSemaphore, path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f).start()
+            # Create crawler
+            t = CrawlerThread(limitSemaphore, path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f)
+            threadPool.append(t)
+    
+    # Start all crawler threads Finish
+    for t in threadPool:
+        t.start()
 
-            
+    # Wait all crawler threads finish
+    for t in threadPool:
+        t.join()
                     
 
 
