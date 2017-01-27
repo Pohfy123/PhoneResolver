@@ -73,7 +73,7 @@ def plot_confusion_matrix(cm, classes,
         plt.xlabel('Predicted label')
 
         
-def display_confusion_matrix(classifier, test_data, showGraphic=True):
+def display_confusion_matrix(classifier, test_data,idx, showGraphic=True ):
     # Compute confusion matrix
     y_pred = []
     y_test = []
@@ -116,7 +116,7 @@ def accuracy_test(datasets, nfolds=5):
         score = nltk.classify.accuracy(classifier, test_data)
 
         # Display confusion matrix
-        display_confusion_matrix(classifier, test_data, showGraphic=False)
+        display_confusion_matrix(classifier, test_data,idx, showGraphic=False)
 
         # classifier.show_most_informative_features()
         print 'TEST#%d: accuracy: %lf' % (idx, score)
