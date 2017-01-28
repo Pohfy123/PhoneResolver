@@ -173,68 +173,69 @@ def import_training_data(filename):
     return datasets
 
 
-# Gather the filename of all training data files
-filenames = []
-for file in os.listdir("./train-data/"):
-    if file.endswith(".csv") and file.startswith('train-model'):
-        filenames.append(file)
-filenames = [os.path.join('./train-data/', filename) for filename in filenames]
+if __name__ == '__main__':
+    # Gather the filename of all training data files
+    filenames = []
+    for file in os.listdir("./train-data/"):
+        if file.endswith(".csv") and file.startswith('train-model'):
+            filenames.append(file)
+    filenames = [os.path.join('./train-data/', filename) for filename in filenames]
 
-print 'All phone categories :\n', '\n'.join(result_labels) , '\n\n'
-print 'All training data files :\n', '\n'.join(filenames) , '\n\n'
-print "Start processing . . ."
+    print 'All phone categories :\n', '\n'.join(result_labels) , '\n\n'
+    print 'All training data files :\n', '\n'.join(filenames) , '\n\n'
+    print "Start processing . . ."
 
-global_start_time = time.time()
+    global_start_time = time.time()
 
-for filename in filenames:    
-    # Initialization for each model    
-    file_id = filename[filename.index('train-model')+11: filename.index('.csv')]
-    print "========= TRAIN MODEL :: Category #%s (%s) =========" % (file_id,result_labels[int(file_id)-1]) 
-    round_time = time.time()
-    
-    # Import datasets
-    start_time = time.time()
-    raw_datasets = import_training_data(filename)
-    print "> Imported data! (%f secs)" % (time.time() - start_time)
+    for filename in filenames:    
+        # Initialization for each model    
+        file_id = int(filename[filename.index('train-model')+11: filename.index('.csv')])
+        print "========= TRAIN MODEL :: Category #%s (%s) =========" % (file_id,result_labels[file_id-1]) 
+        round_time = time.time()
         
-    # Preprocess data
-    start_time = time.time()
-    datasets, DictVec = process_data(raw_datasets)
-    print "> Preprocessed data! (%f secs)" % (time.time() - start_time)
+        # Import datasets
+        start_time = time.time()
+        raw_datasets = import_training_data(filename)
+        print "> Imported data! (%f secs)" % (time.time() - start_time)
+            
+        # Preprocess data
+        start_time = time.time()
+        datasets, DictVec = process_data(raw_datasets)
+        print "> Preprocessed data! (%f secs)" % (time.time() - start_time)
 
-    # Train and save models
-    start_time = time.time()
-    classifier = train_model(datasets)
-    save_model(classifier, "model_"+file_id+".pickle")
-    print "> Trained model! (%f secs)" % (time.time() - start_time)
+        # Train and save models
+        start_time = time.time()
+        classifier = train_model(datasets)
+        save_model(classifier, "model_"+('%02d'%file_id)+".pickle")
+        print "> Trained model! (%f secs)" % (time.time() - start_time)
 
-    # K-Fold Cross Validation (Accuracy test)
-    start_time = time.time()
-    accuracy_test(datasets)
-    print "> Evaluation model! (%f secs)" % (time.time() - start_time)
-    print "--- %s seconds ---\n\n" % (time.time() - round_time)
+        # K-Fold Cross Validation (Accuracy test)
+        start_time = time.time()
+        k_fold_evaluation(datasets)
+        print "> Evaluation model! (%f secs)" % (time.time() - start_time)
+        print "--- %s seconds ---\n\n" % (time.time() - round_time)
 
-print "========================"
-print "Training Model SUCCESS!"
-print "--- Total time: %s seconds ---" % (time.time() - global_start_time)
+    print "========================"
+    print "Training Model SUCCESS!"
+    print "--- Total time: %s seconds ---" % (time.time() - global_start_time)
 
 
-# Show result of each
-# with open('./train-data/train.csv','r') as fin:
-#     count = 0
-#     for line in fin:
-#         count += 1
-#         if count >= number_of_train: 
-#             num,words,is_travel,is_rest = line.split(",")
-#             test_word = words.split(" ")
-#             test_sent_features = {word: (word in test_word) for word in words_set}
-#             is_rest = is_rest.replace("\n","")
-#             dist = classifier.prob_classify(test_sent_features)
-#             print num, "\tpred =",dist.max(),"\tans =", is_travel+""+is_rest, (dist.max()==is_travel+""+is_rest)
+    # Show result of each
+    # with open('./train-data/train.csv','r') as fin:
+    #     count = 0
+    #     for line in fin:
+    #         count += 1
+    #         if count >= number_of_train: 
+    #             num,words,is_travel,is_rest = line.split(",")
+    #             test_word = words.split(" ")
+    #             test_sent_features = {word: (word in test_word) for word in words_set}
+    #             is_rest = is_rest.replace("\n","")
+    #             dist = classifier.prob_classify(test_sent_features)
+    #             print num, "\tpred =",dist.max(),"\tans =", is_travel+""+is_rest, (dist.max()==is_travel+""+is_rest)
 
-            # diff = 0
-            # for label in dist.samples():
-            #     # print "\tlabel >>>",label," prob >>>" , dist.prob(label)
-            #     diff = abs(dist.prob(label)-diff)
-            # print "\tdiff",diff
+                # diff = 0
+                # for label in dist.samples():
+                #     # print "\tlabel >>>",label," prob >>>" , dist.prob(label)
+                #     diff = abs(dist.prob(label)-diff)
+                # print "\tdiff",diff
 
