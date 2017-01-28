@@ -9,6 +9,7 @@ import ngrams
 import extract_feature
 import merge_test_data_to_csv
 from collections import defaultdict
+import time
 
 MODEL_DIR_PATH = './model/'
 N_MODEL = 14
@@ -69,14 +70,19 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
         test_data = import_test_data()
 
         for test_row in test_data:
-            dist = classifier.prob_classify(test_row['words'])
-            result[test_row['phone_no']].append(dist.max())
+            if test_row['words'] == {}:
+                result[test_row['phone_no']].append('0')
+                print 'phone number : ', test_row['phone_no']
+                print 'NOT FOUND'
+            else:
+                dist = classifier.prob_classify(test_row['words'])
+                result[test_row['phone_no']].append(str(dist.prob('1')))
             
-            # Show Prediction Result
-            print 'phone number : ', test_row['phone_no']
-            print 'prediction :', dist.max()
-            for label in dist.samples():
-                print "\tlabel >>>",label," prob >>>" , dist.prob(label)
+                # Show Prediction Result
+                print 'phone number : ', test_row['phone_no']
+                print 'prediction :', dist.max()
+                for label in dist.samples():
+                    print "\tlabel >>>",label," prob >>>" , dist.prob(label)
 
     # Write Result
     with open(filename_out, 'w') as file_out:
@@ -90,4 +96,6 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
     
     return dict(result)
 
-result = predict()
+dt = time.strftime("%Y%m%d_%H-%M",time.localtime())
+filename_out = './results/result'+dt+'.csv'
+result = predict(filename_out=filename_out)
