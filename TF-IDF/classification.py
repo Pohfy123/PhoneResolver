@@ -10,6 +10,9 @@ import extract_feature
 import merge_test_data_to_csv
 from collections import defaultdict
 
+MODEL_DIR_PATH = './model/'
+N_MODEL = 14
+
 def load_model(filename_in):
     f = open(filename_in, 'r')
     classifier = pickle.load(f)
@@ -45,22 +48,18 @@ def processData(filename_in='./number_input.txt'):
 
 def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'):
     processData(filename_in)
-
-    MODEL_DIR_PATH = './model/'
-    N_MODEL = 14
-    
     result = defaultdict(list)
     
     # Each model
     for model_id in range(1,N_MODEL+1,1):        
         # Load Classification Model
-        model_file_name = 'model_'+str(model_id)+'.pickle'
+        model_file_name = 'model_%02d.pickle' % model_id
         model_file_path = os.path.join(MODEL_DIR_PATH, model_file_name)
         print "Model#%d:" % model_id, model_file_path
         classifier = load_model(model_file_path)
         
         # Load DictVectorizer Model
-        dv_model_file_name = 'dictvect_'+str(model_id)+'.pickle'
+        dv_model_file_name = 'dictvect_%02d.pickle' % model_id
         dv_model_file_path = os.path.join(MODEL_DIR_PATH, dv_model_file_name)
         DictVec = load_model(dv_model_file_path)
         

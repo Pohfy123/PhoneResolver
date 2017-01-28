@@ -141,8 +141,8 @@ def process_data(raw_datasets):
     datasets = [ (DictVec.inverse_transform(data['words'])[0], data['result']) for data in raw_datasets ]
     
     # Save DictVectorizer model & word list
-    save_model(DictVec, 'dictvect_'+file_id+'.pickle')
-    save_dict_words(DictVec.get_feature_names(), 'wordlist_'+file_id+'.txt')
+    save_model(DictVec, 'dictvect_'+('%02d'%file_id)+'.pickle')
+    save_dict_words(DictVec.get_feature_names(), 'wordlist_'+('%02d'%file_id)+'.txt')
 
     return datasets, DictVec
 
