@@ -73,7 +73,7 @@ def plot_confusion_matrix(cm, classes,
         plt.xlabel('Predicted label')
 
         
-def display_confusion_matrix(classifier, test_data, showGraphic=True):
+def display_confusion_matrix(classifier, test_data, showGraphic=False):
     # Compute confusion matrix
     y_pred = []
     y_test = []
@@ -86,19 +86,22 @@ def display_confusion_matrix(classifier, test_data, showGraphic=True):
     np.set_printoptions(precision=2)
 
     # Plot non-normalized confusion matrix
-    plt.figure()
-    plot_confusion_matrix(cnf_matrix, classes="Class"+str(idx),
-                        title='Confusion matrix, without normalization')
+    if showGraphic:
+        plt.figure()
+    plot_confusion_matrix(cnf_matrix, classes="Class",
+                        title='Confusion matrix, without normalization', showGraphic=showGraphic)
 
     # Plot normalized confusion matrix
-    plt.figure()
-    plot_confusion_matrix(cnf_matrix, classes="Class"+str(idx), normalize=True,
-                        title='Normalized confusion matrix')
+    if showGraphic:
+        plt.figure()
+    plot_confusion_matrix(cnf_matrix, classes="Class", normalize=True,
+                        title='Normalized confusion matrix', showGraphic=showGraphic)
 
-    plt.show()
+    if showGraphic:
+        plt.show()
 
-    
-def accuracy_test(datasets, nfolds=5):
+
+def k_fold_evaluation(datasets, nfolds=5):
     # K-fold cross validation
     cv = cross_validation.KFold(len(datasets), n_folds=nfolds, shuffle=True, random_state=None)
 
@@ -110,16 +113,16 @@ def accuracy_test(datasets, nfolds=5):
         # Train model
         train_data = datasets[traincv[0]:traincv[len(traincv)-1]]
         classifier = nltk.NaiveBayesClassifier.train(train_data)
+        # classifier.show_most_informative_features()
 
-        # Evaluate model
+        # Accuracy test
         test_data = datasets[evalcv[0]:evalcv[len(evalcv)-1]]
         score = nltk.classify.accuracy(classifier, test_data)
-
+        print 'TEST#%d: accuracy: %lf' % (idx, score)
+        
         # Display confusion matrix
         display_confusion_matrix(classifier, test_data, showGraphic=False)
 
-        # classifier.show_most_informative_features()
-        print 'TEST#%d: accuracy: %lf' % (idx, score)
         scores.append(score)
         idx += 1
     print 'TOTAL ACCURACY: %lf' % (sum(scores)/len(scores)) 
@@ -132,6 +135,7 @@ def train_model(train_data):
 
 def process_data(raw_datasets):
     # Convert word freq to Sparse matrix
+
     v = DictVectorizer(sparse=True)
     DictVec = v.fit([document['words'] for document in raw_datasets])
     for document in raw_datasets:
