@@ -96,6 +96,8 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
     
     return dict(result)
 
-dt = time.strftime("%Y%m%d_%H-%M",time.localtime())
-filename_out = './results/result'+dt+'.csv'
-result = predict(filename_out=filename_out)
+
+if __name__ == '__main__':
+    dt = time.strftime("%Y%m%d_%H-%M",time.localtime())
+    filename_out = './results/result'+dt+'.csv'
+    result = predict(filename_out=filename_out)
