@@ -26,9 +26,11 @@ def import_test_data(filename='./temp-processing-data/05_merge-csv/test_data.csv
             num,words = line.split(",",1)
             
             phone_no = num.strip()
-            
-            words = dict([x.split(':') for x in words.strip().split(' ')])
-            words = dict((k,float(v)) for k,v in words.iteritems())
+            if len(words.strip())==0:
+                words = dict()
+            else:
+                words = dict([x.split(':') for x in words.strip().split(' ')])
+                words = dict((k,float(v)) for k,v in words.iteritems())
             
             data = {
                 'phone_no' : phone_no, # no need
