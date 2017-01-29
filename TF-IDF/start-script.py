@@ -9,18 +9,18 @@ import urlKeywordSearch
 # Configuration
 # PyICU
 print "processing . . ."
-path_url = "./temp-processing-data/00_url/"
-path_raw_data = './temp-processing-data/01_raw-data/'
-path_raw_data_keyword = './temp-processing-data/01_raw-data-keyword/'
-path_raw_data_content = './temp-processing-data/01_raw-data-content/'
-path_parsed_words_PyICU = './temp-processing-data/02_parsed-word-data-pyicu/'
-path_ngram_words_PyICU = './temp-processing-data/03_n-gram-data-pyicu/'
+path_url = "./temp-processing-data-for-train/00_url/"
+path_raw_data = './temp-processing-data-for-train/01_raw-data/'
+path_raw_data_keyword = './temp-processing-data-for-train/01_raw-data-keyword/'
+path_raw_data_content = './temp-processing-data-for-train/01_raw-data-content/'
+path_parsed_words_PyICU = './temp-processing-data-for-train/02_parsed-word-data-pyicu/'
+path_ngram_words_PyICU = './temp-processing-data-for-train/03_n-gram-data-pyicu/'
 path_result_tf_PyICU = './result/tf-pyicu/'
 path_result_tfidf_PyICU = './result/tf-idf-pyicu/'
 # Lexto
-path_parsed_words_Lexto = './temp-processing-data/02_parsed-word-data-lexto/'
-path_ngram_words_Lexto = './temp-processing-data/03_n-gram-data-lexto/'
-path_result_tf_Lexto = './temp-processing-data/04_tf/'
+path_parsed_words_Lexto = './temp-processing-data-for-train/02_parsed-word-data-lexto/'
+path_ngram_words_Lexto = './temp-processing-data-for-train/03_n-gram-data-lexto/'
+path_result_tf_Lexto = './temp-processing-data-for-train/04_tf/'
 path_result_tfidf_Lexto = './result/tf-idf-lexto/'
 number_of_gram = 2
 delimeter = '|'

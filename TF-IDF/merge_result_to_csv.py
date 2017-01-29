@@ -4,7 +4,7 @@
 import sys
 import os
 
-def mergeResultToCSV(input_path, output_path, file_name="train_for_test.csv"):
+def mergeResultToCSV(input_path, output_path, file_name="train_for_test_level2.csv",limit_count_word=100):
     foutname = os.path.join(output_path, file_name)
     o = open(foutname, 'w')
     number_dic = {}
@@ -27,12 +27,16 @@ def mergeResultToCSV(input_path, output_path, file_name="train_for_test.csv"):
             print "result: fname=", fin_name
             with open(fin_path) as pearl:
                 words = []
+                count_word = 0
                 for line in pearl:
+                    if count_word > limit_count_word:
+                        break
                     # print ">>>>%s"%line
                     word, freq = line.decode('utf-8').strip().split(" - ")
                     # print freq
                     words.append(word.encode('utf-8')+':'+freq.encode('utf-8'))
-                number_dic[fin_name] = [' '.join(words),0,0,0,0,0,0,0,0,0,0,0,0,0,0] # edit here
+                    count_word += 1
+                number_dic[fin_name] = [' '.join(words),0,0,0,0,0,0] # edit here
     for dirpath, dirs, files in os.walk(input_path):
         # Root dir
         if dirpath == input_path:
@@ -57,15 +61,7 @@ def mergeResultToCSV(input_path, output_path, file_name="train_for_test.csv"):
         data_col6 = str(number_dic[num][4]) # Result is_travel
         data_col7 = str(number_dic[num][5]) # Result is_travel
         data_col8 = str(number_dic[num][6]) # Result is_travel
-        data_col9 = str(number_dic[num][7]) # Result is_restaurant
-        data_col10 = str(number_dic[num][8]) # Result is_restaurant
-        data_col11 = str(number_dic[num][9]) # Result is_restaurant
-        data_col12 = str(number_dic[num][10]) # Result is_restaurant
-        data_col13 = str(number_dic[num][11]) # Result is_restaurant
-        data_col14 = str(number_dic[num][12]) # Result is_restaurant
-        data_col15 = str(number_dic[num][13]) # Result is_restaurant
-        data_col16 = str(number_dic[num][14]) # Result is_restaurant
-        o.write(data_col1+','+data_col2+','+data_col3+','+data_col4+','+data_col5+','+data_col6+','+data_col7+','+data_col8+','+data_col9+','+data_col10+','+data_col11+','+data_col12+','+data_col13+','+data_col14+','+data_col15+','+data_col16)
+        o.write(data_col1+','+data_col2+','+data_col3+','+data_col4+','+data_col5+','+data_col6+','+data_col7+','+data_col8)
         o.write('\n')
     o.close()
 

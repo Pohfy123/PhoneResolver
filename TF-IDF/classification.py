@@ -76,7 +76,11 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
                 print 'NOT FOUND'
             else:
                 dist = classifier.prob_classify(test_row['words'])
-                result[test_row['phone_no']].append(str(dist.prob('1')))
+                diff = abs(dist.prob('1')-dist.prob('0'))
+                if diff < 0.2:
+                    result[test_row['phone_no']].append('?')
+                else:
+                    result[test_row['phone_no']].append(str(dist.prob('1')))
             
                 # Show Prediction Result
                 print 'phone number : ', test_row['phone_no']
@@ -86,6 +90,10 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
 
     # Write Result
     with open(filename_out, 'w') as file_out:
+        CATEGORY = ['01_Airline','02_Accommodation','03_Tourism','04_Restaurant & Delivery','05_Sweet','06_Beverage']
+        for cat in CATEGORY:
+            file_out.write(','+cat)
+        file_out.write('\n')
         key_str_list = result.keys()
         value_str_list = [','.join(result_row) for result_row in result.values()]
         pair_str_list = zip(key_str_list, value_str_list)
