@@ -12,7 +12,7 @@ from collections import defaultdict
 import time
 
 MODEL_DIR_PATH = './model/'
-N_MODEL = 14
+N_MODEL = 6 # Edit here
 
 def load_model(filename_in):
     f = open(filename_in, 'r')
