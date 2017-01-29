@@ -6,7 +6,7 @@ import re
 
 def merge_all_train_data(output_file_name='train-data-all.csv'):
     # Get list of training data files
-    file_list = glob.glob('./train-data/train-model[0-9]*.csv')
+    file_list = glob.glob('./train-data/train-model[0-9][0-9]*.csv')
 
     # Generate columns names
     header_list = []
