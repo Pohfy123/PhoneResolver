@@ -8,6 +8,7 @@ TF-IDF/result/tf-idf-lexto/
 TF-IDF/result/tf-idf-pyicu/
 TF-IDF/result/tf-lexto/
 TF-IDF/result/tf-pyicu/
+TF-IDF/temp-processing-data-for-train/
 TF-IDF/temp-processing-data/00_url/
 TF-IDF/temp-processing-data/01_raw-data/
 TF-IDF/temp-processing-data/01_raw-data-keyword/

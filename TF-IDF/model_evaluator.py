@@ -34,7 +34,7 @@ def model_evaluate(filename_in='./train-data/train-data-all.csv'):
     # Each model
     for model_id in range(1,N_MODEL+1,1):
         # Load Classification Model
-        if model_id not in [1,2,3,5,6,11]:
+        if model_id not in [1,2,3,4,6]: # Edit here
             continue
         model_file_name = 'model_%02d.pickle' % model_id
         model_file_path = os.path.join(MODEL_DIR_PATH, model_file_name)

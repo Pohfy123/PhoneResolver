@@ -12,7 +12,7 @@ from collections import defaultdict
 import time
 
 MODEL_DIR_PATH = './model/'
-N_MODEL = 6 # Edit here
+N_MODEL = 4 # Edit here
 
 def load_model(filename_in):
     f = open(filename_in, 'r')
@@ -44,7 +44,7 @@ def import_test_data(filename='./temp-processing-data/05_merge-csv/test_data.csv
 def processData(filename_in='./number_input.txt'):
     bing_search.runBingSearch(filename_in)
     urlKeywordSearch.search()
-    wordParser_LexTo.parseAllDocuments()
+    wordParser_LexTo.parseAllDocuments(path_in='./temp-processing-data/01_raw-data-keyword/')
     ngrams.applyNgramAllDocuments()
     extract_feature.extract_feature()
     merge_test_data_to_csv.mergeResultToCSV()
@@ -78,7 +78,7 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
                 dist = classifier.prob_classify(test_row['words'])
                 diff = abs(dist.prob('1')-dist.prob('0'))
                 if diff < 0.2:
-                    result[test_row['phone_no']].append('?')
+                    result[test_row['phone_no']].append(str(dist.prob('1')))
                 else:
                     result[test_row['phone_no']].append(str(dist.prob('1')))
             
