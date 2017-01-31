@@ -22,7 +22,7 @@ def transform_words_to_dictvect(words, dict_vectorizer):
     
     # Convert to ready-for-train format
     words_dict = dict_vectorizer.inverse_transform(words)
-    return words_dict
+    return words_dict[0]
 
 def model_evaluate(filename_in='./train-data/train-data-all.csv'):
     # Merge all train data files
@@ -56,7 +56,7 @@ def model_evaluate(filename_in='./train-data/train-data-all.csv'):
             else:
                 feature = transform_words_to_dictvect(feature, DictVec)
                 # print feature
-                dist = classifier.prob_classify(feature[0])
+                dist = classifier.prob_classify(feature)
                 y_pred.append(dist.max())
         target_names = ['class %02d <no>'% model_id, 'class %02d <yes>'%model_id]
         print(classification_report(y_true, y_pred, target_names=target_names))
