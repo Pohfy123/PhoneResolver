@@ -5,10 +5,11 @@ import keywordCrawling
 import sys
 import os
 import threading, urllib, urlparse
+import pandas as pd
 
-limitSemaphore = threading.Semaphore(20) # Limit 20 files
+limitSemaphore = threading.Semaphore(1) # Limit 20 files
 class CrawlerThread(threading.Thread):
-    def __init__(self, limitSemaphore, path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f):
+    def __init__(self, limitSemaphore, path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f     ,fp):
         self.limitSemaphore = limitSemaphore
         self.threadId = hash(self)
         self.path_out = path_out
@@ -17,17 +18,20 @@ class CrawlerThread(threading.Thread):
         self.include_content = include_content
         self.finname = finname
         self.f = f
+
+        self.fp = fp
+
         threading.Thread.__init__(self)
 
     def run(self):
         self.limitSemaphore.acquire() # wait
         print ">>>>>>>>>>>>>>>> Start :: ",self.finname
         ## Processing each filles
-        crawl(self.path_out,self.path_raw_data_keyword,self.path_raw_data_content,self.include_content,self.finname,self.f)
+        crawl(self.path_out,self.path_raw_data_keyword,self.path_raw_data_content,self.include_content,self.finname,self.f      ,self.fp)
         self.limitSemaphore.release()
         print "<<<<<<<<<<<<<<<< Finish :: ",self.finname
 
-def crawl(path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f):
+def crawl(path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f     ,fp):
     foutname = os.path.join(path_out, f)
     foutname_keyword = os.path.join(path_raw_data_keyword, f)
     foutname_content = ""
@@ -50,7 +54,7 @@ def crawl(path_out,path_raw_data_keyword,path_raw_data_content,include_content,f
         url_title_array = map(str.strip, url_title_array)
         url_title_array = filter(None, url_title_array)
 
-        textArr = keywordCrawling.fetchKeyword(url_title_array,include_content)
+        textArr = keywordCrawling.fetchKeyword(url_title_array,include_content       ,fp)
         keyword = textArr[0]
         content = textArr[1]
 
@@ -72,6 +76,9 @@ def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-
                 done_list.append(f)
     
     threadPool = []
+
+    ## write txt for debug                    
+    fp = open('web_crawling_log-'+str(path_in.split('/')[2])+'.txt','a')
     
     for dirpath, dirs, files in os.walk(path_in):
         for f in files:
@@ -85,8 +92,9 @@ def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-
                 continue
 
             # Create crawler
-            t = CrawlerThread(limitSemaphore, path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f)
+            t = CrawlerThread(limitSemaphore, path_out,path_raw_data_keyword,path_raw_data_content,include_content,finname,f      ,fp)
             threadPool.append(t)
+            
     
     # Start all crawler threads Finish
     for t in threadPool:
@@ -95,6 +103,7 @@ def search(path_in='./temp-processing-data/00_url/',path_out='./temp-processing-
     # Wait all crawler threads finish
     for t in threadPool:
         t.join()
-                    
+    fp.close()
+    
 
 

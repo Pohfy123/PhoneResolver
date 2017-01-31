@@ -5,7 +5,7 @@ import sys
 import os
 import one_vs_all
 
-def mergeResultToCSV(input_path, output_path, file_name_path="train-model", limit_count_word=100):
+def mergeResultToCSV(input_path, output_path, file_name_path="train-model", limit_count_word=1000):
 
     for dirpath, dirs, files in os.walk(input_path):
         # Root dir

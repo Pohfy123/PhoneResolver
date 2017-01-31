@@ -90,7 +90,7 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
 
     # Write Result
     with open(filename_out, 'w') as file_out:
-        CATEGORY = ['01_Airline','02_Accommodation','03_Tourism','04_Restaurant & Delivery','05_Sweet','06_Beverage']
+        CATEGORY = ['01_Airline','02_Accommodation','03_Tourism','04_Restaurant & Delivery']
         for cat in CATEGORY:
             file_out.write(','+cat)
         file_out.write('\n')
