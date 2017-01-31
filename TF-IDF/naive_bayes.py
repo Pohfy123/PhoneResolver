@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import nltk
-from sklearn import cross_validation
+from sklearn.cross_validation import StratifiedKFold
 import pickle
 import time
 from sklearn.feature_extraction import DictVectorizer
@@ -102,30 +102,32 @@ def display_confusion_matrix(classifier, test_data, showGraphic=False):
         plt.show()
 
 
-def k_fold_evaluation(datasets, nfolds=5):
+def k_fold_evaluation(datasets, labels, nfolds=5):
     # K-fold cross validation
-    cv = cross_validation.KFold(len(datasets), n_folds=nfolds, shuffle=True, random_state=None)
-
+    # cv = cross_validation.KFold(len(datasets), n_folds=nfolds, shuffle=True, random_state=None)
     print "Datasets |N|=%d" % len(datasets)
-    
+
+    skf = StratifiedKFold(labels, n_folds=nfolds)
+
     scores = []
-    idx = 1
-    for traincv, evalcv in cv:
+    fold_idx = 1
+    for train_index, test_index in skf:
+        train_data = [datasets[idx] for idx in train_index]
+        test_data = [datasets[idx] for idx in test_index]
+
         # Train model
-        train_data = datasets[traincv[0]:traincv[len(traincv)-1]]
-        classifier = nltk.NaiveBayesClassifier.train(train_data)
+        classifier = train_model(train_data)
         # classifier.show_most_informative_features()
 
         # Accuracy test
-        test_data = datasets[evalcv[0]:evalcv[len(evalcv)-1]]
         score = nltk.classify.accuracy(classifier, test_data)
-        print 'TEST#%d: accuracy: %lf' % (idx, score)
+        print 'TEST#%d: accuracy: %lf' % (fold_idx, score)
         
         # Display confusion matrix
         display_confusion_matrix(classifier, test_data, showGraphic=False)
 
         scores.append(score)
-        idx += 1
+        fold_idx += 1
     print 'TOTAL ACCURACY: %lf' % (sum(scores)/len(scores)) 
 
 
@@ -156,7 +158,7 @@ def import_training_data(filename):
     datasets = []
     with open(filename,'r') as fin:        
         for line in fin:
-            num,words,result = line.split(",",2)
+            num,words,src_folder_id,result = line.split(",",3)
             
             # Skip empty file
             if len(words)==0 or len(result)==0:
@@ -172,6 +174,7 @@ def import_training_data(filename):
             data = {
                 'phone_no' : phone_no, # no need
                 'words' : words,
+                'src_folder_id' : int(src_folder_id),
                 'result' : result
             }
             datasets.append(data)
@@ -216,7 +219,8 @@ if __name__ == '__main__':
 
         # K-Fold Cross Validation (Accuracy test)
         start_time = time.time()
-        k_fold_evaluation(datasets)
+        labels = [row['src_folder_id'] for row in raw_datasets]
+        k_fold_evaluation(datasets, labels)
         print "> Evaluation model! (%f secs)" % (time.time() - start_time)
         print "--- %s seconds ---\n\n" % (time.time() - round_time)
 
