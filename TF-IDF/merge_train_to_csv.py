@@ -19,6 +19,7 @@ def mergeResultToCSV(input_path, output_path, file_name_path="train-model", limi
 
         # Each Class folder 
         number_dic = {}
+        src_folder_id = {}
         for f in files:
             fin_path = os.path.join(dirpath, f)
             fin_name = os.path.splitext(os.path.basename(fin_path))[0]
@@ -40,6 +41,7 @@ def mergeResultToCSV(input_path, output_path, file_name_path="train-model", limi
                     words.append(word.encode('utf-8')+':'+freq.encode('utf-8'))
                     count_word += 1
                 number_dic[fin_name] = [' '.join(words),1]
+                src_folder_id[fin_name] = classId
         
         # one vs all
         total_files = one_vs_all.count_total_files(dirpath,input_path)  
@@ -77,6 +79,7 @@ def mergeResultToCSV(input_path, output_path, file_name_path="train-model", limi
                         words2.append(word2.encode('utf-8')+':'+freq2.encode('utf-8'))
                         count_word += 1
                     number_dic[fin_name] = [' '.join(words2),0]
+                src_folder_id[fin_name] = classId2
                 c = c+1
     # ===============================================================
 
@@ -85,8 +88,10 @@ def mergeResultToCSV(input_path, output_path, file_name_path="train-model", limi
         for num in number_dic:
             data_col1 = num # Phone Number
             data_col2 = number_dic[num][0] # Bag of words
-            data_col3 = str(number_dic[num][1])
-            o.write(data_col1+','+data_col2+','+data_col3)
+            data_col3 = str(src_folder_id[num]) # Class ID
+            data_col4 = str(number_dic[num][1]) # Results
+            
+            o.write(data_col1+','+data_col2+','+data_col3+','+data_col4)
             o.write('\n')
         o.close()
 
