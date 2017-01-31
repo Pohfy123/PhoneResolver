@@ -44,7 +44,7 @@ def strip_tags(html):
     return s.get_data()
 ### End For content crawling
 
-def fetchKeyword(urlTitleArr,include_content):
+def fetchKeyword(urlTitleArr,include_content     ,fp):
     searchkey = ""
     searchtext = ""
     for urlTitle in urlTitleArr:
@@ -88,6 +88,8 @@ def fetchKeyword(urlTitleArr,include_content):
             print "Something Error"
             
         searchtext = searchtext.replace('\n', ' ')
+
+        fp.write(str(url)+'|||'+str(searchkey)+'|||'+str(searchtext)+'\n')
     return([searchkey,searchtext])
 
 # searchkey = fetchKeyword("https://www.instagram.com/plaavydessertcafe/",True)
