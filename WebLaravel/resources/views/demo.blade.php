@@ -30,57 +30,11 @@
                 </div>
             </div>
         </section>
-        <section id="demo-carousel" style="">
-            <div class="container">
-                <div class="row animate-box">
 
-                    <div class="owl-carousel">
-
-                        <div class="item">
-                            <div class="col-md-3 col-sm-3 col-xs-4 col-xxs-12">
-                                <figure class="demo-vcard"><img src="outline/images/user.jpg" alt="Free HTML5 Template by FREEHTML5.co" class="img-responsive"></figure>
-                            </div>
-                            <div class="col-md-9 col-sm-9 col-xs-8 col-xxs-12">
-                                <blockquote>
-                                    <p>&ldquo;Categorize website from URL. We can analyze &rdquo;</p>
-                                </blockquote>
-                                <p class="demo-author demo-uppercase-sm"><span>Just fill</span> URL.</p>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="col-md-3 col-sm-3 col-xs-4 col-xxs-12">
-                                <figure class="demo-vcard"><img src="outline/images/user_2.jpg" alt="Free HTML5 Template by FREEHTML5.co" class="img-responsive"></figure>
-                            </div>
-                            <div class="col-md-9 col-sm-9 col-xs-8 col-xxs-12">
-                                <blockquote>
-                                    <p>&ldquo;Resolve phone number.&rdquo;</p>
-                                </blockquote>
-                                <p class="demo-author demo-uppercase-sm"><span>Gustav Barrow</span>, XYZ Inc.</p>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="col-md-3 col-sm-3 col-xs-4 col-xxs-12">
-                                <figure class="demo-vcard"><img src="outline/images/user_2.jpg" alt="Free HTML5 Template by FREEHTML5.co" class="img-responsive"></figure>
-                            </div>
-                            <div class="col-md-9 col-sm-9 col-xs-8 col-xxs-12">
-                                <blockquote>
-                                    <p>&ldquo;Easy to use, just copy and paste URL, text, phone number, or keywords which you want to analyze.&rdquo;</p>
-                                </blockquote>
-                                <p class="demo-author demo-uppercase-sm"><span>Gustav Barrow</span>, XYZ Inc.</p>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                </div>
-            </div>
-        </section>
         <section id="demo-2" class="fh5co-bg-section">
             <div class="searchForm animated">
                 <h1>Try to categorize</h1>
+                <a>tests</a>
                 <hr>
                 <h3><b>Input</b></h3>
                 <div class="form-group">

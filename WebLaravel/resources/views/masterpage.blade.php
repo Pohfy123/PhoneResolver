@@ -40,17 +40,7 @@
     <!-- Owl Carousel -->
     <link rel="stylesheet" href="outline/css/owl.carousel.min.css">
     <link rel="stylesheet" href="outline/css/owl.theme.default.min.css">
-    <!-- Salvattore -->
-    <link rel="stylesheet" href="outline/css/salvattore.css">
-    <!-- Theme Style -->
-    <link rel="stylesheet" href="outline/css/style.css">
-    <!-- Modernizr JS -->
-    <script src="outline/js/modernizr-2.6.2.min.js"></script>
-    <!-- FOR IE9 below -->
-    <!--[if lt IE 9]>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
-
+    
     <link href="css/template.css" rel="stylesheet">
 
     @yield('css-js')
