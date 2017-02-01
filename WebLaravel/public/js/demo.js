@@ -81,6 +81,13 @@
     })
     // end auto resize textareaa
 
+    $(document).on('click','.btn-analyze',function(){
+        $('.loading').removeClass('hide');
+        setTimeout(function(){
+            $('.loading').addClass('hide');
+            $('.result-visual').removeClass('hide')
+        }, 3000);
+    })
 
 
 } ());

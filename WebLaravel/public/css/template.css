@@ -10,7 +10,7 @@ BG3    #f3f3f3*/
 }
 
 body {
-    background-color: #1abc9c;
+    background-color: #1abc9c !important;
 }
 
 footer {
