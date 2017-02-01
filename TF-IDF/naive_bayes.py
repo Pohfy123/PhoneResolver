@@ -167,7 +167,7 @@ def import_training_data(filename):
             phone_no = num.strip()
             
             words = dict([x.split(':') for x in words.strip().split(' ')])
-            words = dict((k,float(v)) for k,v in words.iteritems())
+            words = dict((k,1.0) for k,v in words.iteritems())
             
             result = result.strip()
             

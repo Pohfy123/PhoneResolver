@@ -31,7 +31,7 @@ def import_test_data(filename='./temp-processing-data/05_merge-csv/test_data.csv
                 words = dict()
             else:
                 words = dict([x.split(':') for x in words.strip().split(' ')])
-                words = dict((k,float(v)) for k,v in words.iteritems())
+                words = dict((k,1.0) for k,v in words.iteritems())
             
             data = {
                 'phone_no' : phone_no, # no need

@@ -7,7 +7,7 @@ import merge_train_data_files
 import pandas as pd
 
 MODEL_DIR_PATH = './model/'
-N_MODEL = 14
+N_MODEL = 4
 
 def load_model(filename_in):
     f = open(filename_in, 'r')
@@ -17,7 +17,7 @@ def load_model(filename_in):
 
 def transform_words_to_dictvect(words, dict_vectorizer):
     words = dict([x.split(':') for x in words.strip().split(' ')])
-    words = dict((k,float(v)) for k,v in words.iteritems())
+    words = dict((k,1.0) for k,v in words.iteritems())
     words = dict_vectorizer.transform(words)
     
     # Convert to ready-for-train format
@@ -34,8 +34,6 @@ def model_evaluate(filename_in='./train-data/train-data-all.csv'):
     # Each model
     for model_id in range(1,N_MODEL+1,1):
         # Load Classification Model
-        if model_id not in [1,2,3,4,6]: # Edit here
-            continue
         model_file_name = 'model_%02d.pickle' % model_id
         model_file_path = os.path.join(MODEL_DIR_PATH, model_file_name)
         print "Model#%d:" % model_id, model_file_path
