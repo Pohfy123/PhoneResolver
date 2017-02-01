@@ -8,6 +8,9 @@
     <link href="css/result.css" rel="stylesheet">
     <script src="js/demo.js"></script>
     <script src="js/result.js"></script>
+
+    <!--Loading-->
+    <link href='http://fonts.googleapis.com/css?family=Lato:900,400' rel='stylesheet' type='text/css'>
 @endsection
 
 @section('content')
@@ -33,6 +36,16 @@
                     <textarea class="input-textarea form-control" rows="1" id="text2" placeholder="Enter url, keyword, text ..."></textarea>
                     <br>
                     <button type="button" class="btn btn-primary btn-sm">Analyze</button>
+                    <br>
+                    <br>
+                    <div class="try-div">
+                        <h6><b>Try this things :</b></h6>
+                        <h6><span class="try-it" id="try-url"> &raquo; Url: Plavvy Dessert</span></h6>
+                        <h6><span class="try-it" id="try-keyword"> &raquo; Keyword: Plavvy Dessert</span></h6>
+                        <h6><span class="try-it" id="try-text"> &raquo; Text: Plavvy Dessert</span></h6>
+                    </div>
+                    
+
                 </div>
                 <div class="col-md-8 container-right">
                     <div style="background-color:#d6e6e6; margin: -15px -30px; padding: 20px;">
@@ -43,7 +56,6 @@
                     </div>
                     <br>
                     <br>
-
                     <div class="result-visual">
                         <h1>Tables</h1>
                         <br>
@@ -83,8 +95,6 @@
                         </div>
                         
                     </div>
-                    
-
                     <pre class="json hide">
                     </pre>
                     <!--<pre><code id=account></code></pre>
@@ -94,7 +104,9 @@
             </div>
         </section>
     </div>
-   
+    <br>
+    <br>
+    
     
     <!-- jQuery -->
     <script src="outline/js/jquery.min.js"></script>

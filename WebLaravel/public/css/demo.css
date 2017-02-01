@@ -1,21 +1,25 @@
-
-.searchForm{
+.searchForm {
     /* The search form. */
-    background-color:#f9f9fb;
-    padding:50px 30px;
-    margin:80px 0;
-    position:relative;
-
-    -moz-border-radius:16px;
-    -webkit-border-radius:16px;
-    border-radius:16px;
-
+    background-color: #f9f9fb;
+    padding: 50px 30px;
+    margin: 80px 0;
+    position: relative;
+    -moz-border-radius: 16px;
+    -webkit-border-radius: 16px;
+    border-radius: 16px;
     width: 500px;
     margin: 100px auto;
-
-    /*top: -170px;*/
 }
 
-.center{
+.try-it:hover {
+    color: #1abc9c;
+    cursor: pointer;
+}
+
+.try-div {
+    float: right;
+}
+
+.center {
     text-align: center;
 }

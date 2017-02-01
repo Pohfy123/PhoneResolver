@@ -1,103 +1,122 @@
-/*Nav    #1f2532*/
-/*Green  #1abc9c*/
-/*BG1    #f9f9fb*/
-/*BG2    #ffffff*/
-/*BG3    #f3f3f3*/
+/*Nav    #1f2532
+Green  #1abc9c
+BG1    #f9f9fb
+BG2    #ffffff
+BG3    #f3f3f3*/
 
-.navbar{
-	border-radius: 0px;
-	background-color: #1f2532;
+.navbar {
+    border-radius: 0px;
+    background-color: #1f2532;
 }
-body{
-	background-color: #f9f9fb;
+
+body {
+    background-color: #1abc9c;
 }
-footer{
-	background-color: #1f2532;
+
+footer {
+    background-color: #1f2532;
 }
-.navbar-inverse .navbar-nav > li > a {
-	color: #8a8f99;
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #8a8f99;
 }
-.navbar-inverse .navbar-nav > li >a:hover{
-	color: #fbfbfe;
+
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: #fbfbfe;
 }
-.navbar-inverse .navbar-nav > li >a:focus{
-	color: #fbfbfe;
+
+.navbar-inverse .navbar-nav>li>a:focus {
+    color: #fbfbfe;
 }
-.navbar-inverse .navbar-toggle:before{
-	color: #8a8f99;
+
+.navbar-inverse .navbar-toggle:before {
+    color: #8a8f99;
 }
-a{
-	font-family: "Open Sans";
-	font-size: 24px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 500;
-	line-height: 26.4px;
+
+a {
+    font-family: "Open Sans";
+    font-size: 24px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 26.4px;
 }
+
 
 /* FONT */
+
 h1 {
-	font-family: "Open Sans";
-	font-size: 24px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 500;
-	line-height: 26.4px;
+    font-family: "Open Sans";
+    font-size: 24px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 26.4px;
 }
+
 h3 {
-	font-family: "Open Sans";
-	font-size: 20px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 500;
-	line-height: 15.4px;
+    font-family: "Open Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 15.4px;
 }
+
 p {
-	font-family: "Open Sans";
-	font-size: 14px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 400;
-	line-height: 20px;
+    font-family: "Open Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 20px;
 }
+
 blockquote {
-	font-family: "Open Sans";
-	font-size: 21px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 400;
-	line-height: 30px;
+    font-family: "Open Sans";
+    font-size: 21px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 30px;
 }
+
 pre {
-	font-family: "Open Sans";
-	font-size: 13px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 400;
-	line-height: 18.5714px;
+    font-family: "Open Sans";
+    font-size: 13px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 18.5714px;
 }
+
+
 /* END FONT*/
 
-.navbar-nav > li > a {
-	font-weight: 400 !important;
+.navbar-nav>li>a {
+    font-weight: 400 !important;
 }
-.navbar-nav > li.active > a{
-	color: #fbfbfe;
+
+.navbar-nav>li.active>a {
+    color: #fbfbfe;
 }
-.navbar-collapse .navbar-nav.navbar-left:first-child > li:first-child a {
-	border-bottom-left-radius: 0px;
-	border-top-left-radius: 0px;
+
+.navbar-collapse .navbar-nav.navbar-left:first-child>li:first-child a {
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
 }
 
 .content {
-	display: block;
-	position: relative;
-	padding: 60px 0 40px;
+    display: block;
+    position: relative;
+    padding: 60px 0 40px;
 }
+
 .content-home {
-	background-color: #f9f9fb;
+    background-color: #f9f9fb;
 }
+
 .content-demo-input {
-	background-color: #f3f3f3;
-	padding-bottom: 100px;
+    background-color: #f3f3f3;
+    padding-bottom: 100px;
 }
