@@ -8,8 +8,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700" rel="stylesheet" type="text/css">
 
-@yield('css-js')
-
     <!-- Loading Bootstrap -->
     <link href="css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -26,7 +24,37 @@
     <link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-black.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- Google Webfonts -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>-->
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="outline/css/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="outline/css/icomoon.css">
+    <!-- Simple Line Icons-->
+    <link rel="stylesheet" href="outline/css/simple-line-icons.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="outline/css/magnific-popup.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="outline/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="outline/css/owl.theme.default.min.css">
+    <!-- Salvattore -->
+    <link rel="stylesheet" href="outline/css/salvattore.css">
+    <!-- Theme Style -->
+    <link rel="stylesheet" href="outline/css/style.css">
+    <!-- Modernizr JS -->
+    <script src="outline/js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
     <link href="css/template.css" rel="stylesheet">
+
+    @yield('css-js')
+
 </head>
 
 <body id="myPage">
@@ -123,6 +151,20 @@
         }
     }
 </script>
-
+<!-- jQuery Easing -->
+<script src="outline/js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="outline/js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="outline/js/jquery.waypoints.min.js"></script>
+<!-- Magnific Popup -->
+<script src="outline/js/jquery.magnific-popup.min.js"></script>
+<!-- Owl Carousel -->
+<script src="outline/js/owl.carousel.min.js"></script>
+<!-- toCount -->
+<script src="outline/js/jquery.countTo.js"></script>
+<!-- Main JS -->
+<script src="outline/js/main.js"></script>
+@yield('css-js-after')
 </body>
 </html>

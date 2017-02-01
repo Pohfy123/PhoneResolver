@@ -11,29 +11,52 @@
 @endsection
 
 @section('content')
-    <div class="content content-demo-input">
-        <div class="searchForm">
-            <h3><b>Input</b></h3>
-            <div class="form-group">
-                <textarea class="input-textarea form-control" rows="1" id="text1" placeholder="Enter url, keyword, text ..."></textarea>
+    <div id="demo-page-input" class="content content-demo-input">
+        <section id="fh5co-counter" class="fh5co-bg-section" style="background-image: url(outline/images/bg_1.jpg); background-attachment: fixed;">
+            <div class="fh5co-overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="fh5co-hero-wrap">
+                            <div class="fh5co-hero-intro text-center">
+                                <div class="col-md-12 text-center">
+                                    <span class="demo-intro">Make categorization more EASY!</span>
+                                    <span class="demo-intro-label">Just fill the URL</span>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="center">
-                <button type="button" class="btn btn-primary btn-analyze1">Analyze</button>
+        </section>
+        <section id="demo-2" class="fh5co-bg-section">
+            <div class="searchForm animated">
+                <h1>Try to categorize</h1>
+                <hr>
+                <h3><b>Input</b></h3>
+                <div class="form-group">
+                    <textarea class="input-textarea form-control" rows="1" id="text1" placeholder="Enter url, keyword, text ..."></textarea>
+                </div>
+                <div class="center">
+                    <button type="button" class="btn btn-primary btn-analyze1">Analyze</button>
+                </div>
             </div>
-        </div>
-
-        <div class="page-result hide">
+        </section>
+    </div>
+    <div id="demo-page-result" class="hide">
+        <section class="page-result">
             <div class="container container-all row">
                 <div class="col-md-4 container-left">
                     <h3><b>Input</b> <span class="tag label label-warning input-tag">URL</span></h3>
                     <textarea class="input-textarea form-control" rows="1" id="text2" placeholder="Enter url, keyword, text ..."></textarea>
                     <br>
-                    <button type="button" class="btn btn-primary">Analyze</button>
+                    <button type="button" class="btn btn-primary btn-sm">Analyze</button>
                 </div>
                 <div class="col-md-8 container-right">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary active" id="btn-result"><span class="fui-eye"></span> Result</button>
-                        <button type="button" class="btn btn-primary" id="btn-json"><span class="fui-arrow-left"></span><span class="fui-arrow-right"></span> JSON</button>
+                        <button type="button" class="btn btn-primary btn-sm active" id="btn-result"><span class="fui-eye"></span> Result</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="btn-json"><span class="fui-arrow-left"></span><span class="fui-arrow-right"></span> JSON</button>
                     </div>
                     <br>
                     <br>
@@ -64,36 +87,54 @@
                     <pre class="json hide">
                         {
                             "request": {
-                              "input": "http://wongnai.com",
-                              "type": "url",
-                              "api": "analyze",
-                              "version": "1.0.0",
-                              "resolvedPageUrl": "https://www.wongnai.com/"
+                                "input": "http://wongnai.com",
+                                "type": "url",
+                                "api": "analyze",
+                                "version": "1.0.0",
+                                "resolvedPageUrl": "https://www.wongnai.com/"
                             },
                             "language": "th",
                             "result": {
                                 "keywords": [
-                                      "ร้านอาหาร",
-                                      "ร้านซูชิ",
-                                      "กรุงเทพมหานคร"
+                                        "ร้านอาหาร",
+                                        "ร้านซูชิ",
+                                        "กรุงเทพมหานคร"
                                 ],
                                 "contents": "ร้านอาหารแนะนำ ดูทั้งหมด  Recommended by JOHNNIE WALKER"
                             },
                             "category": {
                                 "d1": {
-                                  "confidence": 0.49049994349479675,
-                                  "value": "restaurant"
+                                    "confidence": 0.49049994349479675,
+                                    "value": "restaurant"
                                 },
                                 "d2": {
-                                  "confidence": 0.31968462467193604,
-                                  "value": "seafood restaurant"
+                                    "confidence": 0.31968462467193604,
+                                    "value": "seafood restaurant"
                                 }
                             }
                         }
                     </pre>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
-
+   
+    
+    <!-- jQuery -->
+    <script src="outline/js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="outline/js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="outline/js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="outline/js/jquery.waypoints.min.js"></script>
+    <!-- Magnific Popup -->
+    <script src="outline/js/jquery.magnific-popup.min.js"></script>
+    <!-- Owl Carousel -->
+    <script src="outline/js/owl.carousel.min.js"></script>
+    <!-- toCount -->
+    <script src="outline/js/jquery.countTo.js"></script>
+    <!-- Main JS -->
+    <script src="outline/js/main.js"></script>
+	
 @endsection
