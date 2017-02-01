@@ -1,8 +1,8 @@
 $(document).on('click', '#btn-json', function() {
     $('#btn-json').addClass('active')
     $('#btn-result').removeClass('active')
-    $('.table-result').addClass('hide')
-    $('.json').removeClass('hide')
+    $('.result-visual').addClass('hide')
+    $('.result-json').removeClass('hide')
 
     // var jsonStr = $(".json").text();
     // var jsonObj = JSON.parse(jsonStr);
@@ -38,8 +38,8 @@ $(document).on('click', '#btn-json', function() {
 $(document).on('click', '#btn-result', function() {
     $('#btn-json').removeClass('active')
     $('#btn-result').addClass('active')
-    $('.table-result').removeClass('hide')
-    $('.json').addClass('hide')
+    $('.result-visual').removeClass('hide')
+    $('.result-json').addClass('hide')
 });
 
 $(document).on('click', '#try-url', function() {

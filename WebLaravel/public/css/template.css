@@ -110,6 +110,7 @@ pre {
     display: block;
     position: relative;
     padding: 60px 0 40px;
+    background-color: #1abc9c;
 }
 
 .content-home {
@@ -117,6 +118,5 @@ pre {
 }
 
 .content-demo-input {
-    background-color: #f3f3f3;
     padding-bottom: 100px;
 }

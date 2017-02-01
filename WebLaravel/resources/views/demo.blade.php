@@ -28,8 +28,7 @@
             </div>
         </section>
     </div>
-    <div id="demo-page-result" class="hide">
-        <section class="page-result">
+    <div id="demo-page-result" class="hide content">
             <div class="container container-all row">
                 <div class="col-md-4 container-left">
                     <h3><b>Input</b> <span class="tag label label-warning input-tag">URL</span></h3>
@@ -94,12 +93,14 @@
                             <button class="btn btn-inverse">บริการดี</span></button>
                         </div>
                         
-                    </div>
-                    <pre class="json hide">
-                    </pre>
+                    </div>                    
                     <!--<pre><code id=account></code></pre>
                     <pre><code id=planets></code></pre>-->
-
+                    <div class="result-json hide">
+                        <h1>JSON from API</h1>
+                        <pre class="json">
+                        </pre>
+                    </div>
                 </div>
             </div>
         </section>
