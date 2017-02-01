@@ -100,6 +100,11 @@
                     <textarea class="input-textarea form-control" rows="1" id="text2" placeholder="Enter url, keyword, text ..."></textarea>
                     <br>
                     <button type="button" class="btn btn-primary btn-sm">Analyze</button>
+                    <h5>Try this things :</h5>
+                    <h5 class="try-it"><span class="fui-triangle-right-large"> Url: Plavvy Dessert</h5>
+                    <h5 class="try-it"><span class="fui-triangle-right-large"> Keyword: Plavvy Dessert</h5>
+                    <h5 class="try-it"><span class="fui-triangle-right-large"> Text: Plavvy Dessert</h5>
+
                 </div>
                 <div class="col-md-8 container-right">
                     <div class="btn-group">
