@@ -11,114 +11,11 @@
     border-radius:16px;
 
     width: 500px;
-    margin: 0 auto;
+    margin: 100px auto;
 
-    top: -170px;
+    /*top: -170px;*/
 }
 
 .center{
     text-align: center;
-}
-
-.demo-intro {
-  font-size: 40px;
-  display: block;
-  color: #fff;
-  width: 100%;
-  font-family: "Montserrat", arial, sans-serif;
-  margin-bottom: .5em;
-}
-
-.demo-intro-label {
-  color: #fff;
-  text-transform: uppercase;
-  font-size: 13px;
-  font-family: "Montserrat", arial, sans-serif;
-  letter-spacing: 5px;
-  margin-bottom: 2em;
-  display: block;
-}
-
-
-
-
-
-#demo-carousel {
-  background: #4fd2c2;
-  color: #fff;
-  padding: 3em 0 8em 0;
-}
-#demo-carousel .demo-vcard img {
-  width: 170px;
-  height: 170px;
-  margin-bottom: 20px;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  border-radius: 50%;
-}
-@media screen and (max-width: 992px) {
-  #demo-carousel .demo-vcard img {
-    width: auto;
-    height: auto;
-  }
-}
-@media screen and (max-width: 768px) {
-  #demo-carousel .demo-vcard img {
-    width: 120px;
-    height: 120px;
-  }
-}
-@media screen and (max-width: 480px) {
-  #demo-carousel .demo-vcard img {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 20px auto;
-  }
-}
-#demo-carousel blockquote {
-  padding: 0;
-  border-left: none;
-  color: #fff;
-}
-@media screen and (max-width: 480px) {
-  #demo-carousel blockquote {
-    text-align: center;
-  }
-}
-#demo-carousel blockquote p {
-  font-size: 20px;
-  line-height: 35px;
-}
-@media screen and (max-width: 768px) {
-  #demo-carousel blockquote p {
-    font-size: 25px;
-    line-height: 35px;
-  }
-}
-#demo-carousel .demo-author {
-  font-family: "Montserrat", arial, sans-serif;
-  color: #fff;
-}
-@media screen and (max-width: 480px) {
-  #demo-carousel .demo-author {
-    text-align: center;
-  }
-}
-#demo-carousel .demo-author > span {
-  color: #000;
-}
-
-.demo-hero-intro {
-  display: table-cell;
-  vertical-align: middle;
-}
-.demo-bg-section .demo-hero-wrap .demo-hero-intro .demo-lead, .demo-bg-section .demo-hero-wrap .demo-hero-intro .demo-sub-lead {
-  color: #fff;
-  margin: 0;
-  padding: 0;
-  line-height: 1.5;
-}
-.demo-bg-section .demo-hero-wrap .demo-hero-intro .demo-lead {
-  margin-bottom: 30px;
 }

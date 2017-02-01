@@ -12,30 +12,9 @@
 
 @section('content')
     <div id="demo-page-input" class="content content-demo-input">
-        <section id="demo-sec-intro" class="fh5co-bg-section" style="background-image: url(outline/images/bg_1.jpg); background-attachment: fixed; padding-top:2em; padding-bottom:1em;">
-            <div class="fh5co-overlay"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="fh5co-hero-wrap">
-                            <div class="fh5co-hero-intro text-center">
-                                <div class="col-md-12 text-center">
-                                    <span class="demo-intro">Make categorization more EASY!</span>
-                                    <span class="demo-intro-label">Let's try DEMO</span>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <section id="demo-2" class="fh5co-bg-section">
             <div class="searchForm animated">
-                <h1>Try to categorize</h1>
-                <a>tests</a>
-                <hr>
                 <h3><b>Input</b></h3>
                 <div class="form-group">
                     <textarea class="input-textarea form-control" rows="1" id="text1" placeholder="Enter url, keyword, text ..."></textarea>
@@ -56,36 +35,56 @@
                     <button type="button" class="btn btn-primary btn-sm">Analyze</button>
                 </div>
                 <div class="col-md-8 container-right">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary btn-sm active" id="btn-result"><span class="fui-eye"></span> Result</button>
-                        <button type="button" class="btn btn-primary btn-sm" id="btn-json"><span class="fui-arrow-left"></span><span class="fui-arrow-right"></span> JSON</button>
+                    <div style="background-color:#d6e6e6; margin: -15px -30px; padding: 20px;">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary btn-embossed btn-md active" id="btn-result"><span class="fui-eye"></span> Result</button>
+                            <button type="button" class="btn btn-primary btn-embossed btn-md" id="btn-json"><span class="fui-arrow-left"></span><span class="fui-arrow-right"></span> JSON</button>
+                        </div>
                     </div>
                     <br>
                     <br>
-                    <table class="table table-bordered table-result">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Category</th>
-                            <th>Score</th>
-                            <th>Confident ?</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Food</td>
-                            <td>0.5342132</td>
-                            <td>Yes</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Restaurant</td>
-                            <td>0.2323132</td>
-                            <td>No</td>
-                        </tr>
-                        </tbody>
-                    </table>
+
+                    <div class="result-visual">
+                        <h1>Tables</h1>
+                        <br>
+                        <table class="table table-bordered table-result">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Category</th>
+                                <th>Score</th>
+                                <th>Confident ?</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Food</td>
+                                <td>0.5342132</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Restaurant</td>
+                                <td>0.2323132</td>
+                                <td>No</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <hr>
+                        <br>
+                        <h1>Important words</h1>
+                        <div class="form-group">
+                            <button class="btn btn-inverse">ร้านอาหาร</span></button>
+                            <button class="btn btn-inverse">กรุงเทพฯ</span></button>
+                            <button class="btn btn-inverse">อร่อย</span></button>
+                            <button class="btn btn-inverse">บริการดี</span></button>
+                        </div>
+                        
+                    </div>
+                    
+
                     <pre class="json hide">
                     </pre>
                     <!--<pre><code id=account></code></pre>
