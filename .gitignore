@@ -3,12 +3,17 @@ TF-IDF/backup/
 TF-IDF/model
 TF-IDF/backup_model
 TF-IDF/train-data/
+TF-IDF/results/
 TF-IDF/result/tf-idf-lexto/
 TF-IDF/result/tf-idf-pyicu/
 TF-IDF/result/tf-lexto/
 TF-IDF/result/tf-pyicu/
+TF-IDF/temp-processing-data*/
+TF-IDF/temp-processing-data-for-train/
 TF-IDF/temp-processing-data/00_url/
 TF-IDF/temp-processing-data/01_raw-data/
+TF-IDF/temp-processing-data/01_raw-data-keyword/
+TF-IDF/temp-processing-data/01_raw-data-content/
 TF-IDF/temp-processing-data/01_raw-data_backup/
 TF-IDF/temp-processing-data/02_parsed-word-data-pyicu/
 TF-IDF/temp-processing-data/02_parsed-word-data-lexto/
@@ -18,6 +23,7 @@ TF-IDF/temp-processing-data/04_tf/
 TF-IDF/temp-processing-data/05_merge-csv/
 
 TF-IDF/train-data/
+TF-IDF/train-data**/
 TF-IDF/number_input.txt
 
 TF-IDF/resultss
@@ -28,7 +34,9 @@ TF-IDF/resources/PyICU-1.9.3-cp35-cp35m-win_amd64.whl
 TF-IDF/classification_bone/data/result.csv
 TF-IDF/classification_bone/predict_result.txt
 TF-IDF/TF-IDF.rar
-
+TF-IDF/result/prediction.csv
+TF-IDF/temp-processing-data/**/*.txt
+TF-IDF/temp-processing-data/**/*.ini
 
 WebLaravel/node_modules
 WebLaravel/public/storage
@@ -60,4 +68,4 @@ WebLaravel/.env
 WebLaravel/bootstrap/cache/services.php
 WebLaravel/storage/framework/sessions/yI7vdUl5GZsGWd6cOvbCremgXZpp6LhJbwhxOEvm
 WebLaravel/storage/framework/views/fcff853ab4977cb94c89dac153f35e3dcfb7d647.php
-TF-IDF/result/prediction.csv
+
