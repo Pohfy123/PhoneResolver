@@ -108,3 +108,17 @@
 #demo-carousel .demo-author > span {
   color: #000;
 }
+
+.demo-hero-intro {
+  display: table-cell;
+  vertical-align: middle;
+}
+.demo-bg-section .demo-hero-wrap .demo-hero-intro .demo-lead, .demo-bg-section .demo-hero-wrap .demo-hero-intro .demo-sub-lead {
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+.demo-bg-section .demo-hero-wrap .demo-hero-intro .demo-lead {
+  margin-bottom: 30px;
+}
