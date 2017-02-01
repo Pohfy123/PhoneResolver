@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 import os
 
-base_path = './temp-processing-data_Air Travel Ticket Agencies'
-input_path = './temp-processing-data_Air Travel Ticket Agencies/air'
+CAT_NAME = 'Airline Companies'
+
+base_path = './temp-processing-data_'+CAT_NAME
+input_path = './temp-processing-data_'+CAT_NAME+'/04_tf'
 file_arr = []
 
 for f in os.listdir(input_path):
