@@ -40,10 +40,31 @@
     border-style: solid;
     border-color: #1abc9c;
     border-width: 2px;
+    background-color: ghostwhite;
 
     -moz-border-radius:16px;
     -webkit-border-radius:16px;
     border-radius:16px;
 
     margin: 0 auto 0;
+    color: #999;
+    
+}
+
+.json-key {
+   color: #690;
+   }
+.json-value {
+   color: #905;
+   }
+.json-string {
+   color: #690;
+   }
+
+.btn{
+    margin-right: 0px;
+}
+
+.btn-group > .btn:hover, .btn-group > .btn:focus, .btn-group > .btn:active, .btn-group > .btn.active, .btn-group-vertical > .btn:hover, .btn-group-vertical > .btn:focus, .btn-group-vertical > .btn:active, .btn-group-vertical > .btn.active {
+    z-index: 0 !important;
 }
