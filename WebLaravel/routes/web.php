@@ -17,8 +17,14 @@ Route::get('/', function () {
 Route::get('/demo', function () {
     return view('demo');
 });
-Route::get('/result', function () {
-    return view('result');
+Route::get('/api-docs', function () {
+    return view('comingsoon');
+});
+Route::get('/pricing', function () {
+    return view('comingsoon');
+});
+Route::get('/faq', function () {
+    return view('comingsoon');
 });
 
 

@@ -89,9 +89,9 @@
                     <div style="float: right">
                         {{--<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle nav-menu" data-toggle="collapse" data-target="#fh5co-navbar" aria-expanded="false" aria-controls="navbar"><span>Menu</span> <i></i></a>--}}
                         <a href="/demo" class="navbar-content navbar-brand"><span>Demo</span></a>
-                        <a href="/" class="navbar-content navbar-brand"><span>API & DOCS</span></a>
-                        <a href="/" class="navbar-content navbar-brand"><span>Pricing</span></a>
-                        <a href="/" class="navbar-content navbar-brand"><span>FAQ</span></a>
+                        <a href="/api-docs" class="navbar-content navbar-brand"><span>API & DOCS</span></a>
+                        <a href="/pricing" class="navbar-content navbar-brand"><span>Pricing</span></a>
+                        <a href="/faq" class="navbar-content navbar-brand"><span>FAQ</span></a>
                     </div>
 
                 </div>
