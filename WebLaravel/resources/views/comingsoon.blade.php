@@ -15,7 +15,7 @@
 
                     <div class="col-md-12 fh5co-text">
                         <h2 class="to-animate intro-animate-1">Coming Soon</h2>
-                        <p class="to-animate intro-animate-2">You can try InsightText Demo now.</p>
+                        <p class="to-animate intro-animate-2">You can try InsighText Demo now.</p>
                         <p class="to-animate intro-animate-3"><a href="/demo" class="btn btn-primary btn-md">Try Demo !</a></p>
                     </div>
                 </div>
