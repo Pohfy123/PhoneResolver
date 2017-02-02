@@ -17,4 +17,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::get('test','TestController@index');
+Route::post('/analyze','AnalyzeController@webCategorize');
