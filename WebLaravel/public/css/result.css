@@ -38,7 +38,7 @@
     padding: 20px 20px;
     position: relative;
     border-style: solid;
-    border-color: #1abc9c;
+    border-color: #34495e;
     border-width: 2px;
     background-color: ghostwhite;
     -moz-border-radius: 16px;
@@ -232,4 +232,8 @@ body {
 
 #fh5co-hero{
     height: auto !important;
+}
+
+.btn-tag{
+    background: #34495e !important;
 }

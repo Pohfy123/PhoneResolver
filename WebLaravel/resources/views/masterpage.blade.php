@@ -63,7 +63,10 @@
     <div id="fh5co-offcanvass">
         <ul>
             <li class="active"><a href="#" data-nav-section="home">Home</a></li>
-            <li><a href="#" data-nav-section="search">Features</a></li>
+            <li><a href="#" data-nav-section="search">Demo</a></li>
+            <li><a href="#" data-nav-section="search">API & DOCS</a></li>
+            <li><a href="#" data-nav-section="search">Pricing</a></li>
+            <li><a href="#" data-nav-section="search">FAQ</a></li>
         </ul>
         <h3 class="fh5co-lead">Connect with us</h3>
         <p class="fh5co-social-icons">
@@ -83,16 +86,38 @@
                     <a href="/" class="navbar-brand"><span>InsightText</span></a>
                 </div>
                 <div class="col-md-9">
-                    <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle nav-menu" data-toggle="collapse" data-target="#fh5co-navbar" aria-expanded="false" aria-controls="navbar"><span>Menu</span> <i></i></a>
-                    <a href="/demo" class="navbar-content navbar-brand"><span>Demo</span></a>
-                    <a href="/" class="navbar-content navbar-brand"><span>API & DOCS</span></a>
-                    <a href="/" class="navbar-content navbar-brand"><span>Pricing</span></a>
-                    <a href="/" class="navbar-content navbar-brand"><span>FAQ</span></a>
+                    <div style="float: right">
+                        {{--<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle nav-menu" data-toggle="collapse" data-target="#fh5co-navbar" aria-expanded="false" aria-controls="navbar"><span>Menu</span> <i></i></a>--}}
+                        <a href="/demo" class="navbar-content navbar-brand"><span>Demo</span></a>
+                        <a href="/" class="navbar-content navbar-brand"><span>API & DOCS</span></a>
+                        <a href="/" class="navbar-content navbar-brand"><span>Pricing</span></a>
+                        <a href="/" class="navbar-content navbar-brand"><span>FAQ</span></a>
+                    </div>
+
                 </div>
 
             </div>
         </div>
     </div>
+
+    <div id="fh5co-menu" class="navbar collapse nav-menu">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    {{--<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#fh5co-navbar" aria-expanded="false" aria-controls="navbar"><span>Menu</span> <i></i></a>--}}
+                </div>
+                <div class="col-md-9">
+                    <div style="float: right">
+                        <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle nav-menu" data-toggle="collapse" data-target="#fh5co-navbar" aria-expanded="false" aria-controls="navbar"><span>Menu</span> <i></i></a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
 
     <div id="fh5co-page">
         <div id="fh5co-wrap">

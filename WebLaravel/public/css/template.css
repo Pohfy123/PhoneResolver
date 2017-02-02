@@ -117,13 +117,12 @@ pre {
     background-color: #f9f9fb;
 }
 
-.content-demo-input {
-    padding-bottom: 100px;
-}
+/*.content-demo-input {*/
+    /*padding-bottom: 100px;*/
+/*}*/
 
 .navbar-content > span{
     border: none !important;
-    color: #fff;
     text-transform: uppercase;
     font-size: 13px;
     font-family: "Montserrat", arial, sans-serif;
@@ -131,4 +130,22 @@ pre {
     margin-bottom: 2em;
     display: block;
 }
+
+.nav-menu{
+    display: block !important;
+}
+
+@media (min-width: 768px) {
+    .navbar-collapse.collapse {
+        display: block !important;
+        height: auto !important;
+        padding-bottom: 0;
+        overflow: visible !important;
+    }
+    .nav-menu{
+        display: none !important;
+    }
+
+}
+
 

@@ -1,7 +1,7 @@
 .searchForm{
     /* The search form. */
     background-color:#f9f9fb;
-    padding:50px 30px;
+    padding:20px 30px;
     margin:80px 0;
     position:relative;
 
@@ -76,11 +76,7 @@
 }
 
 
-@media (min-width: 768px) {
-    .navbar-collapse.collapse {
-        display: block !important;
-        height: auto !important;
-        padding-bottom: 0;
-        overflow: visible !important;
-    }
+#fh5co-hero{
+    padding-bottom: 0px;
+    padding-top: 0px;
 }
