@@ -26,7 +26,7 @@
                             <div class="fh5co-hero-intro text-center">
                                 <div class="col-md-12 text-center">
                                     <span class="demo-intro">AUTO WEB CLASSIFICATION</span>
-                                    <span class="demo-intro-label">LET AI DO FOR YOU</span>
+                                    <span class="demo-intro-label">LET AI DO IT FOR YOU</span>
 
                                 </div>
                             </div>
@@ -199,23 +199,4 @@
     </header>
     <br>
     <br>
-    
-    
-    <!-- jQuery -->
-    <script src="outline/js/jquery.min.js"></script>
-    <!-- jQuery Easing -->
-    <script src="outline/js/jquery.easing.1.3.js"></script>
-    <!-- Bootstrap -->
-    <script src="outline/js/bootstrap.min.js"></script>
-    <!-- Waypoints -->
-    <script src="outline/js/jquery.waypoints.min.js"></script>
-    <!-- Magnific Popup -->
-    <script src="outline/js/jquery.magnific-popup.min.js"></script>
-    <!-- Owl Carousel -->
-    <script src="outline/js/owl.carousel.min.js"></script>
-    <!-- toCount -->
-    <script src="outline/js/jquery.countTo.js"></script>
-    <!-- Main JS -->
-    <script src="outline/js/main.js"></script>
-
 @endsection

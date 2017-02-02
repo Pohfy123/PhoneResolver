@@ -59,17 +59,11 @@
 
 <body id="myPage">
 
-    <!-- Navbar -->
+    {{--<!-- Navbar -->--}}
     <div id="fh5co-offcanvass">
         <ul>
             <li class="active"><a href="#" data-nav-section="home">Home</a></li>
-            <li><a href="#" data-nav-section="features">Features</a></li>
-            <li><a href="#" data-nav-section="design">Design</a></li>
-            <li><a href="#" data-nav-section="testimonies">Testimonies</a></li>
-            <li><a href="#" data-nav-section="products">Products</a></li>
-            <li><a href="#" data-nav-section="benefits">Benefits</a></li>
-            <li><a href="#" data-nav-section="pricing">Pricing</a></li>
-            <li><a href="#" data-nav-section="faqs">FAQs</a></li>
+            <li><a href="#" data-nav-section="search">Features</a></li>
         </ul>
         <h3 class="fh5co-lead">Connect with us</h3>
         <p class="fh5co-social-icons">
@@ -81,13 +75,21 @@
         </p>
     </div>
 
-    <div id="fh5co-menu" class="navbar">
+    <div id="fh5co-menu" class="navbar collapse navbar-collapse">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#fh5co-navbar" aria-expanded="false" aria-controls="navbar"><span>Menu</span> <i></i></a>
-                    <a href="index.html" class="navbar-brand"><span>Outline</span></a>
+                <div class="col-md-3">
+                    {{--<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#fh5co-navbar" aria-expanded="false" aria-controls="navbar"><span>Menu</span> <i></i></a>--}}
+                    <a href="/" class="navbar-brand"><span>RoosPoh</span></a>
                 </div>
+                <div class="col-md-9">
+                    <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle nav-menu" data-toggle="collapse" data-target="#fh5co-navbar" aria-expanded="false" aria-controls="navbar"><span>Menu</span> <i></i></a>
+                    <a href="/demo" class="navbar-content navbar-brand"><span>Demo</span></a>
+                    <a href="/" class="navbar-content navbar-brand"><span>API & DOCS</span></a>
+                    <a href="/" class="navbar-content navbar-brand"><span>Pricing</span></a>
+                    <a href="/" class="navbar-content navbar-brand"><span>FAQ</span></a>
+                </div>
+
             </div>
         </div>
     </div>
@@ -185,27 +187,27 @@
 
 <!-- Script For Side Navigation -->
 <script>
-//    function w3_open() {
-//        var x = document.getElementById("mySidenav");
-//        x.style.width = "300px";
-//        x.style.textAlign = "center";
-//        x.style.fontSize = "40px";
-//        x.style.paddingTop = "10%";
-//        x.style.display = "block";
-//    }
-//    function w3_close() {
-//        document.getElementById("mySidenav").style.display = "none";
-//    }
+    function w3_open() {
+        var x = document.getElementById("mySidenav");
+        x.style.width = "300px";
+        x.style.textAlign = "center";
+        x.style.fontSize = "40px";
+        x.style.paddingTop = "10%";
+        x.style.display = "block";
+    }
+    function w3_close() {
+        document.getElementById("mySidenav").style.display = "none";
+    }
 
-//    // Used to toggle the menu on smaller screens when clicking on the menu button
-//    function openNav() {
-//        var x = document.getElementById("navDemo");
-//        if (x.className.indexOf("w3-show") == -1) {
-//            x.className += " w3-show";
-//        } else {
-//            x.className = x.className.replace(" w3-show", "");
-//        }
-//    }
+    // Used to toggle the menu on smaller screens when clicking on the menu button
+    function openNav() {
+        var x = document.getElementById("navDemo");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
 </script>
 <!-- jQuery Easing -->
 <script src="outline/js/jquery.easing.1.3.js"></script>
