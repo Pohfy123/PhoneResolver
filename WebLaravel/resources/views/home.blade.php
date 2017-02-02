@@ -3,7 +3,9 @@
 @section('title')Home
 @endsection
 
-
+@section('css-js')
+    <link rel="stylesheet" href="css/home.css">
+@endsection
 
 @section('content')
     <div id="fh5co-wrap">
@@ -78,7 +80,7 @@
                         <div class="clearfix visible-sm-block"></div>
                         <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
                             <a href="#" class="fh5co-feature to-animate">
-                                <span class="fh5co-feature-icon"><h2 style="color:#4fd2c2;">ก</h2></span>
+                                <span class="fh5co-feature-icon"><h2 class="thai-char">ก</h2></span>
                                 <h3 class="fh5co-feature-lead">Thai-language support</h3>
                                 <p class="fh5co-feature-text">Our AI understands Thai and English.</p>
                             </a>

@@ -1,0 +1,6 @@
+.thai-char{
+    color:#4fd2c2;
+}
+.fh5co-feature:hover > .fh5co-feature-icon >.thai-char{
+    color:#fff;
+}
