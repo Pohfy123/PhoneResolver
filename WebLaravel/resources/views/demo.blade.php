@@ -59,7 +59,7 @@
                                 <h3 class="fh5co-figure-lead">URL</h3>
                                 <p class="fh5co-figure-text">รีวิวร้านก๋วยจั๊บนายเอกซ์</p>
                                 <div class="center">
-                                    <button type="button" class="btn btn-primary">Try!</button>
+                                    <button type="button" class="btn btn-primary btn-try">Try!</button>
                                 </div>
                             </a>
                         </div>
@@ -71,7 +71,7 @@
                                 <h3 class="fh5co-figure-lead">PHONE-NO</h3>
                                 <p class="fh5co-figure-text">Courtyard by Mariott Bangkok</p>
                                 <div class="center">
-                                    <button type="button" class="btn btn-primary">Try!</button>
+                                    <button type="button" class="btn btn-primary btn-try">Try!</button>
                                 </div>
                             </a>
                         </div>
@@ -84,7 +84,7 @@
                                 <h3 class="fh5co-figure-lead">LONG TEXT</h3>
                                 <p class="fh5co-figure-text">Krua Dok Mai Kao has regularly been packed out since ...</p>
                                 <div class="center">
-                                    <button type="button" class="btn btn-primary">Try!</button>
+                                    <button type="button" class="btn btn-primary btn-try">Try!</button>
                                 </div>
                             </a>
                         </div>
@@ -96,7 +96,7 @@
                                 <h3 class="fh5co-figure-lead">Keyword</h3>
                                 <p class="fh5co-figure-text">"ซอร์เทรล สาทร", Bangkok</p>
                                 <div class="center">
-                                    <button type="button" class="btn btn-primary">Try!</button>
+                                    <button type="button" class="btn btn-primary btn-try">Try!</button>
                                 </div>
                             </a>
                         </div>
