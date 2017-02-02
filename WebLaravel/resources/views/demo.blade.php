@@ -39,7 +39,7 @@
             <div class="searchForm animated">
                 <h3><b>Input</b></h3>
                 <div class="form-group">
-                    <textarea class="input-textarea form-control" rows="1" id="text1" placeholder="Enter url, keyword, text ..."></textarea>
+                    <textarea class="input-textarea form-control" rows="1" id="input-demo-first" placeholder="Enter url, keyword, text ..."></textarea>
                 </div>
                 <div class="center">
                     <button type="button" class="btn btn-primary btn-analyze btn-analyze1">Analyze</button>
@@ -54,53 +54,53 @@
                         </div>
 
                         <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
-                            <a href="outline/images/product_1.jpg" class="fh5co-figure image-popup">
+                            <span href="outline/images/product_1.jpg" class="fh5co-figure">
                                 <figure>
                                     <img src="outline/images/product_1.jpg" alt="Free HTML5 Responsive Template" class="img-responsive example-img">
                                 </figure>
                                 <h3 class="fh5co-figure-lead">URL</h3>
-                                <p class="fh5co-figure-text">รีวิวร้านก๋วยจั๊บนายเอกซ์</p>
+                                <p class="fh5co-figure-text">รีวิวร้านก๋วยจั๊บนายเอ็ก</p>
                                 <div class="center">
-                                    <button type="button" class="btn btn-primary btn-try">Try!</button>
+                                    <button id="try-url-first" type="button" class="btn btn-primary btn-try">Try!</button>
                                 </div>
-                            </a>
+                            </span>
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
-                            <a href="outline/images/product_2.jpg" class="fh5co-figure image-popup">
+                            <span href="outline/images/product_2.jpg" class="fh5co-figure">
                                 <figure>
                                     <img src="outline/images/product_2.jpg" alt="Free HTML5 Responsive Template" class="img-responsive example-img">
                                 </figure>
                                 <h3 class="fh5co-figure-lead">PHONE-NO</h3>
                                 <p class="fh5co-figure-text">Courtyard by Mariott Bangkok</p>
                                 <div class="center">
-                                    <button type="button" class="btn btn-primary btn-try">Try!</button>
+                                    <button id="try-phone-first" type="button" class="btn btn-primary btn-try">Try!</button>
                                 </div>
-                            </a>
+                            </span>
                         </div>
                         <div class="clearfix visible-sm-block"></div>
                         <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
-                            <a href="outline/images/product_3.jpg" class="fh5co-figure image-popup">
+                            <span href="outline/images/product_3.jpg" class="fh5co-figure">
                                 <figure>
                                     <img src="outline/images/product_3.jpg" alt="Free HTML5 Responsive Template" class="img-responsive example-img">
                                 </figure>
                                 <h3 class="fh5co-figure-lead">LONG TEXT</h3>
                                 <p class="fh5co-figure-text">Krua Dok Mai Kao has regularly been packed out since ...</p>
                                 <div class="center">
-                                    <button type="button" class="btn btn-primary btn-try">Try!</button>
+                                    <button id="try-text-first" type="button" class="btn btn-primary btn-try">Try!</button>
                                 </div>
-                            </a>
+                            </span>
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
-                            <a href="outline/images/product_4.jpg" class="fh5co-figure image-popup">
+                            <span href="outline/images/product_4.jpg" class="fh5co-figure">
                                 <figure>
                                     <img src="outline/images/product_4.jpg" alt="Free HTML5 Responsive Template" class="img-responsive example-img">
                                 </figure>
                                 <h3 class="fh5co-figure-lead">Keyword</h3>
-                                <p class="fh5co-figure-text">"ซอร์เทรล สาทร", Bangkok</p>
+                                <p class="fh5co-figure-text">"ซอร์เทรล สาทร", "Bangkok"</p>
                                 <div class="center">
-                                    <button type="button" class="btn btn-primary btn-try">Try!</button>
+                                    <button id="try-keyword-first" type="button" class="btn btn-primary btn-try">Try!</button>
                                 </div>
-                            </a>
+                            </span>
                         </div>
 
                         <div class="clearfix visible-sm-block"></div>
@@ -129,6 +129,7 @@
                         <h6><span class="try-it" id="try-url"> &raquo; Url: Plavvy Dessert</span></h6>
                         <h6><span class="try-it" id="try-keyword"> &raquo; Keyword: Plavvy Dessert</span></h6>
                         <h6><span class="try-it" id="try-text"> &raquo; Text: Plavvy Dessert</span></h6>
+                        <h6><span class="try-it" id="try-phone"> &raquo; Phone no: Plavvy Dessert</span></h6>
                     </div>
 
 

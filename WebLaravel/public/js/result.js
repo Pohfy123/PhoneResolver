@@ -43,25 +43,22 @@ $(document).on('click', '#btn-result', function() {
 });
 
 $(document).on('click', '#try-url', function() {
-    $('#text2').val('https://www.wongnai.com/restaurants/158354cD-plaavy-dessert-cafe')
+    $('#input-demo-result').val('https://www.wongnai.com/restaurants/1667sR-%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B8%88%E0%B8%B1%E0%B9%8A%E0%B8%9A%E0%B8%99%E0%B8%B2%E0%B8%A2%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%81')
     resizeTextarea()
 })
 
 $(document).on('click', '#try-keyword', function() {
-    $('#text2').val('Plavvy')
+    $('#input-demo-result').val('ซอร์เทรล สาทร Bangkok')
+    resizeTextarea()
+})
+
+$(document).on('click', '#try-phone', function() {
+    $('#input-demo-result').val('02-690-1888')
     resizeTextarea()
 })
 
 $(document).on('click', '#try-text', function() {
-    $('#text2').val(`ร้าน Plaavy สาขานี้จะมีอาหารให้สั่งด้วย มีเมนูอยู่ไม่มากนักแต่ก็เหมาะสำหรับทานอิ่มได้แบบสบายๆ ถือว่าสะดวกสำหรับคนที่ต้องการมาทานของหวานและของคาวไปพร้อมๆกัน
-
-วันนี้ได้ลองสั่งสปาเก็ตตี้ขี้เมากุ้ง ถ้าคนทานเผ็ดน้อยก็บอกพนักงานไปได้นะครับ เส้นเหนียวนุ่มกำลังพอดี รสชาติเข้มข้นกลมกล่อมดี เนื้อกุ้งก็สด แต่รสชาติยังไม่ค่อยเข้าไปในตัวกุ้งเท่าไหร่นัก(จืดไปหน่อย) ราคา 120 บาท โดยรวมถือว่าอร่อยใช้ได้เลย
-
-มาในส่วนของเครื่องดื่มกันบ้าง ลองสั่งกาแฟเย็น Espresso ราคาแก้วละ 85 บาท รสชาติอาจจะดูจืดๆไปซักนิด แต่ตัวคุณภาพเม็ดกาแฟถือว่าใช่ได้เลย ถือว่าผ่าน
-
-ส่วนขนมเค้กนั้น ส่วนตัวรู้สึกเฉยๆ อาจจะเป็นเพราะไม่ค่อยชอบทานอยู่แล้วด้วย ไม่ขอคอมเม้นท์
-
-ส่วนการตกแต่งร้านนั้นต้องยอมรับว่าตกแต่งได้อย่างดีเยี่ยม มีมุมให้นั่งหลายมุม และใช้วัสดุที่ดูดีมีราคาจริงๆ เรียกได้ว่ามานั่งเล่น พูดคุยกับเพื่อนฝูง หรือจะพาคนรักมานั่งสวีท ก็เหมาะยิ่งนัก เงียบและส่วนตัวดี อ่านต่อได้ที่ https://www.wongnai.com/restaurants/158354cD-plaavy-dessert-cafe?ref=ct`)
+    $('#input-demo-result').val(`Krua Dok Mai Kao has regularly been packed out since it opened back in 2004, the brainchild of a savvy owner who saw the shortage of proper standalone restaurants in the Pathumwan neighborhood. Every day, office workers and families gather at the bright and airy two-story establishment, where bare concrete pillars stretch to the high ceilings amid a homey sprawl of marble tables, wooden seats and old-style armchairs. The menu has long been renowned for its international fare and bakery goods, which we feel masks the fact that the Thai offerings here lack authentic flavors. While popular dishes like the ham and cheese spring rolls (B105), baked baby clams with butter and garlic sauce served with French bread (B145) and spicy fried crispy cat fish with salted egg (B135) are all solid enough, others seem to be overloaded with sugar. The tom yam talay haeng (seafood with spicy sauce, B155) misses the point of the traditional recipe altogether, with the sweet notes totally overpowering the sour and spicy. It’s a similar story with the yam hed khem thong (spicy golden mushroom and shrimp salad, B95), which looks impressive but is all too saccharine and completely lacking in any tart lime, and the tom yum moo toon (spicy pork stew with herbs, B135/155), which is more a sweet soup than a spicy stew. That said, the kitchen is pretty quick and uses fresh ingredients, even if these aren’t always utilized to their full-flavored potential. In any case, the bakery is without a doubt the place’s strongest suit, serving a variety of delights where excessive sweetness is a good thing, like the tiramisu cake (B105) and Thai tea crepe cake (B105). If you’re stuck in this rather limited neighborhood for dining then Krua Dok Mai Kao isn’t a bad option, though limited parking and slightly slow service when they’re busy don’t exactly help. Just be prepared for a sugar rush whatever you decide to order. Corkage B300 (wine only). - See more at: http://bk.asia-city.com/restaurants/bangkok-restaurant-reviews/krua-dok-mai-kao#sthash.mwMtxT3B.dpuf`)
     resizeTextarea()
 })
 
@@ -77,7 +74,7 @@ function resizeTextarea() {
         };
     }
     $(document).ready(function() {
-        var text = document.getElementById('text2');
+        var text = document.getElementById('input-demo-result');
 
         function resize() {
             text.style.height = 'auto';
