@@ -65,3 +65,12 @@
     height: 50px;
     width: 100%;
 }
+
+#fh5co-products{
+     border-bottom: none;
+}
+
+.btn-try{
+    margin-bottom: 0px;
+    padding: 10px 20px;
+}
