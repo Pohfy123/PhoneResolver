@@ -15,7 +15,24 @@
 
 @section('content')
     <div id="demo-page-input" class="content content-demo-input">
+        <section id="fh5co-counter" class="fh5co-bg-section" style="background-image: url(outline/images/bg_1.jpg); background-attachment: fixed;">
+            <div class="fh5co-overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="fh5co-hero-wrap">
+                            <div class="fh5co-hero-intro text-center">
+                                <div class="col-md-12 text-center">
+                                    <span class="demo-intro">AUTO WEB CLASSIFICATION</span>
+                                    <span class="demo-intro-label">LET AI DO FOR YOU</span>
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section id="demo-2" class="fh5co-bg-section">
             <div class="searchForm animated">
                 <h3><b>Input</b></h3>
@@ -26,9 +43,66 @@
                     <button type="button" class="btn btn-primary btn-analyze btn-analyze1">Analyze</button>
                 </div>
             </div>
+            <div id="fh5co-products" data-section="products">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 fh5co-section-heading text-center">
+                            {{--<h2 class="fh5co-lead animate-single product-animate-1">Click these blocks to try example input.</h2>--}}
+                            <p class="fh5co-sub animate-single product-animate-1 text-black">Click these blocks to try example input.</p>
+                        </div>
+
+
+                        <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
+                            <a href="outline/images/product_1.jpg" class="fh5co-figure to-animate image-popup">
+                                <figure>
+                                    <img src="outline/images/product_1.jpg" alt="Free HTML5 Responsive Template" class="img-responsive">
+                                </figure>
+                                <h3 class="fh5co-figure-lead">Product Name</h3>
+                                <p class="fh5co-figure-text">Far far away behind the word mountains</p>
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
+                            <a href="outline/images/product_2.jpg" class="fh5co-figure to-animate image-popup">
+                                <figure>
+                                    <img src="outline/images/product_2.jpg" alt="Free HTML5 Responsive Template" class="img-responsive">
+                                </figure>
+                                <h3 class="fh5co-figure-lead">Product Name</h3>
+                                <p class="fh5co-figure-text">Far far away behind the word mountains</p>
+                            </a>
+                        </div>
+                        <div class="clearfix visible-sm-block"></div>
+                        <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
+                            <a href="outline/images/product_3.jpg" class="fh5co-figure to-animate image-popup">
+                                <figure>
+                                    <img src="outline/images/product_3.jpg" alt="Free HTML5 Responsive Template" class="img-responsive">
+                                </figure>
+                                <h3 class="fh5co-figure-lead">Product Name</h3>
+                                <p class="fh5co-figure-text">Far far away behind the word mountains</p>
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
+                            <a href="outline/images/product_4.jpg" class="fh5co-figure to-animate image-popup">
+                                <figure>
+                                    <img src="outline/images/product_4.jpg" alt="Free HTML5 Responsive Template" class="img-responsive">
+                                </figure>
+                                <h3 class="fh5co-figure-lead">Product Name</h3>
+                                <p class="fh5co-figure-text">Far far away behind the word mountains</p>
+                            </a>
+                        </div>
+
+                        <div class="clearfix visible-sm-block"></div>
+
+                        <div class="fh5co-spacer fh5co-spacer-sm"></div>
+
+                        <div class="col-md-4 col-md-offset-4 text-center to-animate">
+                            <a href="#" class="btn btn-primary">View All Products</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
-    <div id="demo-page-result" class="hide content">
+    <div id="demo-page-result" class="hide content fh5co-bg-section">
             <div class="container container-all row">
                 <div class="col-md-4 container-left">
                     <h3><b>Input</b> <span class="tag label label-warning input-tag">URL</span></h3>
@@ -43,7 +117,7 @@
                         <h6><span class="try-it" id="try-keyword"> &raquo; Keyword: Plavvy Dessert</span></h6>
                         <h6><span class="try-it" id="try-text"> &raquo; Text: Plavvy Dessert</span></h6>
                     </div>
-                    
+
 
                 </div>
                 <div class="col-md-8 container-right">
@@ -96,8 +170,8 @@
                             <button class="btn btn-inverse">อร่อย</span></button>
                             <button class="btn btn-inverse">บริการดี</span></button>
                         </div>
-                        
-                    </div>                    
+
+                    </div>
                     <!--<pre><code id=account></code></pre>
                     <pre><code id=planets></code></pre>-->
                     <div class="result-json hide">
@@ -107,7 +181,6 @@
                     </div>
                 </div>
             </div>
-        </section>
     </div>
     <br>
     <br>
