@@ -46,13 +46,13 @@
     }
     // end auto resize textareaa
 
-    $(document).on('click','#input-demo-first',function(){
-        $('.loading').removeClass('hide');
-        setTimeout(function(){
-            $('.loading').addClass('hide');
-            $('.result-visual').removeClass('hide')
-        }, 3000);
-    });
+    // $(document).on('click','#input-demo-first',function(){
+    //     $('.loading').removeClass('hide');
+    //     setTimeout(function(){
+    //         $('.loading').addClass('hide');
+    //         $('.result-visual').removeClass('hide')
+    //     }, 3000);
+    // });
 
 
     $(document).on('click', '#btn-result', function() {

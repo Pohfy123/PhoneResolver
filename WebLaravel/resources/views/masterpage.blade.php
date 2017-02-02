@@ -121,11 +121,8 @@
 
     <div id="fh5co-page">
         <div id="fh5co-wrap">
-            <div id="fh5co-main">
-
 
                 @yield('content')
-            </div>
 
 
         <footer id="fh5co-footer" style="">
