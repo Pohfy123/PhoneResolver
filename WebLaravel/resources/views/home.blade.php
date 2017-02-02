@@ -124,17 +124,14 @@
                     <div id="fh5co-clients">
                         <div class="container">
                             <div class="row text-center">
-                                <div class="col-md-3 col-sm-6 col-xs-6 to-animate">
-                                    <figure class="fh5co-client"><img src="outline/images/client_1.png" alt="Free HTML5 Template"></figure>
+                                <div class="col-md-4 col-sm-6 col-xs-6 to-animate">
+                                    <figure class="fh5co-client"><img src="img/client-eng-chula-white.png" style="height: 45px;"></figure>
                                 </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6 to-animate">
-                                    <figure class="fh5co-client"><img src="outline/images/client_2.png" alt="Free HTML5 Template"></figure>
+                                <div class="col-md-4 col-sm-6 col-xs-6 to-animate">
+                                    <figure class="fh5co-client"><img src="img/client-chula-white.png" style="height: 45px;"></figure>
                                 </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6 to-animate">
-                                    <figure class="fh5co-client"><img src="outline/images/client_3.png" alt="Free HTML5 Template"></figure>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6 to-animate">
-                                    <figure class="fh5co-client"><img src="outline/images/client_4.png" alt="Free HTML5 Template"></figure>
+                                <div class="col-md-4 col-sm-6 col-xs-6 to-animate">
+                                    <figure class="fh5co-client"><img src="img/client-nectec-white.png" style="height: 42px;"></figure>
                                 </div>
                             </div>
                         </div>
@@ -145,36 +142,37 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-8 col-md-offset-2 fh5co-section-heading text-center">
-                                    <h2 class="fh5co-lead to-animate">Explore amazing features</h2>
-                                    <p class="fh5co-sub to-animate">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+                                    <h2 class="fh5co-lead to-animate">Explore our features</h2>
+                                    <p class="fh5co-sub to-animate">Done your works with user-friendly interface or<br>powerful API for developers.</p>
+                                </div>
+
+                                <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
+                                    <a href="#" class="fh5co-feature to-animate">
+                                        <span class="fh5co-feature-icon"><i class="icon-tag"></i></span>
+                                        <h3 class="fh5co-feature-lead">Auto categorization</h3>
+                                        <p class="fh5co-feature-text">Website or textual data is classified by powerful text processing.</p>
+                                    </a>
                                 </div>
                                 <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
                                     <a href="#" class="fh5co-feature to-animate">
-                                        <span class="fh5co-feature-icon"><i class="icon-mustache"></i></span>
-                                        <h3 class="fh5co-feature-lead">100% Free</h3>
-                                        <p class="fh5co-feature-text">Far far away behind the word mountains</p>
+                                        <span class="fh5co-feature-icon"><i class="icon-speech"></i></span>
+                                        <h3 class="fh5co-feature-lead">Extract keywords</h3>
+                                        <p class="fh5co-feature-text">Automatically analyze important entities from websites.</p>
                                     </a>
                                 </div>
                                 <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
                                     <a href="#" class="fh5co-feature to-animate">
                                         <span class="fh5co-feature-icon"><i class="icon-screen-smartphone"></i></span>
-                                        <h3 class="fh5co-feature-lead">Fully Responsive</h3>
-                                        <p class="fh5co-feature-text">Far far away behind the word mountains</p>
+                                        <h3 class="fh5co-feature-lead">Phone Resolver</h3>
+                                        <p class="fh5co-feature-text">Extract interesting information from unknown phone number.</p>
                                     </a>
                                 </div>
                                 <div class="clearfix visible-sm-block"></div>
                                 <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
                                     <a href="#" class="fh5co-feature to-animate">
-                                        <span class="fh5co-feature-icon"><i class="icon-eye"></i></span>
-                                        <h3 class="fh5co-feature-lead">Retina-ready</h3>
-                                        <p class="fh5co-feature-text">Far far away behind the word mountains</p>
-                                    </a>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
-                                    <a href="#" class="fh5co-feature to-animate">
-                                        <span class="fh5co-feature-icon"><i class="icon-cloud-download"></i></span>
-                                        <h3 class="fh5co-feature-lead">Download</h3>
-                                        <p class="fh5co-feature-text">Far far away behind the word mountains</p>
+                                        <span class="fh5co-feature-icon"><h2 style="color:#4fd2c2;">ก</h2></span>
+                                        <h3 class="fh5co-feature-lead">Thai-language support</h3>
+                                        <p class="fh5co-feature-text">Our AI understands Thai and English.</p>
                                     </a>
                                 </div>
 
