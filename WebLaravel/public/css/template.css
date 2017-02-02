@@ -120,3 +120,15 @@ pre {
 .content-demo-input {
     padding-bottom: 100px;
 }
+
+.navbar-content > span{
+    border: none !important;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-family: "Montserrat", arial, sans-serif;
+    letter-spacing: 5px;
+    margin-bottom: 2em;
+    display: block;
+}
+
