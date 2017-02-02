@@ -8308,11 +8308,11 @@ pre {
 }
 .btn:hover {
   border-color: transparent;
-  -webkit-box-shadow: 0 5px 7px rgba(0, 0, 0, 0.25);
+  /*-webkit-box-shadow: 0 5px 7px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0 5px 7px rgba(0, 0, 0, 0.25);
   -ms-box-shadow: 0 5px 7px rgba(0, 0, 0, 0.25);
   -o-box-shadow: 0 5px 7px rgba(0, 0, 0, 0.25);
-  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.25);*/
 }
 .btn.fh5co-btn-icon {
   text-transform: none !important;

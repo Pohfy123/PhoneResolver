@@ -14,6 +14,8 @@
 @endsection
 
 @section('content')
+
+
     <div id="demo-page-input" class="content content-demo-input">
         <section id="fh5co-counter" class="fh5co-bg-section" style="background-image: url(outline/images/bg_1.jpg); background-attachment: fixed;">
             <div class="fh5co-overlay"></div>
@@ -110,11 +112,14 @@
             </div>
         </section>
     </div>
-    <div id="demo-page-result" class="hide content fh5co-bg-section">
+    <header id="fh5co-hero" data-section="home" role="banner" style="background: url(outline/images/bg_2.jpg) top left; background-size: cover;" >
+    <div class="fh5co-overlay"></div>
+    <div class="fh5co-intro">
+    <div id="demo-page-result" class="hide content">
             <div class="container container-all row">
                 <div class="col-md-4 container-left">
                     <h3><b>Input</b> <span class="tag label label-warning input-tag">URL</span></h3>
-                    <textarea class="input-textarea form-control" rows="1" id="text2" placeholder="Enter url, keyword, text ..."></textarea>
+                    <textarea class="input-textarea form-control" rows="1" id="input-demo-result" placeholder="Enter url, keyword, text ..."></textarea>
                     <br>
                     <button type="button" class="btn btn-primary btn-sm btn-analyze btn-analyze2">Analyze</button>
                     <br>
@@ -129,10 +134,10 @@
 
                 </div>
                 <div class="col-md-8 container-right">
-                    <div style="background-color:#d6e6e6; margin: -15px -30px; padding: 20px;">
+                    <div class="result-menu">
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary btn-embossed btn-md active" id="btn-result"><span class="fui-eye"></span> Result</button>
-                            <button type="button" class="btn btn-primary btn-embossed btn-md" id="btn-json"><span class="fui-arrow-left"></span><span class="fui-arrow-right"></span> JSON</button>
+                            <button type="button" class="btn btn-primary btn-embossed btn-md" id="btn-json"><span class="fui-arrow-left"></span><span class="fui-arrow-right"></span>JSON</button>
                         </div>
                     </div>
                     <div class="loading hide">
@@ -142,15 +147,15 @@
                         </svg>
                     </div>
                     <div class="result-visual hide">
-                        <h1>Tables</h1>
+                        <h1 class="lead">Tables</h1>
                         <br>
-                        <table class="table table-bordered table-result">
+                        <table class="table table-hover table-striped table-result">
                             <thead>
                             <tr>
-                                <th>#</th>
+                                <th style="border-radius: 7px 0 0 0;">#</th>
                                 <th>Category</th>
                                 <th>Score</th>
-                                <th>Confident ?</th>
+                                <th style="border-radius: 0 7px 0 0;">Confident ?</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -169,27 +174,29 @@
                             </tbody>
                         </table>
                         <br>
-                        <hr>
                         <br>
-                        <h1>Important words</h1>
+                        <h1 class="lead">Important words</h1>
                         <div class="form-group">
-                            <button class="btn btn-inverse">ร้านอาหาร</span></button>
-                            <button class="btn btn-inverse">กรุงเทพฯ</span></button>
-                            <button class="btn btn-inverse">อร่อย</span></button>
-                            <button class="btn btn-inverse">บริการดี</span></button>
+                            <span class="btn btn-inverse btn-sm">ร้านอาหาร</span></span>
+                            <span class="btn btn-inverse btn-sm">กรุงเทพฯ</span></span>
+                            <span class="btn btn-inverse btn-sm">อร่อย</span></span>
+                            <span class="btn btn-inverse btn-sm">บริการดี</span></span>
                         </div>
 
                     </div>
                     <!--<pre><code id=account></code></pre>
                     <pre><code id=planets></code></pre>-->
                     <div class="result-json hide">
-                        <h1>JSON from API</h1>
+                        <h1 class="lead">JSON from API</h1>
                         <pre class="json">
                         </pre>
                     </div>
                 </div>
             </div>
     </div>
+    </div>
+    </div>
+    </header>
     <br>
     <br>
     
@@ -210,5 +217,5 @@
     <script src="outline/js/jquery.countTo.js"></script>
     <!-- Main JS -->
     <script src="outline/js/main.js"></script>
-	
+
 @endsection

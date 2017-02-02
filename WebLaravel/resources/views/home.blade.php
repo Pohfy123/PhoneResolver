@@ -6,7 +6,7 @@
 	<head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Outline &mdash; A Free HTML5 Responsive Template by FREEHTML5.CO</title>
+        <title>InsighText | Home</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
         <meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
@@ -91,7 +91,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#fh5co-navbar" aria-expanded="false" aria-controls="navbar"><span>Menu</span> <i></i></a>
-                        <a href="index.html" class="navbar-brand"><span>Outline</span></a>
+                        <a href="index.html" class="navbar-brand"><span>InsighText</span></a>
                     </div>
                 </div>
             </div>
@@ -106,9 +106,9 @@
                             <div class="row">
                                 
                                 <div class="col-md-6 fh5co-text">
-                                    <h2 class="to-animate intro-animate-1">We take your business to the next level.</h2>
-                                    <p class="to-animate intro-animate-2">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove.</p>
-                                    <p class="to-animate intro-animate-3"><a href="#" class="btn btn-primary btn-md"><i class="icon-apple"></i> See on AppStore</a></p>
+                                    <h2 class="to-animate intro-animate-1">Extract valuable insight from text.</h2>
+                                    <p class="to-animate intro-animate-2">We help you classify and extract important information from text data.</p>
+                                    <p class="to-animate intro-animate-3"><a href="#fh5co-features" class="btn btn-primary btn-md">Get started !</a></p>
                                 </div>
                                 <div class="col-md-6 text-right fh5co-intro-img to-animate intro-animate-4">
                                     <img src="outline/images/iphone_6_3.png" alt="Outline Free HTML5 Responsive Bootstrap Template">
@@ -180,16 +180,16 @@
 
                                 <div class="fh5co-spacer fh5co-spacer-sm"></div>
 
-                                <div class="col-md-4 col-md-offset-4 text-center to-animate">
+                                <!--<div class="col-md-4 col-md-offset-4 text-center to-animate">
                                     <a href="#" class="btn btn-primary">View All Features</a>
-                                </div>
+                                </div>-->
                             </div>
                     </div>
                     
 
                     </div>
                     
-
+<!--
 
                     <div id="fh5co-features-2" data-section="design">
                         <div class="fh5co-features-2-content">
@@ -442,7 +442,7 @@
 
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     
                     <div class="fh5co-bg-section cta" id="fh5co-cta" style="background-image: url(outline/images/hero_bg.jpg); background-attachment: fixed;">
                         <div class="fh5co-overlay"></div>
@@ -453,9 +453,9 @@
                                         <div class="fh5co-hero-intro text-center">
                                             <div class="row">
                                                 <div class="col-md-8 col-md-offset-2 fh5co-section-heading text-center">
-                                                    <h2 class="fh5co-lead to-animate">Try Outline App today!</h2>
-                                                    <p class="fh5co-sub to-animate">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <div class="to-animate"><a href="#" class="btn btn-primary">Get Started!</a></div>
+                                                    <h2 class="fh5co-lead to-animate">Try InsighText Demo now!</h2>
+                                                    <p class="fh5co-sub to-animate">Turn text into diamond.</p>
+                                                    <div class="to-animate"><a href="/demo" class="btn btn-primary">Try DEMO!</a></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -469,43 +469,39 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-8 col-md-offset-2 fh5co-section-heading text-center">
-                                    <h2 class="fh5co-lead animate-single pricing-animate-1">Plans built for every one</h2>
-                                    <p class="fh5co-sub animate-single pricing-animate-2">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <h2 class="fh5co-lead animate-single pricing-animate-1">InsighText Plans</h2>
+                                    <!--<p class="fh5co-sub animate-single pricing-animate-2">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>-->
                                 </div>
 
-                                <div class="col-md-3 to-animate">
-                                    <a href="#" class="fh5co-figure">
-                                        <span class="fh5co-price">$1<span>/month</span></span>
-                                        <h3 class="fh5co-figure-lead">Starter</h3>
-                                        <p class="fh5co-figure-text">Far far away behind the word mountains</p>
-                                    </a>
+                                <div class="col-md-4 to-animate">
+                                    <span href="#" class="fh5co-figure">
+                                        <span class="fh5co-price">0<span>/month</span></span>
+                                        <h3 class="fh5co-figure-lead">FREE</h3>
+                                        <p class="fh5co-figure-text">100 queries/month</p>
+                                        <a href="/demo" class="btn btn-primary btn-xs">Try for free!</a>
+                                    </span>
                                 </div>
-                                <div class="col-md-3 to-animate">
-                                    <a href="#" class="fh5co-figure">
-                                        <span class="fh5co-price">$25<span>/month</span></span>
+                                <div class="col-md-4 to-animate">
+                                    <span href="#" class="fh5co-figure">
+                                        <span class="fh5co-price">$19<span>/month</span></span>
                                         <h3 class="fh5co-figure-lead">Regular</h3>
-                                        <p class="fh5co-figure-text">Far far away behind the word mountains</p>
-                                    </a>
+                                        <p class="fh5co-figure-text">10,000 queries/month</p>
+                                        <a href="/demo" class="btn btn-primary btn-xs" disabled>Signup</a>
+                                    </span>
                                 </div>
-                                <div class="col-md-3 to-animate">
-                                    <a href="#" class="fh5co-figure active pricing-feature">
-                                        <span class="fh5co-price">$59<span>/month</span></span>
-                                        <h3 class="fh5co-figure-lead">Plus</h3>
-                                        <p class="fh5co-figure-text">Far far away behind the word mountains</p>
-                                    </a>
-                                </div>
-                                <div class="col-md-3 to-animate">
-                                    <a href="#" class="fh5co-figure">
-                                        <span class="fh5co-price">$125<span>/month</span></span>
-                                        <h3 class="fh5co-figure-lead">Enterprise</h3>
-                                        <p class="fh5co-figure-text">Far far away behind the word mountains</p>
-                                    </a>
+                                <div class="col-md-4 to-animate">
+                                    <span href="#" class="fh5co-figure active pricing-feature">
+                                        <span class="fh5co-price">$49<span>/month</span></span>
+                                        <h3 class="fh5co-figure-lead">Pro</h3>
+                                        <p class="fh5co-figure-text">50,000 queries/month</p>
+                                        <a href="/demo" class="btn btn-primary btn-xs" disabled>Signup</a>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div id="fh5co-faqs"  data-section="faqs">
+                    <!--<div id="fh5co-faqs"  data-section="faqs">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-8 col-md-offset-2 fh5co-section-heading text-center">
@@ -560,13 +556,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div id="fh5co-subscribe">
                         <div class="container">
                             <div class="row animate-box">
                                 <form action="#" method="post">
-                                    <div class="col-md-3 col-sm-3">
+                                    <!--<div class="col-md-3 col-sm-3">
                                         <div class="form-group">
                                             <input type="text" class="form-control" placeholder="First Name">
                                         </div>
@@ -585,7 +581,7 @@
                                         <div class="form-group">
                                             <input type="submit" class="btn btn-primary" value="Subscribe">
                                         </div>
-                                    </div>
+                                    </div>-->
                                 </form>
                             </div>
                         </div>

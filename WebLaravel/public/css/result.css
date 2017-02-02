@@ -206,6 +206,26 @@ body {
         box-shadow: inset #ffffff 0 2em 0 0, inset #00b7c6 0 2em 0 0, inset #ffffff 0 2em 0 0, inset #00b7c6 0 4em 0 0;
     }
 }
-
-
 /*End Loading*/
+
+
+.result-visual, .result-json {
+    padding: 1em;
+}
+.result-menu {
+    padding: 20px 30px 0 30px;
+    background-color:#d6e6e6;
+    margin: -15px -30px;
+}
+
+/*#input-demo-result {
+    max-height: 30em;
+    overflow: auto;
+}*/
+.result-visual table {
+    color: #34495e;
+}
+.result-visual table thead tr {
+    background-color: #34495e;
+    color: white;
+}
