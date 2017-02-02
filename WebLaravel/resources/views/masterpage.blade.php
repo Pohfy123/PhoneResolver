@@ -41,7 +41,7 @@
     <link rel="stylesheet" href="outline/css/owl.carousel.min.css">
     <link rel="stylesheet" href="outline/css/owl.theme.default.min.css">
     <!-- Salvattore -->
-    <link rel="stylesheet" href="outline/css/salvattore.css">
+    {{--<link rel="stylesheet" href="outline/css/salvattore.css">--}}
     <!-- Theme Style -->
     <link rel="stylesheet" href="outline/css/style.css">
     <!-- Modernizr JS -->

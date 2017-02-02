@@ -48,45 +48,56 @@
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2 fh5co-section-heading text-center">
                             {{--<h2 class="fh5co-lead animate-single product-animate-1">Click these blocks to try example input.</h2>--}}
-                            <p class="fh5co-sub animate-single product-animate-1 text-black">Click these blocks to try example input.</p>
+                            <p class="fh5co-sub text-black">Click these blocks to try example input.</p>
                         </div>
 
-
                         <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
-                            <a href="outline/images/product_1.jpg" class="fh5co-figure to-animate image-popup">
+                            <a href="outline/images/product_1.jpg" class="fh5co-figure image-popup">
                                 <figure>
-                                    <img src="outline/images/product_1.jpg" alt="Free HTML5 Responsive Template" class="img-responsive">
+                                    <img src="outline/images/product_1.jpg" alt="Free HTML5 Responsive Template" class="img-responsive example-img">
                                 </figure>
-                                <h3 class="fh5co-figure-lead">Product Name</h3>
-                                <p class="fh5co-figure-text">Far far away behind the word mountains</p>
+                                <h3 class="fh5co-figure-lead">URL</h3>
+                                <p class="fh5co-figure-text">รีวิวร้านก๋วยจั๊บนายเอกซ์</p>
+                                <div class="center">
+                                    <button type="button" class="btn btn-primary">Try!</button>
+                                </div>
                             </a>
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
-                            <a href="outline/images/product_2.jpg" class="fh5co-figure to-animate image-popup">
+                            <a href="outline/images/product_2.jpg" class="fh5co-figure image-popup">
                                 <figure>
-                                    <img src="outline/images/product_2.jpg" alt="Free HTML5 Responsive Template" class="img-responsive">
+                                    <img src="outline/images/product_2.jpg" alt="Free HTML5 Responsive Template" class="img-responsive example-img">
                                 </figure>
-                                <h3 class="fh5co-figure-lead">Product Name</h3>
-                                <p class="fh5co-figure-text">Far far away behind the word mountains</p>
+                                <h3 class="fh5co-figure-lead">PHONE-NO</h3>
+                                <p class="fh5co-figure-text">Courtyard by Mariott Bangkok</p>
+                                <div class="center">
+                                    <button type="button" class="btn btn-primary">Try!</button>
+                                </div>
                             </a>
                         </div>
                         <div class="clearfix visible-sm-block"></div>
                         <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
-                            <a href="outline/images/product_3.jpg" class="fh5co-figure to-animate image-popup">
+                            <a href="outline/images/product_3.jpg" class="fh5co-figure image-popup">
                                 <figure>
-                                    <img src="outline/images/product_3.jpg" alt="Free HTML5 Responsive Template" class="img-responsive">
+                                    <img src="outline/images/product_3.jpg" alt="Free HTML5 Responsive Template" class="img-responsive example-img">
                                 </figure>
-                                <h3 class="fh5co-figure-lead">Product Name</h3>
-                                <p class="fh5co-figure-text">Far far away behind the word mountains</p>
+                                <h3 class="fh5co-figure-lead">LONG TEXT</h3>
+                                <p class="fh5co-figure-text">Krua Dok Mai Kao has regularly been packed out since ...</p>
+                                <div class="center">
+                                    <button type="button" class="btn btn-primary">Try!</button>
+                                </div>
                             </a>
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12">
-                            <a href="outline/images/product_4.jpg" class="fh5co-figure to-animate image-popup">
+                            <a href="outline/images/product_4.jpg" class="fh5co-figure image-popup">
                                 <figure>
-                                    <img src="outline/images/product_4.jpg" alt="Free HTML5 Responsive Template" class="img-responsive">
+                                    <img src="outline/images/product_4.jpg" alt="Free HTML5 Responsive Template" class="img-responsive example-img">
                                 </figure>
-                                <h3 class="fh5co-figure-lead">Product Name</h3>
-                                <p class="fh5co-figure-text">Far far away behind the word mountains</p>
+                                <h3 class="fh5co-figure-lead">Keyword</h3>
+                                <p class="fh5co-figure-text">"ซอร์เทรล สาทร", Bangkok</p>
+                                <div class="center">
+                                    <button type="button" class="btn btn-primary">Try!</button>
+                                </div>
                             </a>
                         </div>
 
@@ -94,9 +105,6 @@
 
                         <div class="fh5co-spacer fh5co-spacer-sm"></div>
 
-                        <div class="col-md-4 col-md-offset-4 text-center to-animate">
-                            <a href="#" class="btn btn-primary">View All Products</a>
-                        </div>
                     </div>
                 </div>
             </div>
