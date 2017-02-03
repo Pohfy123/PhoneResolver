@@ -164,7 +164,7 @@
 
                         {{--<div class="col-md-3 col-sm-12 col-md-pull-9">--}}
                             <div class="fh5co-footer-logo"><a href="index.html">InsighText</a></div>
-                            <p class="fh5co-copyright"><small>&copy; 2015. All Rights Reserved. <br>	theme by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> Images: <a href="http://pexels.com/" target="_blank">Pexels</a></small></p>
+                            <p class="fh5co-copyright"><small>&copy; 2015. All Rights Reserved. <br>	</small></p>
                             <p>powered by RoosPoh</p>
                         {{--<p class="fh5co-social-icons">--}}
                                 {{--<a href="#"><i class="icon-twitter"></i></a>--}}
