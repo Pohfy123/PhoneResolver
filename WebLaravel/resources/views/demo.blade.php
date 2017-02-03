@@ -148,13 +148,13 @@
                                         {{--</svg>--}}
                                     {{--</div>--}}
                                     <div class="result-visual">
-                                        <h1 class="lead">Tables</h1>
+                                        <h1 class="lead">Categories</h1>
 
                                         <table class="table table-hover table-striped table-result">
                                             <thead>
                                             <tr>
                                                 <th style="border-radius: 7px 0 0 0;">#</th>
-                                                <th>Category</th>
+                                                <th>Name</th>
                                                 <th>Score</th>
                                                 <th style="border-radius: 0 7px 0 0;">Confident ?</th>
                                             </tr>
