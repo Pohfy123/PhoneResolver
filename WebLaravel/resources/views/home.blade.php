@@ -82,7 +82,7 @@
                             <a href="#" class="fh5co-feature to-animate">
                                 <span class="fh5co-feature-icon"><h2 class="thai-char">ก</h2></span>
                                 <h3 class="fh5co-feature-lead">Thai-language support</h3>
-                                <p class="fh5co-feature-text">Our AI understands Thai and English.</p>
+                                <p class="fh5co-feature-text">We understands Thai and English.</p>
                             </a>
                         </div>
 
