@@ -26,7 +26,7 @@
                                 <div class="fh5co-hero-intro text-center">
                                     <div class="col-md-12 text-center">
                                         <span class="demo-intro">AUTO TEXT CLASSIFICATION</span>
-                                        <span class="demo-intro-label">LET AI DO IT FOR YOU</span>
+                                        <span class="demo-intro-label">LET US DO IT FOR YOU</span>
 
                                     </div>
                                 </div>

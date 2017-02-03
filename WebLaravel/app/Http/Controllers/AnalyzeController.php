@@ -19,6 +19,11 @@ class AnalyzeController extends Controller
     private function isPhone($str) {
         return preg_match('/^\+?([0-9]{1,4})\)?[-. ]?([0-9\-]){6,}[0-9]$/', $str);
     }
+
+    /**
+     * @param Request $request
+     * @return array|mixed
+     */
     public function webCategorize(Request $request){
         $MIN_LEN_TEXT = 50;
         $input_val = $request->input('input_value');
@@ -46,12 +51,40 @@ class AnalyzeController extends Controller
         );
 
         // Execute the python script with the JSON data
-        $result = shell_exec('python testWeb.py ' . base64_encode(json_encode($data)));
+        $result = shell_exec('python ./analytic/single_keyword_classification.py > log' . base64_encode(json_encode($data)));
 
         // Decode the result
         $resultData = json_decode($result, true);
 
         // This will contain: array('status' => 'Yes!')
+        $output = array(
+            "request" => array(
+                "input" => $input_val,
+                "type" => $input_type,
+                "api" => "analyze",
+                "version" => "1.0.0"
+            ),
+            "language" => "th",
+            "result" => $resultData['data']
+//            "result" => array(
+//                "keywords" => array(
+//                    "ร้านอาหาร",
+//                    "ร้านซูชิ",
+//                    "กรุงเทพมหานคร"
+//                ),
+//                "contents" => "ร้านอาหารแนะนำ ดูทั้งหมด  Recommended by JOHNNIE WALKER",
+//                "category" => array(
+//                    "d1" => array(
+//                        "confidence"=> 0.49049994349479675,
+//                        "value"=> "restaurant"
+//                    ),
+//                    "d2" => array(
+//                        "confidence"=> 0.31968462467193604,
+//                        "value"=> "seafood restaurant"
+//                    )
+//                )
+//            )
+        );
         return $resultData;
     }
 }
