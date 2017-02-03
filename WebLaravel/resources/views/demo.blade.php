@@ -39,7 +39,7 @@
                 <div class="searchForm animated">
                     <h3><b>Input</b></h3>
                     <div class="form-group">
-                        <textarea class="input-textarea form-control" rows="1" id="input-demo-first" placeholder="Enter url, keyword, text ..."></textarea>
+                        <textarea class="input-textarea form-control" rows="1" id="input-demo-first" placeholder="Enter url, keyword, text, phone no ..."></textarea>
                     </div>
                     <div class="center">
                         <button type="button" class="btn btn-primary btn-analyze btn-analyze1">Analyze</button>
@@ -119,7 +119,7 @@
                             <div class="container container-all row">
                                 <div class="col-md-4 container-left">
                                     <h3><b>Input</b> <span class="tag label label-warning input-tag">URL</span></h3>
-                                    <textarea class="input-textarea form-control" rows="1" id="input-demo-result" placeholder="Enter url, keyword, text ..."></textarea>
+                                    <textarea class="input-textarea form-control" rows="1" id="input-demo-result" placeholder="Enter url, keyword, text, phone no ..."></textarea>
                                     <br>
                                     <button type="button" class="btn btn-primary btn-sm btn-analyze btn-analyze2">Analyze</button>
                                     <br>
