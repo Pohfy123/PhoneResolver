@@ -137,8 +137,8 @@
                                 <div class="col-md-8 container-right">
                                     <div class="result-menu">
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-primary btn-embossed btn-md active" id="btn-result"><span class="fui-eye"></span> Result</button>
-                                            <button type="button" class="btn btn-primary btn-embossed btn-md" id="btn-json"><span class="fui-arrow-left"></span><span class="fui-arrow-right"></span>JSON</button>
+                                            <button type="button" class="btn btn-primary btn-embossed btn-sm active" id="btn-result"><span class="fui-eye"></span> Result</button>
+                                            <button type="button" class="btn btn-primary btn-embossed btn-sm" id="btn-json"><span class="fui-arrow-left"></span>/<span class="fui-arrow-right"></span>JSON</button>
                                         </div>
                                     </div>
                                     {{--<div class="loading hide">--}}
@@ -149,7 +149,7 @@
                                     {{--</div>--}}
                                     <div class="result-visual">
                                         <h1 class="lead">Tables</h1>
-                                        <br>
+
                                         <table class="table table-hover table-striped table-result">
                                             <thead>
                                             <tr>
