@@ -4,6 +4,7 @@ import sys
 import os
 import re
 from LexTo import LexTo
+# import threading, urllib, urlparse
 
 lexto = LexTo()
 def removeStopWords(wordArr):
@@ -14,7 +15,11 @@ def removeStopWords(wordArr):
     "ทุก","ที่สุด","ที่","ทําให้","ทํา","ทาง","ทั้งนี้","ทั้ง","ถ้า","ถูก","ถึง","ต้อง","ต่างๆ","ต่าง","ต่อ","ตาม","ตั้งแต่","ตั้ง","ด้าน","ด้วย",\
     "ดัง","ซึ่ง","ช่วง","จึง","จาก","จัด","จะ","คือ","ความ","ครั้ง","คง","ขึ้น","ของ","ขอ","ขณะ","ก่อน","ก็","การ","กับ","กัน","กว่า",\
     "กล่าว","กรุงเทพมหานคร","ถูกใจ","กำลัง","พูดถึง","คน","กำลัง","ที่นี่","ตา","แก","ส","อิน","รม","ดารา","ดีไซน์","ตกแต่ง","นะ","ครับ",\
-    "instagram","bangkok","facebook","lookup","thailand","a","about","above","after","again","against","all","am","an",\
+    "สมัครงาน","เค","ค่ะ","คะ","คุณ","เด็ด","กรุงเทพฯ","บาท","จำกัด","ค้นหา","หล่อ","รายละเอียด","อำเภอ","อื่นๆ","ใคร","นี่","วันนี้","เว็บไซต์"\
+    "เบอร์","โทร","ดี","เกี่ยวกับ","ผม","ยังไง","พยายาม","เว็บ","ไม่ได้","กู","จัง","คุณ","น้า","ฟรี","อาทิ","เช่น","บางครั้ง","ต้องการ","พิเศษ",\
+    "ครับผม","น้อยใจ","สำหรับ","น่ารัก","สุดยอด","ไหน","ณ","ทำให้","แค่","แน่นอน","ไง","ข้อมูล","ใดๆ"]
+
+    en_stopWord = ["instagram","bangkok","facebook","lookup","a","about","above","after","again","against",\
     "and","any","are","aren't","as","at","be","because","been","before","being","below","yourself","yourselves",\
     "between","both","but","by","can't","cannot","could","couldn't","did","didn't","do","does","doesn't","doing","don't",\
     "down","during","each","few","for","from","further","had","hadn't","has","hasn't","have","haven't","having","he",\
@@ -26,8 +31,14 @@ def removeStopWords(wordArr):
     "they've","this","those","through","to","too","under","until","up","very","was","wasn't","we","we'd","we'll",\
     "we're","we've","were","weren't","what","what's","when","when's","where","where's","which","while","who","who's",\
     "whom","why","why's","with","won't","would","wouldn't","you","you'd","you'll","you're","you've","your","yours",\
-    "zealand","code","area","a","new","km"]
-    return [word for word in wordArr if word.strip() not in th_stopWord]
+    "zealand","code","area","a","new","km","all","am","an","co","th","com","download","software","soi","instagram",\
+    "pdf","likes","profiles","reward","photo","new","all","contact","google","love","reviews","org","jobs","youtube",\
+    "one","and","timeline","oct","baidu","oct","peso","online","cop","scr","eli","rupee","rupia","rupija","cambio",\
+    "seychelles","colombiano","columbian","convertizor","eller","keitimo","kolombia","kolombiya","kolumbijos",\
+    "kolumbijski","kolumbijskie","konverter","konverteris","kurs","mata","para","pesas","pesosu","pezo","przetwornik",\
+    "rupisi","sei","sej","seszelska","sey","tukar","valiut","valuta","www","net","ltd","etc","need","information","also"]
+    tmp = [word for word in wordArr if word.strip() not in th_stopWord]
+    return [word for word in tmp if word.strip().lower() not in en_stopWord]
 
 def isThai(chr):
     cVal = ord(chr)
@@ -67,9 +78,61 @@ def filterChar(content):
     content_no_special_char = ''.join([c if isThai(c) or isEnglish(c) else ' ' for c in content ]) #or isEnglish(c)
     return content_no_special_char
 
+# class CrawlerThread(threading.Thread):
+#     def __init__(self, limitSemaphore,finname,foutname,isPyICU):
+#         self.limitSemaphore = limitSemaphore
+#         self.threadId = hash(self)
+#         self.finname = finname
+#         self.foutname = foutname
+#         self.isPyICU = isPyICU
+#         threading.Thread.__init__(self)
+
+#     def run(self):
+#         self.limitSemaphore.acquire() # wait
+
+#         print ">>>>>>>>>>>>>>>> Start :: ",self.finname
+#         ## Processing each filles
+#         do(self.finname,self.foutname,self.isPyICU)
+
+#         self.limitSemaphore.release()
+#         print "<<<<<<<<<<<<<<<< Finish :: ",self.finname
+
+# def do(finname,foutname,isPyICU):
+#     with open(finname) as pearl:
+#         o = open(foutname, 'w')
+
+#         # Read content from a document
+#         content = pearl.read().decode('utf-8', 'ignore')
+
+#         # Remove dont needed character
+#         content_no_special_char = filterChar(content)
+
+#         # Parse words
+#         if isPyICU is True:
+#             words = warpToArray_PyICU(content_no_special_char)
+#         else:
+#             words = warpToArray_LexTo(content_no_special_char)
+#         # Remove stop words
+#         words = removeStopWords(words)
+#         words = removeEmptyWords(words)
+            
+#         o.write(delimeter.join(words))
+
+#         o.close()
+
+
 def parseAllDocuments(path_in='./temp-processing-data/01_raw-data/', path_out='./temp-processing-data/02_parsed-word-data-lexto/', delimeter='|', isPyICU = False):
+    done_list = []
+    for dirpath, dirs, files in os.walk(path_out):
+        for f in files:
+            fin_ext = os.path.splitext(os.path.basename(f))[1]
+            if fin_ext == '.txt':
+                done_list.append(f)
+
     for dirpath, dirs, files in os.walk(path_in):
         for f in files:
+            if(f in done_list):
+                continue
             finname = os.path.join(dirpath, f)
             foutname = os.path.join(path_out, f)
             print "fname=", finname
@@ -94,3 +157,7 @@ def parseAllDocuments(path_in='./temp-processing-data/01_raw-data/', path_out='.
                 o.write(delimeter.join(words))
 
                 o.close()
+
+
+            # limitSemaphore = threading.Semaphore(10) # Limit 10 files
+            # CrawlerThread(limitSemaphore,finname,foutname,isPyICU).start()

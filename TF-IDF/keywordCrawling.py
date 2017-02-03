@@ -3,6 +3,9 @@
 from urllib import urlopen
 from bs4 import BeautifulSoup
 import socket
+from HTMLParser import HTMLParser
+import re
+
 
 socket.setdefaulttimeout(30)
 
@@ -12,14 +15,38 @@ def isPhoneWeb(url):
                 "lovenumbersphone.it","shareyot.co.il","superforte.netsons.org","telefonforsaljare.nu","whotocall.ru",\
                 "vorwahl-index.de","publicrecordssn.com","ssn-records.org","violetsmile.com","chichiama.com","sync.me",\
                 "b.411note.com","mouser.com","serials.ws","docplayer.pl","serialsws.org","e-stat.go.jp","mottles-heer.de",\
-                "whosnumber.com"]
+                "whosnumber.com","phonenumber.cmcm.com"]
     for phone in phoneList:
         if phone in url:
             return True
     return False
 
-def fetchKeyword(urlTitleArr):
+### For content crawling
+def CssJsStrip(html):
+    pureHtmlCss = re.subn(r'<(script).*?</\1>(?s)', '', html)[0]
+    pureHTML = re.subn(r'<(style).*?</\1>(?s)', '', pureHtmlCss)[0]
+    return pureHTML
+
+class MLStripper(HTMLParser):
+    def __init__(self):
+        self.reset()
+        self.strict = False
+        self.convert_charrefs= True
+        self.fed = []
+    def handle_data(self, d):
+        self.fed.append(d)
+    def get_data(self):
+        return ''.join(self.fed)
+
+def strip_tags(html):
+    s = MLStripper()
+    s.feed(html)
+    return s.get_data()
+### End For content crawling
+
+def fetchKeyword(urlTitleArr,include_content     ,fp):
     searchkey = ""
+    searchtext = ""
     for urlTitle in urlTitleArr:
         url,title = urlTitle.strip().split("|||",1)
         if isPhoneWeb(url):
@@ -36,6 +63,17 @@ def fetchKeyword(urlTitleArr):
             soup = BeautifulSoup(html,"lxml")
             search_key = soup.findAll('meta',attrs={ 'name':'keywords'})
             search_desc = soup.findAll('meta',attrs={ 'name':'description'})
+
+            ## Include Content
+            if include_content:
+                search = soup.findAll('body')
+                html = ""
+                if len(search) > 0:
+                    html = str(search[0].encode('utf-8'))
+                pureHTML = CssJsStrip(html).decode('utf-8')
+                searchtext = searchtext+strip_tags(pureHTML).encode('utf-8')
+            ## End Include Content
+
             searchkey = searchkey+title+"\n"
             if len(search_key) > 0:
                 searchkey = searchkey+"\n"+str(search_key[0]['content'].encode('utf-8'))
@@ -43,13 +81,18 @@ def fetchKeyword(urlTitleArr):
                 searchkey = searchkey+"\n"+str(search_desc[0]['content'].encode('utf-8'))
             else:
                 print "No metadata"
+            
         except IOError as e:
             print "I/O error({0}): {1}".format(e.errno, e.strerror)
         except:
             print "Something Error"
-    return(searchkey)
+            
+        searchtext = searchtext.replace('\n', ' ')
 
-# searchkey = fetchKeyword("https://www.instagram.com/plaavydessertcafe/")
+        fp.write(str(url)+'|||'+str(searchkey)+'|||'+str(searchtext)+'\n')
+    return([searchkey,searchtext])
+
+# searchkey = fetchKeyword("https://www.instagram.com/plaavydessertcafe/",True)
 # o = open("keyword.txt", 'w')
 # o.write(searchkey)
 # o.close()
