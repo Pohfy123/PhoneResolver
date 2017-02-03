@@ -237,3 +237,7 @@ body {
 .btn-tag{
     background: #34495e !important;
 }
+
+#demo-page-result {
+    margin: 5em auto 5em auto;
+}
