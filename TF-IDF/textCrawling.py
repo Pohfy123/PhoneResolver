@@ -49,13 +49,14 @@ def fetchText(urlArr):
         text = text+"\n=================\n"+strip_tags(pureHTML).encode('utf-8')
     return text
 
-
 # url = sys.argv[1]
 # f = open("text.txt","w")
 # html = fetchHTML(url)
 # pureHTML = CssJsStrip(html).decode('utf-8')
 # text = strip_tags(pureHTML).encode('utf-8')
+# text = text.replace('\n', ' ')
 # f.write(text)
+
 
 
 

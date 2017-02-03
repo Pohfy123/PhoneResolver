@@ -13,16 +13,29 @@ token_dict = {}
 
 # <<<<<<<<<<<<<<<<<<<<<< TF-IDF : Old source <<<<<<<<<<<<<<<<<<<<<<
 
-def tokenize(text):
-    tokens = nltk.word_tokenize(text)
-    stems = []
-    for item in tokens:
-        stems.append(PorterStemmer().stem(item))
-    return stems
+def tokenize(x):
+    return ( w for w in nltk.word_tokenize(x) if len(w) >=3)
+
+# def tokenize(text):
+#     tokens = nltk.word_tokenize(text)
+#     stems = []
+#     for item in tokens:
+#         stems.append(PorterStemmer().stem(item))
+#     return stems
 
 def tfidf(input_path, output_path, use_idf=True, limitTop=None):
+    done_list = []
+    for dirpath, dirs, files in os.walk(output_path):
+        for f in files:
+            fin_ext = os.path.splitext(os.path.basename(f))[1]
+            if fin_ext == '.txt':
+                done_list.append(f)
+
     for dirpath, dirs, files in os.walk(input_path):
         for f in files:
+            # Skip done list
+            if(f in done_list):
+                continue
             finname = os.path.join(dirpath, f)
             print "fname=", finname
             with open(finname) as pearl:
@@ -41,6 +54,9 @@ def tfidf(input_path, output_path, use_idf=True, limitTop=None):
 
     for dirpath, dirs, files in os.walk(input_path):
         for f in files:
+            # Skip done list
+            if(f in done_list):
+                continue
             finname = os.path.join(dirpath, f)
             foutname = os.path.join(output_path, f)
             print "result: fname=", finname
