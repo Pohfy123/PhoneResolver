@@ -123,9 +123,9 @@
                 @yield('content')
 
 
-        <footer id="fh5co-footer" style="">
+        <footer id="fh5co-footer" style="padding: 2em;">
             <div class="fh5co-overlay"></div>
-            <div class="fh5co-footer-content">
+            <div class="fh5co-footer-content" style="padding: 2em 8em;">
                 <div class="container">
                     <div class="row">
                         {{--<div class="col-md-3 col-sm-4 col-md-push-3">--}}
@@ -165,7 +165,7 @@
                         {{--<div class="col-md-3 col-sm-12 col-md-pull-9">--}}
                             <div class="fh5co-footer-logo"><a href="index.html">InsighText</a></div>
                             <p class="fh5co-copyright"><small>&copy; 2015. All Rights Reserved. <br>	</small></p>
-                            <p>powered by RoosPoh</p>
+                            <p>powered by Roos &amp; Poh</p>
                         {{--<p class="fh5co-social-icons">--}}
                                 {{--<a href="#"><i class="icon-twitter"></i></a>--}}
                                 {{--<a href="#"><i class="icon-facebook"></i></a>--}}
@@ -192,7 +192,7 @@
     {{--<a class="w3-btn-floating w3-teal" href="javascript:void(0)" title="Google +"><i class="fa fa-google-plus"></i></a>--}}
     {{--<a class="w3-btn-floating w3-teal" href="javascript:void(0)" title="Google +"><i class="fa fa-instagram"></i></a>--}}
     {{--<a class="w3-btn-floating w3-teal w3-hide-small" href="javascript:void(0)" title="Linkedin"><i class="fa fa-linkedin"></i></a>--}}
-    {{--<p>Powered by <a href="#RoosPoh" target="_blank">RoosPoh</a></p>--}}
+    {{--<p>Powered by <a href="#RoosPoh" target="_blank">Roos &amp; Poh</a></p>--}}
 
 
 {{--</footer>--}}

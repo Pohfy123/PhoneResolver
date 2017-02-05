@@ -136,11 +136,15 @@
                                 </div>
                                 <div class="col-md-8 container-right">
                                     <div class="result-menu">
+                                        <span id="btn-result" class="result-nav-btn active"><span class="fui-eye"></span> Result</span>
+                                        <span id="btn-json" class="result-nav-btn"><span class="fui-arrow-left"></span>/<span class="fui-arrow-right"></span>JSON</span>
+                                    </div>
+                                    <!--<div class="result-menu">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary btn-embossed btn-sm active" id="btn-result"><span class="fui-eye"></span> Result</button>
                                             <button type="button" class="btn btn-primary btn-embossed btn-sm" id="btn-json"><span class="fui-arrow-left"></span>/<span class="fui-arrow-right"></span>JSON</button>
                                         </div>
-                                    </div>
+                                    </div>-->
                                     {{--<div class="loading hide">--}}
                                         {{--<svg class="hourglass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 206" preserveAspectRatio="none">--}}
                                             {{--<path class="middle" d="M120 0H0v206h120V0zM77.1 133.2C87.5 140.9 92 145 92 152.6V178H28v-25.4c0-7.6 4.5-11.7 14.9-19.4 6-4.5 13-9.6 17.1-17 4.1 7.4 11.1 12.6 17.1 17zM60 89.7c-4.1-7.3-11.1-12.5-17.1-17C32.5 65.1 28 61 28 53.4V28h64v25.4c0 7.6-4.5 11.7-14.9 19.4-6 4.4-13 9.6-17.1 16.9z"/>--}}
