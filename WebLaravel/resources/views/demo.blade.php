@@ -125,11 +125,11 @@
                                     <br>
                                     <br>
                                     <div class="try-div">
-                                        <h6><b>Try this things :</b></h6>
-                                        <h6><span class="try-it" id="try-url"> &raquo; Url: Plavvy Dessert</span></h6>
-                                        <h6><span class="try-it" id="try-keyword"> &raquo; Keyword: Plavvy Dessert</span></h6>
-                                        <h6><span class="try-it" id="try-text"> &raquo; Text: Plavvy Dessert</span></h6>
-                                        <h6><span class="try-it" id="try-phone"> &raquo; Phone no: Plavvy Dessert</span></h6>
+                                        <h6><b>Try these examples :</b></h6>
+                                        <button type="button" class="btn btn-primary btn-xs"><span class="try-it" id="try-url"> <span class="icon-plus"></span> URL: รีวิวร้านก๋วยจั๊บนายเอ็ก</span></button>
+                                        <button type="button" class="btn btn-primary btn-xs"><span class="try-it" id="try-phone"> <span class="icon-plus"></span> PHONE-NO: Courtyard by Mariott Bangkok</span></button>
+                                        <button type="button" class="btn btn-primary btn-xs"><span class="try-it" id="try-text"> <span class="icon-plus"></span> LONG-TEXT: Krua Dok Mai Kao has ...</span></button>
+                                        <button type="button" class="btn btn-primary btn-xs"><span class="try-it" id="try-keyword"> <span class="icon-plus"></span> KEYWORD: "ซอร์เทรล สาทร", "Bangkok"</span></button>
                                     </div>
 
 
