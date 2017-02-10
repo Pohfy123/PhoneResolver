@@ -49,7 +49,7 @@ def import_test_data(filename='./temp-processing-data/05_merge-csv/test_data.csv
 
 
 def processData(filename_in='./input.txt'):
-    bing_search.runBingSearch(filename_in)
+    # bing_search.runBingSearch(filename_in)
     urlKeywordSearch.search()
     wordParser_LexTo.parseAllDocuments(path_in='./temp-processing-data/01_raw-data-keyword/')
     ngrams.applyNgramAllDocuments()
@@ -78,14 +78,14 @@ def predict(filename_in='./input.txt',filename_out='./results/result.csv'):
 
         for test_row in test_data:
             if test_row['words'] == {}:
-                result[0].append('0')
+                result[test_row['phone_no']].append('0')
             else:
                 dist = classifier.prob_classify(test_row['words'])
                 diff = abs(dist.prob('1')-dist.prob('0'))
                 if diff < 0.2:
-                    result[0].append(str(dist.prob('1')))
+                    result[test_row['phone_no']].append(str(dist.prob('1')))
                 else:
-                    result[0].append(str(dist.prob('1')))
+                    result[test_row['phone_no']].append(str(dist.prob('1')))
             # only SINGLE INPUT classification
             break
 
@@ -107,11 +107,53 @@ def predict(filename_in='./input.txt',filename_out='./results/result.csv'):
             {
                 'name' : CATEGORY[idx],
                 'score' : result[0][idx]
-            } for idx in range(  min(N_MODEL, len(result[0]))  )
+            } for idx in range(  min(N_MODEL, len(result[test_row['phone_no']]))  )
         ]
     }
 
     return dict(result)
+
+def run(input_data):
+    try:
+        data = input_data
+    except:
+        result = {
+            'status': '400', 
+            'msg': 'No input'
+        }
+        print json.dumps(result)
+        return result
+        sys.exit(1)
+
+    if data['input']['type'] not in ['phone']:
+        result = {
+            'status': '400', 
+            'msg': 'Invalid input type'
+        }
+        print json.dumps(result)
+        return result
+        sys.exit(1)
+        
+    dt = time.strftime("%Y%m%d_%H-%M",time.localtime())
+    filename_in = './input_'+dt+'.txt'
+    filename_out = './results/result_'+dt+'.csv'
+
+    with open(filename_in, 'w') as file_out:
+        file_out.write(data['input']['value'])
+    predict_result = predict(filename_in=filename_in, filename_out=filename_out)
+
+    # Generate some data to send to PHP
+    result = {
+        'status': '200', 
+        'data': [
+            {
+                'input': data['input'],
+                'result': predict_result
+            }
+        ]
+    }
+    print json.dumps(result)
+    return result
 
 
 if __name__ == '__main__':
