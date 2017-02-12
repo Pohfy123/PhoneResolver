@@ -9,6 +9,6 @@ WORKDIR /app
 RUN pip install -r requirements.txt
 
 ENTRYPOINT ["python"]
-CMD ["/code/hello.py"]
+CMD ["/code/test-api.py"]
 
 EXPOSE 8080 5000

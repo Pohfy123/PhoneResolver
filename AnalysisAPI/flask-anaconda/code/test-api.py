@@ -1,5 +1,5 @@
 from flask import request, url_for
-from flask.ext.api import FlaskAPI, status, exceptions
+from flask_api import FlaskAPI, status, exceptions
 import single_keyword_classification
 
 app = FlaskAPI(__name__)
@@ -60,4 +60,4 @@ def notes_detail(key):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
