@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+    flask_anaconda:
+        build:
+            context: ./flask-anaconda
+        ports:
+            - "8080:8080"
+            - "5000:5000"
+        volumes:
+            - ./flask-anaconda/code:/code
