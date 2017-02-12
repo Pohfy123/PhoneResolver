@@ -51,8 +51,8 @@ def import_test_data(filename='./temp-processing-data/05_merge-csv/test_data.csv
 
 def processData(filename_in='./input.txt'):
     # bing_search.runBingSearch(filename_in)
-    urlKeywordSearch.search()
-    wordParser_API.parseAllDocuments(path_in='./temp-processing-data/01_raw-data-keyword/')
+    # urlKeywordSearch.search()
+    # wordParser_API.parseAllDocuments(path_in='./temp-processing-data/01_raw-data-keyword/')
     ngrams.applyNgramAllDocuments(path_in='./temp-processing-data/02_parsed-word-data-api/')
     extract_feature.extract_feature()
     merge_test_data_to_csv.mergeResultToCSV()
@@ -116,6 +116,8 @@ def predict(filename_in='./input.txt',filename_out='./results/result.csv'):
     return dict(result)
 
 def run(input_data):
+    start_dt = time.strftime("%Y%m%d_%H-%M",time.localtime())
+    print 'start time : ',start_dt
     try:
         data = input_data
     except:
@@ -143,17 +145,64 @@ def run(input_data):
         file_out.write(data['input']['value'])
     predict_result = predict(filename_in=filename_in, filename_out=filename_out)
 
+    urlList = []
+    with open('./temp-processing-data/00_url/'+data['input']['value']+'.txt') as pearl:
+        # Read content from a document
+        for line in pearl:
+            # print '>>>',line
+            url,keywords =  line.split("|||")
+            urlList.append(url)
+
+    keywordList = []
+    with open('./temp-processing-data/04_tf/'+data['input']['value']+'.txt') as pearl:
+        # Read content from a document
+        count = 0
+        for line in pearl:
+            # print '>>>',line
+            if count > 10:
+                break
+            keyword,tf =  line.decode('utf-8').split("-")
+            keywordList.append(keyword)
+            count += 1
+
+    contents = ""
+    with open('./temp-processing-data/01_raw-data-keyword/'+data['input']['value']+'.txt') as pearl:
+        # Read content from a document
+        contents = pearl.read().decode('utf-8')
+
+    categories = []
+    for idx, val in enumerate(predict_result[data['input']['value']]):
+        num,cat = CATEGORY[idx].split('_')
+        categories.append({
+            'name':cat,
+            'score':val,
+            'confidence': 'Yes' if float(val) > 0.5 else 'No'
+        })
+
     # Generate some data to send to PHP
     result = {
         'status': '200', 
         'data': [
             {
-                'input': data['input'],
-                'result': predict_result
+                'request':{
+                    'input':data['input']['value'],
+                    'type':data['input']['type'],
+                    'api': 'analyze',
+                    'version': '1.0.0',
+                    'resolvedPageUrl': urlList              
+                },
+                'language':"th",
+                'result': {
+                    'keywords': keywordList,
+                    'contents': contents
+                },
+                'category': categories
             }
         ]
     }
-    print json.dumps(result)
+    # print json.dumps(result)
+    end_dt = time.strftime("%Y%m%d_%H-%M",time.localtime())
+    print 'end time : ',end_dt
     return result
 
 
