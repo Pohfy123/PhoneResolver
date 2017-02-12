@@ -52,8 +52,8 @@ def notes_detail(key):
         raise exceptions.NotFound()
     result = single_keyword_classification.run({
         'input': {
-                'type': 'phone',
-                'value': '02-234-9815',
+            'type': 'phone',
+            'value': '02-105-6234',
         }
     })
     return result

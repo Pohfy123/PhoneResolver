@@ -4,7 +4,8 @@ import pickle
 import os
 import bing_search
 import urlKeywordSearch
-import wordParser_LexTo
+# import wordParser_LexTo
+import wordParser_API
 import ngrams
 import extract_feature
 import merge_test_data_to_csv
@@ -51,8 +52,8 @@ def import_test_data(filename='./temp-processing-data/05_merge-csv/test_data.csv
 def processData(filename_in='./input.txt'):
     # bing_search.runBingSearch(filename_in)
     urlKeywordSearch.search()
-    wordParser_LexTo.parseAllDocuments(path_in='./temp-processing-data/01_raw-data-keyword/')
-    ngrams.applyNgramAllDocuments()
+    wordParser_API.parseAllDocuments(path_in='./temp-processing-data/01_raw-data-keyword/')
+    ngrams.applyNgramAllDocuments(path_in='./temp-processing-data/02_parsed-word-data-api/')
     extract_feature.extract_feature()
     merge_test_data_to_csv.mergeResultToCSV()
 
@@ -75,7 +76,7 @@ def predict(filename_in='./input.txt',filename_out='./results/result.csv'):
         
         # Load Testing Data
         test_data = import_test_data()
-
+        # print len(test_data)
         for test_row in test_data:
             if test_row['words'] == {}:
                 result[test_row['phone_no']].append('0')
@@ -87,7 +88,7 @@ def predict(filename_in='./input.txt',filename_out='./results/result.csv'):
                 else:
                     result[test_row['phone_no']].append(str(dist.prob('1')))
             # only SINGLE INPUT classification
-            break
+            # break
 
     # Write Result
     with open(filename_out, 'w') as file_out:
@@ -95,6 +96,7 @@ def predict(filename_in='./input.txt',filename_out='./results/result.csv'):
             file_out.write(','+cat)
         file_out.write('\n')
         key_str_list = result.keys()
+        # print key_str_list
         value_str_list = [','.join(result_row) for result_row in result.values()]
         pair_str_list = zip(key_str_list, value_str_list)
 
@@ -102,14 +104,14 @@ def predict(filename_in='./input.txt',filename_out='./results/result.csv'):
         file_out.write('\n'.join(result_str_list))
     # print "Success :: Result is saved !"
     
-    output_result = {
-        'category' : [
-            {
-                'name' : CATEGORY[idx],
-                'score' : result[0][idx]
-            } for idx in range(  min(N_MODEL, len(result[test_row['phone_no']]))  )
-        ]
-    }
+    # output_result = {
+    #     'category' : [
+    #         {
+    #             'name' : CATEGORY[idx],
+    #             'score' : result[0][idx]
+    #         } for idx in range(  min(N_MODEL, len(result[test_row['phone_no']]))  )
+    #     ]
+    # }
 
     return dict(result)
 
@@ -137,7 +139,6 @@ def run(input_data):
     dt = time.strftime("%Y%m%d_%H-%M",time.localtime())
     filename_in = './input_'+dt+'.txt'
     filename_out = './results/result_'+dt+'.csv'
-
     with open(filename_in, 'w') as file_out:
         file_out.write(data['input']['value'])
     predict_result = predict(filename_in=filename_in, filename_out=filename_out)
