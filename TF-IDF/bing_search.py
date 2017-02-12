@@ -6,13 +6,26 @@ from py_bing_search import PyBingWebSearch
 import urllib
 
 # Init value
-bing_api_key = "yUTb2srhoLDFqS1gerii032iMUn8teYLLgYvAdjRhts" # Enter your Bing API Key
+bing_api_key = ["yUTb2srhoLDFqS1gerii032iMUn8teYLLgYvAdjRhts123","exBWnPh+Htd8dkXYdW+WtNqDg42WAgzfUZAe9R6vMiU3"] # Enter your Bing API Key
 custom_params = "&Market='th-TH'"
+CAT_NAME = 'Airline Companies'
 
 def searchBing(search_term):
-    bing_web = PyBingWebSearch(bing_api_key, search_term, web_only=True, custom_params=custom_params)
-    search_result = bing_web.search(limit=50, format='json')
-    return search_result
+    try:
+        bing_web = PyBingWebSearch(bing_api_key[0], search_term, web_only=True, custom_params=custom_params)
+        search_result = bing_web.search(limit=50, format='json')
+        return search_result
+    except:
+        try:
+            bing_web = PyBingWebSearch(bing_api_key[1], search_term, web_only=True, custom_params=custom_params)
+            search_result = bing_web.search(limit=50, format='json')
+            return search_result
+        except:
+            print "============== cannot search :: API expired ==============="
+            fout = open('not_search_input.txt','a')
+            fout.write(search_term+'\n')
+            return ""
+
 
 def searchRelatedLinks(search_term_list, output_path, db_file_name="bing-search-result.csv"):    
     for search_term in search_term_list:
@@ -48,7 +61,7 @@ def searchRelatedLinks(search_term_list, output_path, db_file_name="bing-search-
 def readPhoneNoList(path_input_file):
     with open(path_input_file, "r") as fi:
         nums = fi.read()
-        numArr = nums.split("\n")
+        numArr = nums.strip().split("\n")
     return numArr
 
 def runBingSearch(path_number_list='./number_input.txt',path_url='./temp-processing-data/00_url/'):
@@ -62,3 +75,6 @@ def runBingSearch(path_number_list='./number_input.txt',path_url='./temp-process
         elif(inputConfirm.upper()=='N'):
             print 'Good Bye!'
             break
+
+if __name__ == "__main__":
+    runBingSearch('./temp-processing-data_'+CAT_NAME+'/difference_files.txt','./temp-processing-data_'+CAT_NAME+'/00_url_'+CAT_NAME+'_diff/')

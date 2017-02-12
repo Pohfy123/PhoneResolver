@@ -14,6 +14,22 @@ import time
 MODEL_DIR_PATH = './model/'
 N_MODEL = 4 # Edit here
 
+known_category_phone_number = {}
+
+def import_yellow_pages_db(file_name_in="./yellowpages.csv"):
+    is_first_line = True
+    phone_cat = {}
+    with open(file_name_in) as pearl:
+        for line in pearl:
+            if is_first_line:
+                is_first_line = False
+                continue
+            alldata = line.split(',')
+            if phone_cat.get(alldata[1], "empty") == "empty":
+                phone_cat[alldata[1]] = []
+            phone_cat[alldata[1]].append(alldata[3])
+    return phone_cat
+
 def load_model(filename_in):
     f = open(filename_in, 'r')
     classifier = pickle.load(f)
@@ -40,7 +56,6 @@ def import_test_data(filename='./temp-processing-data/05_merge-csv/test_data.csv
             datasets.append(data)
     return datasets
 
-
 def processData(filename_in='./number_input.txt'):
     bing_search.runBingSearch(filename_in)
     urlKeywordSearch.search()
@@ -49,8 +64,23 @@ def processData(filename_in='./number_input.txt'):
     extract_feature.extract_feature()
     merge_test_data_to_csv.mergeResultToCSV()
 
+def check_yellowpages(filename_in):
+    phone_cat = {}
+    fout = open('new_number_input.txt','w')
+    with open(filename_in) as pearl:
+        for num in pearl:
+            # print 'num',num
+            # print 'num in known',known_category_phone_number[num]
+            num = num.strip()
+            if num in known_category_phone_number:
+                phone_cat[num] = known_category_phone_number[num]
+            else:
+                fout.write(num+'\n')
+    return phone_cat
+
 def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'):
-    processData(filename_in)
+    phone_cat = check_yellowpages(filename_in)
+    processData('./new_number_input.txt')
     result = defaultdict(list)
     
     # Each model
@@ -108,4 +138,5 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
 if __name__ == '__main__':
     dt = time.strftime("%Y%m%d_%H-%M",time.localtime())
     filename_out = './results/result'+dt+'.csv'
+    known_category_phone_number = import_yellow_pages_db()
     result = predict(filename_out=filename_out)
