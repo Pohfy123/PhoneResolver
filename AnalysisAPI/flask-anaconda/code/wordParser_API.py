@@ -3,10 +3,8 @@
 import sys
 import os
 import re
-from LexTo import LexTo
 # import threading, urllib, urlparse
 
-lexto = LexTo()
 def removeStopWords(wordArr):
     th_stopWord = ["ไว้","ไม่","ไป","ได้","ให้","ใน","โดย","แห่ง","แล้ว","และ","แรก","แบบ","แต่","เอง","เห็น","เลย","เริ่ม","เรา",\
     "เมื่อ","เพื่อ","เพราะ","เป็นการ","เป็น","เปิดเผย","เปิด","เนื่องจาก","เดียวกัน","เดียว","เช่น","เฉพาะ","เคย","เข้า","เขา","อีก","อาจ",\
@@ -52,23 +50,24 @@ def isEnglish(chr):
         return True
     return False
 
-def warpToArray_LexTo(txt, delimeter="|"):
-    words, types = lexto.tokenize(txt)
-    return [word.encode('utf-8','ignore') for word in words]
-
-def warpToArray_PyICU(txt, delimeter="|"):
-    bd = PyICU.BreakIterator.createWordInstance(PyICU.Locale("th"))
-    bd.setText(txt)
-    lastPos = bd.first()
-    retList = []
+import requests
+import json
+rootUrl = "https://dtst1uxyai.execute-api.ap-southeast-1.amazonaws.com/chula"
+def thaiWordTokenizer(s):
+    payload = {'x-api-key':'79ocKF43iw2CCmvMxn33q1bhTm3hOd3X4YyIZYJ5', 'q':s}
+    r = requests.post(rootUrl, data=payload)
     try:
-        while(1):
-            currentPos = next(bd)
-            retList.append(txt[lastPos:currentPos].encode('utf-8'))
-            lastPos = currentPos
-    except StopIteration:
-        pass
-    return retList
+        jsonTmp = json.loads(r.text)
+        str_toke = jsonTmp['analysis']['field_types']['text_th_inspica_base']['query'][1]
+        text_arr = [str_toke[i]['text'] for i in range(len(str_toke))]
+        return text_arr
+    except:
+            return []
+
+
+def warpToArray_API(txt):
+    words = thaiWordTokenizer(txt)
+    return [word.encode('utf-8','ignore') for word in words]
 
 def removeEmptyWords(word_list):
     return filter(None, map(str.strip, word_list))
@@ -78,50 +77,7 @@ def filterChar(content):
     content_no_special_char = ''.join([c if isThai(c) or isEnglish(c) else ' ' for c in content ]) #or isEnglish(c)
     return content_no_special_char
 
-# class CrawlerThread(threading.Thread):
-#     def __init__(self, limitSemaphore,finname,foutname,isPyICU):
-#         self.limitSemaphore = limitSemaphore
-#         self.threadId = hash(self)
-#         self.finname = finname
-#         self.foutname = foutname
-#         self.isPyICU = isPyICU
-#         threading.Thread.__init__(self)
-
-#     def run(self):
-#         self.limitSemaphore.acquire() # wait
-
-#         print ">>>>>>>>>>>>>>>> Start :: ",self.finname
-#         ## Processing each filles
-#         do(self.finname,self.foutname,self.isPyICU)
-
-#         self.limitSemaphore.release()
-#         print "<<<<<<<<<<<<<<<< Finish :: ",self.finname
-
-# def do(finname,foutname,isPyICU):
-#     with open(finname) as pearl:
-#         o = open(foutname, 'w')
-
-#         # Read content from a document
-#         content = pearl.read().decode('utf-8', 'ignore')
-
-#         # Remove dont needed character
-#         content_no_special_char = filterChar(content)
-
-#         # Parse words
-#         if isPyICU is True:
-#             words = warpToArray_PyICU(content_no_special_char)
-#         else:
-#             words = warpToArray_LexTo(content_no_special_char)
-#         # Remove stop words
-#         words = removeStopWords(words)
-#         words = removeEmptyWords(words)
-            
-#         o.write(delimeter.join(words))
-
-#         o.close()
-
-
-def parseAllDocuments(path_in='./temp-processing-data/01_raw-data/', path_out='./temp-processing-data/02_parsed-word-data-lexto/', delimeter='|', isPyICU = False):
+def parseAllDocuments(path_in='./temp-processing-data/01_raw-data/', path_out='./temp-processing-data/02_parsed-word-data-api/', delimeter='|'):
     done_list = []
     for dirpath, dirs, files in os.walk(path_out):
         for f in files:
@@ -135,7 +91,7 @@ def parseAllDocuments(path_in='./temp-processing-data/01_raw-data/', path_out='.
                 continue
             finname = os.path.join(dirpath, f)
             foutname = os.path.join(path_out, f)
-            # print "fname=", finname
+            print "fname=", finname
             with open(finname) as pearl:
                 o = open(foutname, 'w')
 
@@ -146,10 +102,8 @@ def parseAllDocuments(path_in='./temp-processing-data/01_raw-data/', path_out='.
                 content_no_special_char = filterChar(content)
 
                 # Parse words
-                if isPyICU is True:
-                    words = warpToArray_PyICU(content_no_special_char)
-                else:
-                    words = warpToArray_LexTo(content_no_special_char)
+                words = warpToArray_API(content_no_special_char)
+
                 # Remove stop words
                 words = removeStopWords(words)
                 words = removeEmptyWords(words)
@@ -161,3 +115,6 @@ def parseAllDocuments(path_in='./temp-processing-data/01_raw-data/', path_out='.
 
             # limitSemaphore = threading.Semaphore(10) # Limit 10 files
             # CrawlerThread(limitSemaphore,finname,foutname,isPyICU).start()
+
+if __name__ == '__main__':
+    parseAllDocuments()
