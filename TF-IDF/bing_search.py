@@ -6,7 +6,7 @@ from py_bing_search import PyBingWebSearch
 import urllib
 
 # Init value
-bing_api_key = ["yUTb2srhoLDFqS1gerii032iMUn8teYLLgYvAdjRhts123","exBWnPh+Htd8dkXYdW+WtNqDg42WAgzfUZAe9R6vMiU3"] # Enter your Bing API Key
+bing_api_key = ["yUTb2srhoLDFqS1gerii032iMUn8teYLLgYvAdjRhts","exBWnPh+Htd8dkXYdW+WtNqDg42WAgzfUZAe9R6vMiU"] # Enter your Bing API Key
 custom_params = "&Market='th-TH'"
 CAT_NAME = 'Airline Companies'
 
