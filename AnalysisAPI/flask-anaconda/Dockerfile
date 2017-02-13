@@ -8,7 +8,9 @@ COPY ./app /app
 WORKDIR /app
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["python"]
-CMD ["/code/test-api.py"]
+WORKDIR /code
+
+ENTRYPOINT ["python", "-u"]
+CMD ["./test-api.py"]
 
 EXPOSE 8080 5000
