@@ -130,6 +130,9 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
 
         result_str_list = [','.join(row) for row in pair_str_list]
         file_out.write('\n'.join(result_str_list))
+
+        for num_key in phone_cat:
+            file_out.write('\n'+num_key+',-,-,-,-,'+str(phone_cat[num_key]))
     print "Success :: Result is saved !"
     
     return dict(result)

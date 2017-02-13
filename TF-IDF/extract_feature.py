@@ -49,8 +49,8 @@ def tfidf(input_path, output_path, use_idf=True, limitTop=None):
     if str_list:
         tfidf = TfidfVectorizer(tokenizer=tokenize, stop_words=None, use_idf=use_idf)
         tfs = tfidf.fit_transform(token_dict.values())
-    else:
-        return
+    # else:
+    #     return
 
     for dirpath, dirs, files in os.walk(input_path):
         for f in files:
@@ -61,29 +61,30 @@ def tfidf(input_path, output_path, use_idf=True, limitTop=None):
             foutname = os.path.join(output_path, f)
             print "result: fname=", finname
             o = open(foutname, 'w')
-            with open(finname) as pearl:
-                text = pearl.read().decode('utf-8')
-                # print(inp_str.encode("utf-8"))
-                response = tfidf.transform([text.encode('utf-8')])
-                # print(response)
+            if str_list:
+                with open(finname) as pearl:
+                    text = pearl.read().decode('utf-8')
+                    # print(inp_str.encode("utf-8"))
+                    response = tfidf.transform([text.encode('utf-8')])
+                    # print(response)
 
-                feature_names = tfidf.get_feature_names()
-                
-                # Create freq table
-                keys_freq_table = [str(feature_names[col].encode('utf-8')) for col in response.nonzero()[1] ]
-                vals_freq_table = [response[0, col] for col in response.nonzero()[1] ]
-                freq_table = zip(keys_freq_table, vals_freq_table)
-                
-                # Sort by (value) DESC
-                sorted_freq_table = sorted(freq_table, key=itemgetter(1), reverse=True)
+                    feature_names = tfidf.get_feature_names()
+                    
+                    # Create freq table
+                    keys_freq_table = [str(feature_names[col].encode('utf-8')) for col in response.nonzero()[1] ]
+                    vals_freq_table = [response[0, col] for col in response.nonzero()[1] ]
+                    freq_table = zip(keys_freq_table, vals_freq_table)
+                    
+                    # Sort by (value) DESC
+                    sorted_freq_table = sorted(freq_table, key=itemgetter(1), reverse=True)
 
-                # Limit number of rows
-                if limitTop is not None:
-                    sorted_freq_table = sorted_freq_table[:limitTop]
+                    # Limit number of rows
+                    if limitTop is not None:
+                        sorted_freq_table = sorted_freq_table[:limitTop]
 
-                # Print to file
-                for row in sorted_freq_table:
-                    o.write(row[0]+' - '+str(row[1])+'\n')
+                    # Print to file
+                    for row in sorted_freq_table:
+                        o.write(row[0]+' - '+str(row[1])+'\n')
             o.close()
 
 # >>>>>>>>>>>>>>>>>>>>>> TF-IDF : Old source >>>>>>>>>>>>>>>>>>>>>>
