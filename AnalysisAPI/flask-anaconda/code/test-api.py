@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from flask import request, url_for
 from flask_api import FlaskAPI, status, exceptions
 import single_keyword_classification

@@ -161,14 +161,14 @@ def run(input_data):
             # print '>>>',line
             if count > 10:
                 break
-            keyword,tf =  line.decode('utf-8').split("-")
-            keywordList.append(keyword)
+            keyword,tf =  line.decode('utf-8').strip().split(" - ")
+            keywordList.append(keyword.encode('utf-8'))
             count += 1
 
     contents = ""
     with open('./temp-processing-data/01_raw-data-keyword/'+data['input']['value']+'.txt') as pearl:
         # Read content from a document
-        contents = pearl.read().decode('utf-8')
+        contents = pearl.read()
 
     categories = []
     for idx, val in enumerate(predict_result[data['input']['value']]):
