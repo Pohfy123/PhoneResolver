@@ -25,9 +25,26 @@ def import_yellow_pages_db(file_name_in="./yellowpages.csv"):
                 is_first_line = False
                 continue
             alldata = line.split(',')
-            if phone_cat.get(alldata[1], "empty") == "empty":
-                phone_cat[alldata[1]] = []
-            phone_cat[alldata[1]].append(alldata[3])
+            phone_num = alldata[1]
+            # print phone_num
+            sub_cat = alldata[3]
+            is_airline = True if alldata[4] == '1' else False 
+            is_accommodation = True if alldata[5] == '1' else False 
+            is_tourism = True if alldata[6] == '1' else False 
+            is_restaurant = True if alldata[7] == '1' else False 
+
+            if phone_cat.get(phone_num, "empty") == "empty":
+                phone_cat[phone_num] = {'airline':[],'accommodation':[],'tourism':[],'restaurant':[],'other':[]}
+            if is_airline:
+                phone_cat[phone_num]['airline'].append(sub_cat)
+            if is_accommodation:
+                phone_cat[phone_num]['accommodation'].append(sub_cat)
+            if is_tourism:
+                phone_cat[phone_num]['tourism'].append(sub_cat)
+            if is_restaurant:
+                phone_cat[phone_num]['restaurant'].append(sub_cat)
+            if not is_airline and not is_accommodation and not is_tourism and not is_restaurant:
+                phone_cat[phone_num]['other'].append(sub_cat)
     return phone_cat
 
 def load_model(filename_in):
@@ -69,10 +86,12 @@ def check_yellowpages(filename_in):
     fout = open('new_number_input.txt','w')
     with open(filename_in) as pearl:
         for num in pearl:
+            num = num.strip()
             # print 'num',num
             # print 'num in known',known_category_phone_number[num]
-            num = num.strip()
+            # print 'known',known_category_phone_number
             if num in known_category_phone_number:
+                # print 'yes'
                 phone_cat[num] = known_category_phone_number[num]
             else:
                 fout.write(num+'\n')
@@ -80,6 +99,7 @@ def check_yellowpages(filename_in):
 
 def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'):
     phone_cat = check_yellowpages(filename_in)
+    # print phone_cat
     processData('./new_number_input.txt')
     result = defaultdict(list)
     
@@ -120,19 +140,39 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
 
     # Write Result
     with open(filename_out, 'w') as file_out:
-        CATEGORY = ['01_Airline','02_Accommodation','03_Tourism','04_Restaurant & Delivery']
+        CATEGORY = ['Airline','Accommodation','Tourism','Restaurant & Delivery']
         for cat in CATEGORY:
             file_out.write(','+cat)
-        file_out.write('\n')
+        for cat in CATEGORY:
+            file_out.write(',subcat_'+cat)
+        file_out.write(',other,\n')
         key_str_list = result.keys()
         value_str_list = [','.join(result_row) for result_row in result.values()]
         pair_str_list = zip(key_str_list, value_str_list)
 
         result_str_list = [','.join(row) for row in pair_str_list]
         file_out.write('\n'.join(result_str_list))
-
+        file_out.write('\n')
         for num_key in phone_cat:
-            file_out.write('\n'+num_key+',-,-,-,-,'+str(phone_cat[num_key]))
+            # print '>>', num_key
+            file_out.write(num_key+','+('1' if len(phone_cat[num_key]['airline'])>0 else '0') +\
+            ','+ ('1' if len(phone_cat[num_key]['accommodation'])>0 else '0') +\
+            ','+ ('1' if len(phone_cat[num_key]['tourism'])>0 else '0') +\
+            ','+ ('1' if len(phone_cat[num_key]['restaurant'])>0 else '0') + ',' )
+            file_out.write('|'.join(phone_cat[num_key]['airline']))
+            file_out.write(',')
+            file_out.write('|'.join(phone_cat[num_key]['accommodation']))
+            file_out.write(',')
+            file_out.write('|'.join(phone_cat[num_key]['tourism']))
+            file_out.write(',')
+            file_out.write('|'.join(phone_cat[num_key]['restaurant']))
+            file_out.write(',')
+            file_out.write('|'.join(phone_cat[num_key]['other']))
+            file_out.write('\n')
+
+
+
+            
     print "Success :: Result is saved !"
     
     return dict(result)
