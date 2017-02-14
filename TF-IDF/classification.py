@@ -15,6 +15,8 @@ MODEL_DIR_PATH = './model/'
 N_MODEL = 4 # Edit here
 
 known_category_phone_number = {}
+new_format_input_path = './new_number_input.txt'
+unknown_number_input_path = './unknown_number_input.txt'
 
 def import_yellow_pages_db(file_name_in="./yellowpages.csv"):
     is_first_line = True
@@ -83,7 +85,7 @@ def processData(filename_in='./number_input.txt'):
 
 def check_yellowpages(filename_in):
     phone_cat = {}
-    fout = open('new_number_input.txt','w')
+    fout = open(unknown_number_input_path,'w')
     with open(filename_in) as pearl:
         for num in pearl:
             num = num.strip()
@@ -97,10 +99,23 @@ def check_yellowpages(filename_in):
                 fout.write(num+'\n')
     return phone_cat
 
+def change_format_phone(file_name_in):
+    fout = open(new_format_input_path,'w')
+    with open(file_name_in) as pearl:
+        for num in pearl:
+            num = num.strip()
+            if len(num) == 9:
+                fout.write(num[0:2]+'-'+num[2:5]+'-'+num[5:9]+'\n')
+            elif len(num) == 10:
+                fout.write(num[0:3]+'-'+num[3:6]+'-'+num[6:10]+'\n')
+            else:
+                fout.write(num+'\n')                
+
 def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'):
-    phone_cat = check_yellowpages(filename_in)
+    change_format_phone(filename_in)
+    phone_cat = check_yellowpages(new_format_input_path)
     # print phone_cat
-    processData('./new_number_input.txt')
+    processData(unknown_number_input_path)
     result = defaultdict(list)
     
     # Each model
