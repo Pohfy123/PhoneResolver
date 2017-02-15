@@ -6,7 +6,7 @@ from py_bing_search import PyBingWebSearch
 import urllib
 
 # Init value
-bing_api_key = "yUTb2srhoLDFqS1gerii032iMUn8teYLLgYvAdjRhts" # Enter your Bing API Key
+bing_api_key = "u5aItWFoT3raVTFVYQ/E8gPIOuATj3JWqnxz6Wnm628" # Enter your Bing API Key
 custom_params = "&Market='th-TH'"
 CAT_NAME = 'Airline Companies'
 
@@ -55,11 +55,11 @@ def readPhoneNoList(path_input_file):
 def runBingSearch(path_number_list='./number_input.txt',path_url='./temp-processing-data/00_url/'):
     phoneNoList = readPhoneNoList(path_number_list)
     print('Use API Quota = ' + str(len(phoneNoList)) + ' Phone numbers')
-    while True:
+    # while True:
         # inputConfirm = raw_input('Are you sure? [Y/N]: ')
         # if(inputConfirm.upper()=='Y'):
-        searchRelatedLinks(phoneNoList, path_url)
-        break
+    searchRelatedLinks(phoneNoList, path_url)
+        # break
         # elif(inputConfirm.upper()=='N'):
         # print 'Good Bye!'
         # break

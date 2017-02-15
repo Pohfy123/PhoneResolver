@@ -9,7 +9,7 @@ import wordParser_API
 import ngrams
 import extract_feature
 import merge_test_data_to_csv
-from collections import defaultdict
+from collections import OrderedDict
 import time
 
 
@@ -51,15 +51,15 @@ def import_test_data(filename='./temp-processing-data/05_merge-csv/test_data.csv
 
 def processData(filename_in='./input.txt'):
     # bing_search.runBingSearch(filename_in)
-    # urlKeywordSearch.search()
-    # wordParser_API.parseAllDocuments(path_in='./temp-processing-data/01_raw-data-keyword/')
+    urlKeywordSearch.search()
+    wordParser_API.parseAllDocuments(path_in='./temp-processing-data/01_raw-data-keyword/')
     ngrams.applyNgramAllDocuments(path_in='./temp-processing-data/02_parsed-word-data-api/')
     extract_feature.extract_feature()
     merge_test_data_to_csv.mergeResultToCSV()
 
 def predict(filename_in='./input.txt',filename_out='./results/result.csv'):
     processData(filename_in)
-    result = defaultdict(list)
+    result = OrderedDict([])
     
     # Each model
     for model_id in range(1,N_MODEL+1,1):        
@@ -83,6 +83,8 @@ def predict(filename_in='./input.txt',filename_out='./results/result.csv'):
             else:
                 dist = classifier.prob_classify(test_row['words'])
                 diff = abs(dist.prob('1')-dist.prob('0'))
+                if test_row['phone_no'] not in result:
+                    result[test_row['phone_no']] = []
                 if diff < 0.2:
                     result[test_row['phone_no']].append(str(dist.prob('1')))
                 else:
@@ -112,8 +114,7 @@ def predict(filename_in='./input.txt',filename_out='./results/result.csv'):
     #         } for idx in range(  min(N_MODEL, len(result[test_row['phone_no']]))  )
     #     ]
     # }
-
-    return dict(result)
+    return result
 
 def run(input_data):
     start_dt = time.strftime("%Y%m%d_%H-%M",time.localtime())
@@ -150,7 +151,7 @@ def run(input_data):
         # Read content from a document
         for line in pearl:
             # print '>>>',line
-            url,keywords =  line.split("|||")
+            url,keywords =  line.decode('utf-8').split("|||")
             urlList.append(url)
 
     keywordList = []
@@ -162,13 +163,13 @@ def run(input_data):
             if count > 10:
                 break
             keyword,tf =  line.decode('utf-8').strip().split(" - ")
-            keywordList.append(keyword.encode('utf-8'))
+            keywordList.append(keyword)
             count += 1
 
     contents = ""
     with open('./temp-processing-data/01_raw-data-keyword/'+data['input']['value']+'.txt') as pearl:
         # Read content from a document
-        contents = pearl.read()
+        contents = pearl.read().decode('utf-8')
 
     categories = []
     for idx, val in enumerate(predict_result[data['input']['value']]):
@@ -179,28 +180,42 @@ def run(input_data):
             'confidence': 'Yes' if float(val) > 0.5 else 'No'
         })
 
+    # sort categories
+    def extract_score(json):
+        try:
+            # Also convert to int since update_time will be string.  When comparing
+            # strings, "10" is smaller than "2".
+            return float(json['score'])
+        except KeyError:
+            return 0
+
+    # lines.sort() is more efficient than lines = lines.sorted()
+    categories.sort(key=extract_score, reverse=True)
+
     # Generate some data to send to PHP
-    result = {
-        'status': '200', 
-        'data': [
-            {
-                'request':{
-                    'input':data['input']['value'],
-                    'type':data['input']['type'],
-                    'api': 'analyze',
-                    'version': '1.0.0',
-                    'resolvedPageUrl': urlList              
-                },
-                'language':"th",
-                'result': {
-                    'keywords': keywordList,
-                    'contents': contents
-                },
-                'category': categories
-            }
-        ]
-    }
-    # print json.dumps(result)
+    request_json = OrderedDict([
+                ('input',data['input']['value']),
+                ('type',data['input']['type']),
+                ('api', 'analyze'),
+                ('version', '1.0.0'),
+                ('resolvedPageUrl', urlList)              
+            ])
+    result_json = OrderedDict([
+                ('keywords', keywordList),
+                ('contents', contents)
+            ])
+    data_json = OrderedDict([
+            ('request',request_json),
+            ('language',"th"),
+            ('result', result_json),
+            ('category', categories)
+    ])
+    result = OrderedDict([
+        ('status', '200'), 
+        ('data', data_json)
+    ])
+    
+    print json.dumps(result)
     end_dt = time.strftime("%Y%m%d_%H-%M",time.localtime())
     print 'end time : ',end_dt
     return result

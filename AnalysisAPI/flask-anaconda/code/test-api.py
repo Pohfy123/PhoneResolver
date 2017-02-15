@@ -3,6 +3,7 @@
 from flask import request, url_for
 from flask_api import FlaskAPI, status, exceptions
 import single_keyword_classification
+import json
 
 app = FlaskAPI(__name__)
 
@@ -58,6 +59,7 @@ def notes_detail(key):
             'value': '02-105-6234',
         }
     })
+    # print json.dumps(result, sort_keys=False)
     return result
 
 
