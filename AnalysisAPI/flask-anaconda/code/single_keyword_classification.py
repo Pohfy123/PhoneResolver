@@ -28,13 +28,15 @@ def load_model(filename_in):
     f.close()
     return classifier
 
-def import_test_data(filename='./temp-processing-data/05_merge-csv/test_data.csv'):
+def import_test_data(input_value,filename='./temp-processing-data/05_merge-csv/test_data.csv'):
     datasets = []
     with open(filename,'r') as fin:        
         for line in fin:
             num,words = line.split(",",1)
             
             phone_no = num.strip()
+            if phone_no != input_value.strip():
+                continue
             if len(words.strip())==0:
                 words = dict()
             else:
@@ -50,14 +52,14 @@ def import_test_data(filename='./temp-processing-data/05_merge-csv/test_data.csv
 
 
 def processData(filename_in='./input.txt'):
-    # bing_search.runBingSearch(filename_in)
+    bing_search.runBingSearch(filename_in)
     urlKeywordSearch.search()
     wordParser_API.parseAllDocuments(path_in='./temp-processing-data/01_raw-data-keyword/')
     ngrams.applyNgramAllDocuments(path_in='./temp-processing-data/02_parsed-word-data-api/')
     extract_feature.extract_feature()
     merge_test_data_to_csv.mergeResultToCSV()
 
-def predict(filename_in='./input.txt',filename_out='./results/result.csv'):
+def predict(input_value,filename_in='./input.txt',filename_out='./results/result.csv'):
     processData(filename_in)
     result = OrderedDict([])
     
@@ -75,7 +77,7 @@ def predict(filename_in='./input.txt',filename_out='./results/result.csv'):
         DictVec = load_model(dv_model_file_path)
         
         # Load Testing Data
-        test_data = import_test_data()
+        test_data = import_test_data(input_value)
         # print len(test_data)
         for test_row in test_data:
             if test_row['words'] == {}:
@@ -144,7 +146,7 @@ def run(input_data):
     filename_out = './results/result_'+dt+'.csv'
     with open(filename_in, 'w') as file_out:
         file_out.write(data['input']['value'])
-    predict_result = predict(filename_in=filename_in, filename_out=filename_out)
+    predict_result = predict(data['input']['value'],filename_in=filename_in, filename_out=filename_out)
 
     urlList = []
     with open('./temp-processing-data/00_url/'+data['input']['value']+'.txt') as pearl:
@@ -221,41 +223,6 @@ def run(input_data):
     return result
 
 
-if __name__ == '__main__':
-    try:
-        data = json.loads(base64.b64decode(sys.argv[1]))
-    except:
-        result = {
-            'status': '400', 
-            'msg': 'No input'
-        }
-        print json.dumps(result)
-        sys.exit(1)
-
-    if data['input']['type'] not in []:
-        result = {
-            'status': '400', 
-            'msg': 'Invalid input type'
-        }
-        print json.dumps(result)
-        sys.exit(1)
-        
-    dt = time.strftime("%Y%m%d_%H-%M",time.localtime())
-    filename_in = './input_'+dt+'.txt'
-    filename_out = './results/result_'+dt+'.csv'
-
-    with open(filename_in, 'w') as file_out:
-        file_out.write(data['input']['value'])
-    predict_result = predict(filename_in=filename_in, filename_out=filename_out)
-
-    # Generate some data to send to PHP
-    result = {
-        'status': '200', 
-        'data': [
-            {
-                'input': data['input'],
-                'result': predict_result
-            }
-        ]
-    }
-    print json.dumps(result)
+# if __name__ == '__main__':
+#     result = run(sys.argv[1])
+#     print json.dumps(result)

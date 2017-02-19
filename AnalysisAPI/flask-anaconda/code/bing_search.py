@@ -11,9 +11,15 @@ custom_params = "&Market='th-TH'"
 CAT_NAME = 'Airline Companies'
 
 def searchBing(search_term):
-    bing_web = PyBingWebSearch(bing_api_key, search_term, web_only=True, custom_params=custom_params)
-    search_result = bing_web.search(limit=50, format='json')
-    return search_result
+    try:
+        bing_web = PyBingWebSearch(bing_api_key, search_term, web_only=True, custom_params=custom_params)
+        search_result = bing_web.search(limit=50, format='json')
+        return search_result
+    except:
+        print "============== cannot search :: API expired ==============="
+        fout = open('not_search_input.txt','a')
+        fout.write(search_term+'\n')
+        return ""
 
 def searchRelatedLinks(search_term_list, output_path, db_file_name="bing-search-result.csv"):    
     for search_term in search_term_list:
@@ -46,14 +52,21 @@ def searchRelatedLinks(search_term_list, output_path, db_file_name="bing-search-
                 oResult.write('\n')
 
 
-def readPhoneNoList(path_input_file):
+def readPhoneNoList(path_input_file,done_list):
     with open(path_input_file, "r") as fi:
         nums = fi.read()
         numArr = nums.split("\n")
-    return numArr
+        new_num_arr = [num for num in numArr if num+'.txt' not in done_list]
+    return new_num_arr
 
 def runBingSearch(path_number_list='./number_input.txt',path_url='./temp-processing-data/00_url/'):
-    phoneNoList = readPhoneNoList(path_number_list)
+    done_list = []
+    for dirpath, dirs, files in os.walk(path_url):
+        for f in files:
+            fin_ext = os.path.splitext(os.path.basename(f))[1]
+            if fin_ext == '.txt':
+                done_list.append(f)
+    phoneNoList = readPhoneNoList(path_number_list,done_list)
     print('Use API Quota = ' + str(len(phoneNoList)) + ' Phone numbers')
     # while True:
         # inputConfirm = raw_input('Are you sure? [Y/N]: ')
