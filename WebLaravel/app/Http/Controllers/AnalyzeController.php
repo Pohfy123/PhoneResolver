@@ -93,7 +93,8 @@ class AnalyzeController extends Controller
 //        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 //        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 //        $a = curl_exec($ch);
-        $result = $this->CallAPI('GET','http://localhost:5000/2');
+
+        $result = $this->CallAPI('POST','http://localhost:5000/phone',json_encode($data));
 
 
 //
