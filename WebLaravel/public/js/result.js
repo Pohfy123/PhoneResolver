@@ -69,12 +69,13 @@ function resizeTextarea() {
 
 
 $(document).on('click','.btn-analyze',function(){
+    var input = $('.input-textarea').val()
     setTimeout(function(){}, 1000);
     $('.loading').removeClass('hide')
     $('.result').addClass('hide')
     $.post("/api/analyze",
         {
-            input_value : "02-690-1888"
+            input_value : input
         }
         , function(data, status){
             $('.loading').addClass('hide')
