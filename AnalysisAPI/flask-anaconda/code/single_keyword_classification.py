@@ -174,11 +174,11 @@ def run(input_data):
     categories = []
     for idx, val in enumerate(predict_result[data['input']['value']]):
         num,cat = CATEGORY[idx].split('_')
-        categories.append({
-            'name':cat,
-            'score':val,
-            'confidence': 'Yes' if float(val) > 0.5 else 'No'
-        })
+        categories.append(OrderedDict([
+            ('name',cat),
+            ('score',val),
+            ('confidence', 'Yes' if float(val) > 0.5 else 'No'),
+    ]))
 
     # sort categories
     def extract_score(json):

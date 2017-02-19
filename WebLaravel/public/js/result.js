@@ -4,36 +4,6 @@ $(document).on('click', '#btn-json', function() {
     $('.result-visual').addClass('hide')
     $('.result-json').removeClass('hide')
 
-    // var jsonStr = $(".json").text();
-    // var jsonObj = JSON.parse(jsonStr);
-    // var jsonPretty = JSON.stringify(jsonObj, null, '\t');
-    // $(".json").text(jsonPretty);
-
-    if (!library)
-        var library = {};
-
-    library.json = {
-        replacer: function(match, pIndent, pKey, pVal, pEnd) {
-            var key = '<span class=json-key>';
-            var val = '<span class=json-value>';
-            var str = '<span class=json-string>';
-            var r = pIndent || '';
-            if (pKey)
-                r = r + key + pKey.replace(/[": ]/g, '') + '</span>: ';
-            if (pVal)
-                r = r + (pVal[0] == '"' ? str : val) + pVal + '</span>';
-            return r + (pEnd || '');
-        },
-        prettyPrint: function(obj) {
-            var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
-            return JSON.stringify(obj, null, 3)
-                .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
-                .replace(/</g, '&lt;').replace(/>/g, '&gt;')
-                .replace(jsonLine, library.json.replacer);
-        }
-    };
-
-    $('.json').html(library.json.prettyPrint({ "request": { "input": "https://www.wongnai.com/restaurants/1667sR-%E0%B8%81%E0%B9%8B%E0%B8 ...", "type": "url", "api": "analyze", "version": "1.0.0", "resolvedPageUrl": "https://www.wongnai.com/restaurants/1667sR-%E0%B8%81%E0%B9 ..." }, "language": "th", "result": { "keywords": ["ร้านอาหาร", "กรุงเทพฯ", "อร่อย", "บริการดี"], "contents": "ร้านอาหารแนะนำ ดูทั้งหมด  ...  " }, "category": [ { "name": "Food","score": 0.5342132,"confidence":"yes"  }, { "name": "Restaurant","score": 0.2323132,"confidence":"yes" } ] }));
 });
 $(document).on('click', '#btn-result', function() {
     $('#btn-json').removeClass('active')
@@ -96,3 +66,55 @@ function resizeTextarea() {
     });
     // end auto resize textareaa
 }
+
+
+$(document).on('click','.btn-analyze',function(){
+    setTimeout(function(){}, 1000);
+    $('.loading').removeClass('hide')
+    $('.result').addClass('hide')
+    $.post("/api/analyze",
+        {
+            input_value : "02-690-1888"
+        }
+        , function(data, status){
+            $('.loading').addClass('hide')
+            $('.result').removeClass('hide')
+            if (!library)
+                var library = {};
+
+            console.log("Data: " + data + "\nStatus: " + status);
+            var result = JSON.parse(data).data
+
+            library.json = {
+                replacer: function(match, pIndent, pKey, pVal, pEnd) {
+                    var key = '<span class=json-key>';
+                    var val = '<span class=json-value>';
+                    var str = '<span class=json-string>';
+                    var r = pIndent || '';
+                    if (pKey)
+                        r = r + key + pKey.replace(/[": ]/g, '') + '</span>: ';
+                    if (pVal)
+                        r = r + (pVal[0] == '"' ? str : val) + pVal + '</span>';
+                    return r + (pEnd || '');
+                },
+                prettyPrint: function(obj) {
+                    var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
+                    return JSON.stringify(obj, null, 3)
+                        .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
+                        .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                        .replace(jsonLine, library.json.replacer);
+                }
+            };
+            $('.json').html(library.json.prettyPrint(result));
+            result.category.forEach(function (val, index, arr) {
+                if(parseFloat(val.score)>0.2){
+                    $('#table-result tr:last').after(`<tr>
+                                                        <th scope="row">`+(index+1)+`</th>
+                                                        <td>`+val.name+`</td>
+                                                        <td>`+val.score+`</td>
+                                                        <td>`+val.confidence+`</td>
+                                                    </tr>`);
+                }
+            })
+    });
+});

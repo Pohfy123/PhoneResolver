@@ -363,7 +363,7 @@
                                 <div class="fh5co-hero-intro text-center">
                                     <div class="row">
                                         <div class="col-md-8 col-md-offset-2 fh5co-section-heading text-center">
-                                            <h2 class="fh5co-lead to-animate">Try InsighText Demo now!</h2>
+                                            <h2 class="fh5co-lead to-animate">Try InsightText Demo now!</h2>
                                             <p class="fh5co-sub to-animate">Turn text into diamond.</p>
                                             <div class="to-animate"><a href="/demo" class="btn btn-primary">Try DEMO!</a></div>
                                         </div>
@@ -379,7 +379,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2 fh5co-section-heading text-center">
-                            <h2 class="fh5co-lead animate-single pricing-animate-1">InsighText Plans</h2>
+                            <h2 class="fh5co-lead animate-single pricing-animate-1">InsightText Plans</h2>
                             <!--<p class="fh5co-sub animate-single pricing-animate-2">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>-->
                         </div>
 
