@@ -84,7 +84,7 @@
                 <div class="col-md-3">
                     {{--<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#fh5co-navbar" aria-expanded="false" aria-controls="navbar"><span>Menu</span> <i></i></a>--}}
                     <a href="/" class="navbar-brand">
-                        <span><img src="img/logo/logo_eye.png" height="20px" style="top: -2px;position: relative;" data-pin-nopin="true">&nbsp;InsightText</span>
+                        <span><img src="img/logo/logo_eye.png" height="20px" style="top: -2px;position: relative;" data-pin-nopin="true"/>&nbsp;InsightText</span>
                     </a>
                 </div>
                 <div class="col-md-9">
@@ -165,7 +165,7 @@
                         {{--</div>--}}
 
                         {{--<div class="col-md-3 col-sm-12 col-md-pull-9">--}}
-                            <div class="fh5co-footer-logo"><a href="index.html">InsightText</a></div>
+                            <div class="fh5co-footer-logo"><a href="index.html"><img src="img/logo/logo_eye.png" height="20px" style="top: -2px;position: relative;" data-pin-nopin="true"/>&nbsp;InsightText</a></div>
                             <p class="fh5co-copyright"><small>&copy; 2015. All Rights Reserved. <br>	</small></p>
                             <p>powered by Roos &amp; Poh</p>
                         {{--<p class="fh5co-social-icons">--}}
