@@ -123,46 +123,52 @@ $(document).on('click','.btn-analyze2',function(){
 })
 
 $(document).on('click','.btn-analyze',function(){
-    setTimeout(function(){}, 1000);
+    if(input.trim().length == 0){
+        $('#input-demo-first').val('02-690-1888');
+        $('#input-demo-result').val('02-690-1888');
+        $('.input-tag').text("PHONE")
+        input = '02-690-1888'
+    }
     $('.loading').removeClass('hide')
     $('.result').addClass('hide')
-    var input_type = $('#input-tag2').text()
-    $.post("/api/analyze",
-        {
-            input_value : input,
-            input_type :  input_type
-        }
-        , function(data, status){
-            $('.loading').addClass('hide')
-            $('.result').removeClass('hide')
-            if (!library)
-                var library = {};
+    setTimeout(function(){
+        var input_type = $('#input-tag2').text()
+        $.post("/api/analyze",
+            {
+                input_value : input,
+                input_type :  input_type
+            }
+            , function(data, status){
+                $('.loading').addClass('hide')
+                $('.result').removeClass('hide')
+                if (!library)
+                    var library = {};
 
-            console.log("Data: " + data + "\nStatus: " + status);
-            var result = JSON.parse(data).data
+                console.log("Data: " + data + "\nStatus: " + status);
+                var result = JSON.parse(data).data
 
-            library.json = {
-                replacer: function(match, pIndent, pKey, pVal, pEnd) {
-                    var key = '<span class=json-key>';
-                    var val = '<span class=json-value>';
-                    var str = '<span class=json-string>';
-                    var r = pIndent || '';
-                    if (pKey)
-                        r = r + key + pKey.replace(/[": ]/g, '') + '</span>: ';
-                    if (pVal)
-                        r = r + (pVal[0] == '"' ? str : val) + pVal + '</span>';
-                    return r + (pEnd || '');
-                },
-                prettyPrint: function(obj) {
-                    var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
-                    return JSON.stringify(obj, null, 3)
-                        .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
-                        .replace(/</g, '&lt;').replace(/>/g, '&gt;')
-                        .replace(jsonLine, library.json.replacer);
-                }
-            };
-            $('.json').html(library.json.prettyPrint(result));
-            $('#table-result').html(`<thead>
+                library.json = {
+                    replacer: function(match, pIndent, pKey, pVal, pEnd) {
+                        var key = '<span class=json-key>';
+                        var val = '<span class=json-value>';
+                        var str = '<span class=json-string>';
+                        var r = pIndent || '';
+                        if (pKey)
+                            r = r + key + pKey.replace(/[": ]/g, '') + '</span>: ';
+                        if (pVal)
+                            r = r + (pVal[0] == '"' ? str : val) + pVal + '</span>';
+                        return r + (pEnd || '');
+                    },
+                    prettyPrint: function(obj) {
+                        var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
+                        return JSON.stringify(obj, null, 3)
+                            .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
+                            .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                            .replace(jsonLine, library.json.replacer);
+                    }
+                };
+                $('.json').html(library.json.prettyPrint(result));
+                $('#table-result').html(`<thead>
                                                 <tr>
                                                     <th style="border-radius: 7px 0 0 0;">#</th>
                                                     <th>Name</th>
@@ -173,21 +179,9 @@ $(document).on('click','.btn-analyze',function(){
                                                 <tbody>
                                                     <tr></tr>
                                                 </tbody>`)
-            var hasCat = false;
-            result.category.forEach(function (val, index, arr) {
-                if(parseFloat(val.score)>0.1){
-                    $('#table-result tr:last').after(`<tr>
-                                                        <th scope="row">`+(index+1)+`</th>
-                                                        <td>`+val.name+`</td>
-                                                        <td>`+val.score+`</td>
-                                                        <td>`+val.confidence+`</td>
-                                                    </tr>`);
-                    hasCat = true
-                }
-            })
-            if(!hasCat){
+                var hasCat = false;
                 result.category.forEach(function (val, index, arr) {
-                    if(parseFloat(val.score)>0.00001){
+                    if(parseFloat(val.score)>0.1){
                         $('#table-result tr:last').after(`<tr>
                                                         <th scope="row">`+(index+1)+`</th>
                                                         <td>`+val.name+`</td>
@@ -197,20 +191,35 @@ $(document).on('click','.btn-analyze',function(){
                         hasCat = true
                     }
                 })
-            }
-            if(!hasCat){
-                $('#table-result tr:last').after(`<tr>
-                                                <th scope="row">`+(index+1)+`</th>
+                if(!hasCat){
+                    result.category.forEach(function (val, index, arr) {
+                        if(parseFloat(val.score)>0.00001){
+                            $('#table-result tr:last').after(`<tr>
+                                                        <th scope="row">`+(index+1)+`</th>
+                                                        <td>`+val.name+`</td>
+                                                        <td>`+val.score+`</td>
+                                                        <td>`+val.confidence+`</td>
+                                                    </tr>`);
+                            hasCat = true
+                        }
+                    })
+                }
+                if(!hasCat){
+                    $('#table-result tr:last').after(`<tr>
+                                                <th scope="row">1</th>
                                                 <td>Unknown</td>
                                                 <td>-</td>
                                                 <td>-</td>
                                             </tr>`);
-            }
+                }
 
-            $('.important-words').html(`<span class="btn btn-inverse btn-sm btn-tag hide"></span></span>`);
-            result.result.keywords.forEach(function (val, index, arr) {
-                $('.important-words span:last').after(`<span class="btn btn-inverse btn-sm btn-tag">`+val+`</span></span>`);
+                $('.important-words').html(`<span class="btn btn-inverse btn-sm btn-tag hide"></span></span>`);
+                result.result.keywords.forEach(function (val, index, arr) {
+                    $('.important-words span:last').after(`<span class="btn btn-inverse btn-sm btn-tag">`+val+`</span></span>`);
+                });
+
             });
+    }, 1000);
 
-    });
+
 });

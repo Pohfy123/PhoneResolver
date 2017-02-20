@@ -119,13 +119,13 @@ def predict(only_filename_in,input_value,input_type,filename_in='./input.txt',fi
             test_data = import_test_data(only_filename_in)            
         # print len(test_data)
         for test_row in test_data:
+            if test_row['phone_no'] not in result:
+                result[test_row['phone_no']] = []
             if test_row['words'] == {}:
                 result[test_row['phone_no']].append('0')
             else:
                 dist = classifier.prob_classify(test_row['words'])
                 diff = abs(dist.prob('1')-dist.prob('0'))
-                if test_row['phone_no'] not in result:
-                    result[test_row['phone_no']] = []
                 if diff < 0.2:
                     result[test_row['phone_no']].append(str(dist.prob('1')))
                 else:
