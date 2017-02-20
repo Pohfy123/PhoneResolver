@@ -197,11 +197,11 @@
                                             <br>
                                             <br>
                                             <h1 class="lead">Important words</h1>
-                                            <div class="form-group">
-                                                <span class="btn btn-inverse btn-sm btn-tag">ร้านอาหาร</span></span>
-                                                <span class="btn btn-inverse btn-sm btn-tag">กรุงเทพฯ</span></span>
-                                                <span class="btn btn-inverse btn-sm btn-tag">อร่อย</span></span>
-                                                <span class="btn btn-inverse btn-sm btn-tag">บริการดี</span></span>
+                                            <div class="form-group important-words">
+                                                <span class="btn btn-inverse btn-sm btn-tag hide"></span></span>
+                                                {{--<span class="btn btn-inverse btn-sm btn-tag">กรุงเทพฯ</span></span>--}}
+                                                {{--<span class="btn btn-inverse btn-sm btn-tag">อร่อย</span></span>--}}
+                                                {{--<span class="btn btn-inverse btn-sm btn-tag">บริการดี</span></span>--}}
                                             </div>
 
                                         </div>

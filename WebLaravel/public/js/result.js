@@ -185,7 +185,6 @@ $(document).on('click','.btn-analyze',function(){
                     hasCat = true
                 }
             })
-
             if(!hasCat){
                 result.category.forEach(function (val, index, arr) {
                     if(parseFloat(val.score)>0.00001){
@@ -207,5 +206,11 @@ $(document).on('click','.btn-analyze',function(){
                                                 <td>-</td>
                                             </tr>`);
             }
+
+            $('.important-words').html(`<span class="btn btn-inverse btn-sm btn-tag hide"></span></span>`);
+            result.result.keywords.forEach(function (val, index, arr) {
+                $('.important-words span:last').after(`<span class="btn btn-inverse btn-sm btn-tag">`+val+`</span></span>`);
+            });
+
     });
 });
