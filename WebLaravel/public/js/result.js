@@ -116,10 +116,10 @@ $(document).on('input','#input-demo-result',function(){
 
 var input;
 $(document).on('click','.btn-analyze1',function(){
-    input = $('#input-demo-first').val().trim
+    input = $('#input-demo-first').val().trim()
 })
 $(document).on('click','.btn-analyze2',function(){
-    input = $('#input-demo-result').val().trim
+    input = $('#input-demo-result').val().trim()
 })
 
 $(document).on('click','.btn-analyze',function(){
