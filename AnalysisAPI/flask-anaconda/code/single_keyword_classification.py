@@ -66,13 +66,28 @@ def processData_url(filename_in='./input.txt'):
         fout.write(url+'|||')
         fout.close()
     urlKeywordSearch.search()
-    wordParser_API.parseAllDocuments(path_in='./temp-processing-data/01_raw-data-keyword/')
+    hasKeyword = True
+    with open('./temp-processing-data/01_raw-data-keyword/'+filename_in) as pearl:
+        keyword = pearl.read().decode('utf-8','ignore').strip()
+        if not keyword:
+            print "not have KEYWORD"
+            hasKeyword = False
+    if hasKeyword:
+        print "have KEYWORD"
+        wordParser_API.parseAllDocuments(path_in='./temp-processing-data/01_raw-data-keyword/')
+    else:
+        wordParser_API.parseAllDocuments(path_in='./temp-processing-data/01_raw-data/')        
     ngrams.applyNgramAllDocuments(path_in='./temp-processing-data/02_parsed-word-data-api/')
     extract_feature.extract_feature()
     merge_test_data_to_csv.mergeResultToCSV()
 
 def processData_text(filename_in='./input.txt'):
-    wordParser_API.parseAllDocuments(path_in=filename_in)
+    with open(filename_in) as pearl:
+        text = pearl.read()
+        fout = open('./temp-processing-data/01_raw-data/'+filename_in,'w')
+        fout.write(text)
+        fout.close()
+    wordParser_API.parseAllDocuments(path_in='./temp-processing-data/01_raw-data/')
     ngrams.applyNgramAllDocuments(path_in='./temp-processing-data/02_parsed-word-data-api/')
     extract_feature.extract_feature()
     merge_test_data_to_csv.mergeResultToCSV()
@@ -221,10 +236,21 @@ def run(input_data):
         with open('./temp-processing-data/01_raw-data-keyword/'+data['input']['value']+'.txt') as pearl:
             # Read content from a document
             contents = pearl.read().decode('utf-8')
-    else:
+    elif data['input']['type'] == "url":
+        hasKeyword = True
         with open('./temp-processing-data/01_raw-data-keyword/'+only_filename_in+'.txt') as pearl:
             # Read content from a document
-            contents = pearl.read().decode('utf-8')
+            contents = pearl.read().decode('utf-8').strip()
+            if not contents:
+                hasKeyword = False                
+        if not hasKeyword:
+            with open('./temp-processing-data/01_raw-data/'+only_filename_in+'.txt') as pearl:
+                # Read content from a document
+                contents = pearl.read().decode('utf-8')
+    else:
+        with open('./temp-processing-data/01_raw-data/'+only_filename_in+'.txt') as pearl:
+                # Read content from a document
+                contents = pearl.read().decode('utf-8')
 
     categories = []
     if data['input']['type'] in ['phone','keyword']:    
