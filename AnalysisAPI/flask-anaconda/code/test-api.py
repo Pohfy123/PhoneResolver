@@ -4,25 +4,29 @@ from flask import request, url_for
 from flask_api import FlaskAPI, status, exceptions
 import single_keyword_classification
 import json
+import sys  
+
+reload(sys)  
+sys.setdefaultencoding('utf8')
 
 app = FlaskAPI(__name__)
 
-notes = {
-    0: 'do the shopping',
-    1: 'build the codez',
-    2: 'paint the door',
-    3: 'eiei',
-}
+# notes = {
+#     0: 'do the shopping',
+#     1: 'build the codez',
+#     2: 'paint the door',
+#     3: 'eiei',
+# }
 
-def note_repr(key):
-    return {
-        'url': request.host_url.rstrip('/') + url_for('notes_detail', key=key),
-        'text': notes[key]
-    }
+# def note_repr(key):
+#     return {
+#         'url': request.host_url.rstrip('/') + url_for('notes_detail', key=key),
+#         'text': notes[key]
+#     }
 
 
 @app.route("/phone", methods=['POST'])
-def notes_list():
+def phone():
     print json.dumps(request.json)
     if not request.json or not 'input' in request.json:
         return {
@@ -36,9 +40,18 @@ def notes_list():
     # print json.dumps(result, sort_keys=False)
     return result
 
-    # request.method == 'GET'
-    # return [note_repr(idx) for idx in sorted(notes.keys())]
 
+@app.route("/keyword", methods=['POST'])
+def keyword():
+    if not request.json or not 'input' in request.json:
+        return {
+                    'status':'400',
+                    'message':'Input is missing'    
+                }
+
+    return single_keyword_classification.run({
+        'input': request.json['input']
+    })
 
 # @app.route("/<int:key>/", methods=['GET', 'PUT', 'DELETE'])
 # def notes_detail(key):

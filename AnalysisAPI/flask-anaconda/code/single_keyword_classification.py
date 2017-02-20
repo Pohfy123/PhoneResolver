@@ -123,6 +123,7 @@ def run(input_data):
     print 'start time : ',start_dt
     try:
         data = input_data
+        data['input']['value'] = data['input']['value'].encode('utf-8','ignore')
     except:
         result = {
             'status': '400', 
@@ -132,7 +133,7 @@ def run(input_data):
         return result
         sys.exit(1)
 
-    if data['input']['type'] not in ['phone']:
+    if data['input']['type'] not in ['phone','keyword']:
         result = {
             'status': '400', 
             'msg': 'Invalid input type'

@@ -26,7 +26,7 @@ $(document).on('click', '#try-keyword', function() {
 
 $(document).on('click', '#try-phone', function() {
     $('#input-demo-result').val('02-690-1888')
-    $('.input-tag').text("PHONE-NO")
+    $('.input-tag').text("PHONE")
     resizeTextarea()
 })
 
@@ -95,7 +95,7 @@ function autotag(inputtxt){
     var MIN_LEN_TEXT = 50;
     if(inputtxt.trim().length == 0) return "";
     if(isUrl(inputtxt)) return "URL";
-    else if(isPhoneNumber(inputtxt)) return "PHONE-NO";
+    else if(isPhoneNumber(inputtxt)) return "PHONE";
     else if( inputtxt.length < MIN_LEN_TEXT )
         return "KEYWORD"
     else
@@ -126,9 +126,11 @@ $(document).on('click','.btn-analyze',function(){
     setTimeout(function(){}, 1000);
     $('.loading').removeClass('hide')
     $('.result').addClass('hide')
+    var input_type = $('#input-tag2').text()
     $.post("/api/analyze",
         {
-            input_value : input
+            input_value : input,
+            input_type :  input_type
         }
         , function(data, status){
             $('.loading').addClass('hide')
