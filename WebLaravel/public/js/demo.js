@@ -76,7 +76,7 @@
 
     $(document).on('click', '#try-phone-first', function() {
         $('#input-demo-first').val('02-690-1888')
-        $('.input-tag').text("PHONE-NO")
+        $('.input-tag').text("PHONE")
         resizeTextareaFirst();
     })
 

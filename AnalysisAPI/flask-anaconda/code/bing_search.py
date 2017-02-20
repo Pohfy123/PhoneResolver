@@ -35,21 +35,21 @@ def searchRelatedLinks(search_term_list, output_path, db_file_name="bing-search-
             resultList = ['|||'.join(row) for row in zip(urlList,titleList)] 
             o.write('\n'.join(resultList).encode('utf-8'))
 
-        # save to .csv database file
-        fileDBname = os.path.join(output_path, db_file_name)
-        with open(fileDBname, 'a') as oResult:
-            for link in result:
-                row = []
-                row.append(search_term) # Phone Number
-                row.append(link.title) # title
-                row.append(urllib.unquote(link.url)) # url
-                row.append(link.description) # description
-                row.append(link.id) # id
-                row.append(link.meta.uri) # meta.uri
-                row.append(link.meta.type) # meta.type
+        # # save to .csv database file
+        # fileDBname = os.path.join(output_path, db_file_name)
+        # with open(fileDBname, 'a') as oResult:
+        #     for link in result:
+        #         row = []
+        #         row.append(search_term) # Phone Number
+        #         row.append(link.title) # title
+        #         row.append(urllib.unquote(link.url)) # url
+        #         row.append(link.description) # description
+        #         row.append(link.id) # id
+        #         row.append(link.meta.uri) # meta.uri
+        #         row.append(link.meta.type) # meta.type
 
-                oResult.write(','.join(row).encode('utf-8')) # print each row
-                oResult.write('\n')
+        #         oResult.write(','.join(row).encode('utf-8')) # print each row
+        #         oResult.write('\n')
 
 
 def readPhoneNoList(path_input_file,done_list):

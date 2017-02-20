@@ -27,20 +27,22 @@ class AnalyzeController extends Controller
     public function webCategorize(Request $request){
         $MIN_LEN_TEXT = 50;
         $input_val = $request->input('input_value');
+        $input_type = strtolower($request->input('input_type'));
         if( empty($input_val) )
             return array(
                 'status'=> '400',
                 'msg'=> 'No input.'
             );
+//
+//        if($this->isURL($input_val))
+//            $input_type = 'url';
+//        else if( $this->isPhone($input_val) )
+//            $input_type = 'phone';
+//        else if( strlen($input_val) < $MIN_LEN_TEXT )
+//            $input_type = 'keyword';
+//        else
+//            $input_type = 'text';
 
-        if($this->isURL($input_val))
-            $input_type = 'url';
-        else if( $this->isPhone($input_val) )
-            $input_type = 'phone';
-        else if( strlen($input_val) < $MIN_LEN_TEXT )
-            $input_type = 'keyword';
-        else
-            $input_type = 'text';
 
         // This is the data you want to pass to Python
         $data = array(
@@ -50,7 +52,16 @@ class AnalyzeController extends Controller
             )
         );
 
-        $url = 'http://localhost:5000/phone';
+        $url = "";
+        if($input_type == "phone"){
+            $url = 'http://localhost:5000/phone';
+        }else if($input_type == "url"){
+            $url = 'http://localhost:5000/url';
+        }else if($input_type == "keyword"){
+            $url = 'http://localhost:5000/keyword';
+        }else{
+            $url = 'http://localhost:5000/text';
+        }
         $data_json = json_encode($data);
         set_time_limit (200);
         $ch = curl_init();
@@ -62,45 +73,8 @@ class AnalyzeController extends Controller
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         $result  = curl_exec($ch);
         curl_close($ch);
-        
 
 
-//
-//        // Execute the python script with the JSON data
-//        $result = shell_exec('python ./analytic/single_keyword_classification.py > log' . base64_encode(json_encode($data)));
-//
-//        // Decode the result
-//        $resultData = json_decode($result, true);
-//
-//        // This will contain: array('status' => 'Yes!')
-//        $output = array(
-//            "request" => array(
-//                "input" => $input_val,
-//                "type" => $input_type,
-//                "api" => "analyze",
-//                "version" => "1.0.0"
-//            ),
-//            "language" => "th",
-//            "result" => $resultData['data']
-////            "result" => array(
-////                "keywords" => array(
-////                    "ร้านอาหาร",
-////                    "ร้านซูชิ",
-////                    "กรุงเทพมหานคร"
-////                ),
-////                "contents" => "ร้านอาหารแนะนำ ดูทั้งหมด  Recommended by JOHNNIE WALKER",
-////                "category" => array(
-////                    "d1" => array(
-////                        "confidence"=> 0.49049994349479675,
-////                        "value"=> "restaurant"
-////                    ),
-////                    "d2" => array(
-////                        "confidence"=> 0.31968462467193604,
-////                        "value"=> "seafood restaurant"
-////                    )
-////                )
-////            )
-//        );
         return $result;
     }
 }
