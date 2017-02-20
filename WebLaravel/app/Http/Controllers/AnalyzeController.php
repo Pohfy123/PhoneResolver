@@ -20,44 +20,6 @@ class AnalyzeController extends Controller
         return preg_match('/^\+?([0-9]{1,4})\)?[-. ]?([0-9\-]){6,}[0-9]$/', $str);
     }
 
-    private function CallAPI($method, $url, $data = false)
-    {
-        set_time_limit (200);
-        $curl = curl_init();
-
-        switch ($method)
-        {
-            case "POST":
-                curl_setopt($curl, CURLOPT_POST, 1);
-
-                if ($data)
-                    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-                break;
-            case "PUT":
-                curl_setopt($curl, CURLOPT_PUT, 1);
-                break;
-            default:
-                if ($data)
-                    $url = sprintf("%s?%s", $url, http_build_query($data));
-        }
-
-        // Optional Authentication:
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_USERPWD, "username:password");
-
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-
-        $result = curl_exec($curl);
-
-        curl_close($curl);
-
-        return $result;
-    }
-
-
     /**
      * @param Request $request
      * @return array|mixed
@@ -87,14 +49,19 @@ class AnalyzeController extends Controller
                 'value' => $input_val,
             )
         );
-//        $ch = curl_init();
-//        curl_setopt($ch, CURLOPT_URL, 'http://localhost:5000/2');
-//        curl_setopt($ch, CURLOPT_HEADER, true);
-//        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-//        $a = curl_exec($ch);
 
-        $result = $this->CallAPI('POST','http://localhost:5000/phone',json_encode($data));
+        set_time_limit (200);
+        $postdata = http_build_query($data);
+        $opts = array('http' =>
+            array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $postdata
+            )
+        );
+        curl_setopt($opts, CURLOPT_FOLLOWLOCATION, true);
+        $context  = stream_context_create($opts);
+        $result = file_get_contents('http://localhost:5000/phone', false, $context);
 
 
 //
