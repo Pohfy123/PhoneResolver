@@ -51,7 +51,7 @@ def import_test_data(input_value,filename='./temp-processing-data/05_merge-csv/t
     return datasets
 
 
-def processData(filename_in='./input.txt'):
+def processData_phone_keyword(filename_in='./input.txt'):
     bing_search.runBingSearch(filename_in)
     urlKeywordSearch.search()
     wordParser_API.parseAllDocuments(path_in='./temp-processing-data/01_raw-data-keyword/')
@@ -59,8 +59,46 @@ def processData(filename_in='./input.txt'):
     extract_feature.extract_feature()
     merge_test_data_to_csv.mergeResultToCSV()
 
-def predict(input_value,filename_in='./input.txt',filename_out='./results/result.csv'):
-    processData(filename_in)
+def processData_url(filename_in='./input.txt'):
+    with open(filename_in) as pearl:
+        url = pearl.read()
+        fout = open('./temp-processing-data/00_url/'+filename_in,'w')
+        fout.write(url+'|||')
+        fout.close()
+    urlKeywordSearch.search()
+    hasKeyword = True
+    with open('./temp-processing-data/01_raw-data-keyword/'+filename_in) as pearl:
+        keyword = pearl.read().decode('utf-8','ignore').strip()
+        if not keyword:
+            print "not have KEYWORD"
+            hasKeyword = False
+    if hasKeyword:
+        print "have KEYWORD"
+        wordParser_API.parseAllDocuments(path_in='./temp-processing-data/01_raw-data-keyword/')
+    else:
+        wordParser_API.parseAllDocuments(path_in='./temp-processing-data/01_raw-data/')        
+    ngrams.applyNgramAllDocuments(path_in='./temp-processing-data/02_parsed-word-data-api/')
+    extract_feature.extract_feature()
+    merge_test_data_to_csv.mergeResultToCSV()
+
+def processData_text(filename_in='./input.txt'):
+    with open(filename_in) as pearl:
+        text = pearl.read()
+        fout = open('./temp-processing-data/01_raw-data/'+filename_in,'w')
+        fout.write(text)
+        fout.close()
+    wordParser_API.parseAllDocuments(path_in='./temp-processing-data/01_raw-data/')
+    ngrams.applyNgramAllDocuments(path_in='./temp-processing-data/02_parsed-word-data-api/')
+    extract_feature.extract_feature()
+    merge_test_data_to_csv.mergeResultToCSV()
+
+def predict(only_filename_in,input_value,input_type,filename_in='./input.txt',filename_out='./results/result.csv'):
+    if input_type in ["phone","keyword"]:
+        processData_phone_keyword(filename_in)
+    elif input_type == "url":
+        processData_url(filename_in)
+    else:
+        processData_text(filename_in)
     result = OrderedDict([])
     
     # Each model
@@ -77,7 +115,10 @@ def predict(input_value,filename_in='./input.txt',filename_out='./results/result
         DictVec = load_model(dv_model_file_path)
         
         # Load Testing Data
-        test_data = import_test_data(input_value)
+        if input_type in ["phone","keyword"]: 
+            test_data = import_test_data(input_value)
+        else:
+            test_data = import_test_data(only_filename_in)            
         # print len(test_data)
         for test_row in test_data:
             if test_row['words'] == {}:
@@ -133,7 +174,7 @@ def run(input_data):
         return result
         sys.exit(1)
 
-    if data['input']['type'] not in ['phone','keyword']:
+    if data['input']['type'] not in ['phone','keyword','url','text']:
         result = {
             'status': '400', 
             'msg': 'Invalid input type'
@@ -141,47 +182,93 @@ def run(input_data):
         print json.dumps(result)
         return result
         sys.exit(1)
-        
+    
     dt = time.strftime("%Y%m%d_%H-%M",time.localtime())
+    only_filename_in = 'input_'+dt
     filename_in = './input_'+dt+'.txt'
     filename_out = './results/result_'+dt+'.csv'
     with open(filename_in, 'w') as file_out:
         file_out.write(data['input']['value'])
-    predict_result = predict(data['input']['value'],filename_in=filename_in, filename_out=filename_out)
-
+    predict_result = predict(only_filename_in,data['input']['value'],data['input']['type'],filename_in=filename_in, filename_out=filename_out)
+    
     urlList = []
-    with open('./temp-processing-data/00_url/'+data['input']['value']+'.txt') as pearl:
-        # Read content from a document
-        for line in pearl:
-            # print '>>>',line
-            url,keywords =  line.decode('utf-8').split("|||")
-            urlList.append(url)
+    if data['input']['type'] in ['phone','keyword']:
+        with open('./temp-processing-data/00_url/'+data['input']['value']+'.txt') as pearl:
+            # Read content from a document
+            for line in pearl:
+                # print '>>>',line
+                url,keywords =  line.decode('utf-8').split("|||")
+                urlList.append(url)
+    elif data['input']['type'] == "url":
+        with open('./temp-processing-data/00_url/'+only_filename_in+'.txt') as pearl:
+            # Read content from a document
+            for line in pearl:
+                # print '>>>',line
+                url,keywords =  line.decode('utf-8').split("|||")
+                urlList.append(url)
 
     keywordList = []
-    with open('./temp-processing-data/04_tf/'+data['input']['value']+'.txt') as pearl:
-        # Read content from a document
-        count = 0
-        for line in pearl:
-            # print '>>>',line
-            if count > 10:
-                break
-            keyword,tf =  line.decode('utf-8').strip().split(" - ")
-            keywordList.append(keyword)
-            count += 1
+    if data['input']['type'] in ['phone','keyword']:
+        with open('./temp-processing-data/04_tf/'+data['input']['value']+'.txt') as pearl:
+            # Read content from a document
+            count = 0
+            for line in pearl:
+                # print '>>>',line
+                if count > 10:
+                    break
+                keyword,tf =  line.decode('utf-8').strip().split(" - ")
+                keywordList.append(keyword)
+                count += 1
+    else:
+        with open('./temp-processing-data/04_tf/'+only_filename_in+'.txt') as pearl:
+            # Read content from a document
+            count = 0
+            for line in pearl:
+                # print '>>>',line
+                if count > 10:
+                    break
+                keyword,tf =  line.decode('utf-8').strip().split(" - ")
+                keywordList.append(keyword)
+                count += 1
 
     contents = ""
-    with open('./temp-processing-data/01_raw-data-keyword/'+data['input']['value']+'.txt') as pearl:
-        # Read content from a document
-        contents = pearl.read().decode('utf-8')
+    if data['input']['type'] in ['phone','keyword']:
+        with open('./temp-processing-data/01_raw-data-keyword/'+data['input']['value']+'.txt') as pearl:
+            # Read content from a document
+            contents = pearl.read().decode('utf-8')
+    elif data['input']['type'] == "url":
+        hasKeyword = True
+        with open('./temp-processing-data/01_raw-data-keyword/'+only_filename_in+'.txt') as pearl:
+            # Read content from a document
+            contents = pearl.read().decode('utf-8').strip()
+            if not contents:
+                hasKeyword = False                
+        if not hasKeyword:
+            with open('./temp-processing-data/01_raw-data/'+only_filename_in+'.txt') as pearl:
+                # Read content from a document
+                contents = pearl.read().decode('utf-8')
+    else:
+        with open('./temp-processing-data/01_raw-data/'+only_filename_in+'.txt') as pearl:
+                # Read content from a document
+                contents = pearl.read().decode('utf-8')
 
     categories = []
-    for idx, val in enumerate(predict_result[data['input']['value']]):
-        num,cat = CATEGORY[idx].split('_')
-        categories.append(OrderedDict([
-            ('name',cat),
-            ('score',val),
-            ('confidence', 'Yes' if float(val) > 0.5 else 'No'),
-    ]))
+    if data['input']['type'] in ['phone','keyword']:    
+        for idx, val in enumerate(predict_result[data['input']['value']]):
+            num,cat = CATEGORY[idx].split('_')
+            categories.append(OrderedDict([
+                ('name',cat),
+                ('score',val),
+                ('confidence', 'Yes' if float(val) > 0.5 else 'No'),
+        ]))
+    else:
+        for idx, val in enumerate(predict_result[only_filename_in]):
+            num,cat = CATEGORY[idx].split('_')
+            categories.append(OrderedDict([
+                ('name',cat),
+                ('score',val),
+                ('confidence', 'Yes' if float(val) > 0.5 else 'No'),
+        ]))
 
     # sort categories
     def extract_score(json):

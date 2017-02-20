@@ -53,6 +53,32 @@ def keyword():
         'input': request.json['input']
     })
 
+
+@app.route("/url", methods=['POST'])
+def url():
+    if not request.json or not 'input' in request.json:
+        return {
+                    'status':'400',
+                    'message':'Input is missing'    
+                }
+
+    return single_keyword_classification.run({
+        'input': request.json['input']
+    })
+
+@app.route("/text", methods=['POST'])
+def text():
+    if not request.json or not 'input' in request.json:
+        return {
+                    'status':'400',
+                    'message':'Input is missing'    
+                }
+
+    return single_keyword_classification.run({
+        'input': request.json['input']
+    })
+
+
 # @app.route("/<int:key>/", methods=['GET', 'PUT', 'DELETE'])
 # def notes_detail(key):
 #     """
