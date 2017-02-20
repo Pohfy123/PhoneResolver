@@ -65,7 +65,7 @@
             <li class="active"><a href="#" data-nav-section="home">Home</a></li>
             <li><a href="/demo">Demo</a></li>
             <li><a href="/api-docs">API &amp; DOCS</a></li>
-            <li><a href="/#fh5co-pricing">Pricing</a></li>
+            <!--<li><a href="/#fh5co-pricing">Pricing</a></li>-->
             <li><a href="/faq">FAQ</a></li>
         </ul>
         {{--<h3 class="fh5co-lead">Connect with us</h3>--}}
@@ -90,7 +90,7 @@
                         {{--<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle nav-menu" data-toggle="collapse" data-target="#fh5co-navbar" aria-expanded="false" aria-controls="navbar"><span>Menu</span> <i></i></a>--}}
                         <a href="{{ url('/demo') }}" class="navbar-content navbar-brand"><span style="{{ Request::is('demo') ? 'border-bottom: solid !important;' : '' }}">Demo</span></a>
                         <a href="{{ url('/api-docs') }}" class="navbar-content navbar-brand"><span style="{{ Request::is('api-docs') ? 'border-bottom: solid !important;' : '' }}">API &amp; DOCS</span></a>
-                        <a href="{{ url('/#fh5co-pricing') }}" class="navbar-content navbar-brand"><span style="{{ Request::is('pricing') ? 'border-bottom: solid !important;' : '' }}">Pricing</span></a>
+                        <!--<a href="{{ url('/#fh5co-pricing') }}" class="navbar-content navbar-brand"><span style="{{ Request::is('pricing') ? 'border-bottom: solid !important;' : '' }}">Pricing</span></a>-->
                         <a href="{{ url('/faq') }}" class="navbar-content navbar-brand"><span style="{{ Request::is('faq') ? 'border-bottom: solid !important;' : '' }}">FAQ</span></a>
                     </div>
                 </div>

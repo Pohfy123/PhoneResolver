@@ -375,12 +375,12 @@
                 </div>
             </div>
 
-            <div id="fh5co-pricing" data-section="pricing">
+            <!--<div id="fh5co-pricing" data-section="pricing">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2 fh5co-section-heading text-center">
                             <h2 class="fh5co-lead animate-single pricing-animate-1">InsightText Plans</h2>
-                            <!--<p class="fh5co-sub animate-single pricing-animate-2">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>-->
+                            <p class="fh5co-sub animate-single pricing-animate-2">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                         </div>
 
                         <div class="col-md-4 to-animate">
@@ -409,7 +409,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
             <!--<div id="fh5co-faqs"  data-section="faqs">
                 <div class="container">
