@@ -4,7 +4,8 @@ from flask import request, url_for
 from flask_api import FlaskAPI, status, exceptions
 import single_keyword_classification
 import json
-import sys  
+import sys
+import ast
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
@@ -24,6 +25,20 @@ app = FlaskAPI(__name__)
 #         'text': notes[key]
 #     }
 
+# def checkDB(input_value):
+#     with open('alldata.csv') as pearl:
+#         for line in pearl:
+#             val,result = line.split(",", 1)
+#             if val == input_value:
+#                 result = ast.literal_eval(result)
+#                 result = [n.strip() for n in result]
+#                 return result
+#     return False
+
+# def writeDB(input_value,result):
+#     fout = open("alldata.csv",'a')
+#     fout.write(input_value+','+str(result)+'\n')
+
 
 @app.route("/phone", methods=['POST'])
 def phone():
@@ -33,11 +48,15 @@ def phone():
                     'status':'400',
                     'message':'Input is missing'    
                 }
+    # check = checkDB(request.json['input']['value'])
+    # if check:
+    #     return check
 
     result = single_keyword_classification.run({
         'input': request.json['input']
     })
     # print json.dumps(result, sort_keys=False)
+    # writeDB(request.json['input']['value'],result)
     return result
 
 
@@ -48,11 +67,11 @@ def keyword():
                     'status':'400',
                     'message':'Input is missing'    
                 }
-
-    return single_keyword_classification.run({
+    result = single_keyword_classification.run({
         'input': request.json['input']
     })
-
+    # writeDB(request.json['input']['value'],result)
+    return result
 
 @app.route("/url", methods=['POST'])
 def url():
@@ -62,9 +81,11 @@ def url():
                     'message':'Input is missing'    
                 }
 
-    return single_keyword_classification.run({
+    result = single_keyword_classification.run({
         'input': request.json['input']
     })
+    # writeDB(request.json['input']['value'],result)    
+    return result
 
 @app.route("/text", methods=['POST'])
 def text():
@@ -74,9 +95,11 @@ def text():
                     'message':'Input is missing'    
                 }
 
-    return single_keyword_classification.run({
+    result =  single_keyword_classification.run({
         'input': request.json['input']
     })
+    # writeDB(request.json['input']['value'],result)    
+    return result
 
 
 # @app.route("/<int:key>/", methods=['GET', 'PUT', 'DELETE'])

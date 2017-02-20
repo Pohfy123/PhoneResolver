@@ -34,6 +34,37 @@ class AnalyzeController extends Controller
                 'msg'=> 'No input.'
             );
 //
+////        read from file
+////        $file = fopen("alldata.csv","r");
+//        $csv = array_map('str_getcsv', file('alldata.csv'));
+//        array_walk($csv, function(&$a) use ($csv) {
+//            $a = array_combine($csv[0], $a);
+//        });
+//        foreach($csv as $data){
+//            return typeOf($data);
+//            list($value,$req) = explode(",", $data,2);
+////            if($value == $input_val){
+////                return $req;
+////            }
+//            return $value;
+//            return $csv[0];
+//        }
+//        return $csv;
+
+//        $csv = array_map('str_getcsv', file('alldata.csv'));
+//        while($row=fgets($file)){
+//            // can parse further $row by usingstr_getcsv
+//            list($value,$req) = explode(",", $row,2);
+//            if($value == $input_val){
+//                return $req;
+//          }
+//        }
+//        fclose($file);
+
+//        end read from file
+
+
+//
 //        if($this->isURL($input_val))
 //            $input_type = 'url';
 //        else if( $this->isPhone($input_val) )
@@ -73,6 +104,16 @@ class AnalyzeController extends Controller
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         $result  = curl_exec($ch);
         curl_close($ch);
+
+
+//        $list = array (
+//            array($input_val,$result),
+//        );
+//        $fp = fopen('alldata.csv', 'a');
+//        foreach ($list as $fields) {
+//            fputcsv($fp, $fields);
+//        }
+//        fclose($fp);
 
 
         return $result;

@@ -233,22 +233,25 @@ def run(input_data):
     if data['input']['type'] in ['phone','keyword']:
         with open('./temp-processing-data/01_raw-data-keyword/'+data['input']['value']+'.txt') as pearl:
             # Read content from a document
-            contents = pearl.read().decode('utf-8')
+            contents = pearl.read()
     elif data['input']['type'] == "url":
         hasKeyword = True
         with open('./temp-processing-data/01_raw-data-keyword/'+only_filename_in+'.txt') as pearl:
             # Read content from a document
-            contents = pearl.read().decode('utf-8').strip()
+            contents = pearl.read().strip()
             if not contents:
                 hasKeyword = False                
         if not hasKeyword:
             with open('./temp-processing-data/01_raw-data/'+only_filename_in+'.txt') as pearl:
                 # Read content from a document
-                contents = pearl.read().decode('utf-8')
+                contents = pearl.read()
     else:
         with open('./temp-processing-data/01_raw-data/'+only_filename_in+'.txt') as pearl:
                 # Read content from a document
-                contents = pearl.read().decode('utf-8')
+                contents = pearl.read()
+    contents = contents.replace('\n',' ')
+    contents = contents.replace('\t',' ')
+    contents = contents.decode('utf-8')
 
     categories = []
     if data['input']['type'] in ['phone','keyword']:    
