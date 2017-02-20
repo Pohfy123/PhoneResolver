@@ -37,7 +37,7 @@
             </section>
             <section id="demo-2" class="fh5co-bg-section">
                 <div class="searchForm animated">
-                    <h3><b>Input</b></h3>
+                    <h3><b>Input</b> <span class="tag label label-warning input-tag"></span></h3>
                     <div class="form-group">
                         <textarea class="input-textarea form-control" rows="1" id="input-demo-first" placeholder="Enter url, keyword, text, phone no ..."></textarea>
                     </div>
@@ -133,7 +133,7 @@
                             </div>
                             <div class="container container-all row">
                                 <div class="col-md-4 container-left">
-                                    <h3><b>Input</b> <span class="tag label label-warning input-tag">URL</span></h3>
+                                    <h3><b>Input</b> <span class="tag label label-warning input-tag" id="input-tag2"></span></h3>
                                     <textarea class="input-textarea form-control" rows="1" id="input-demo-result" placeholder="Enter url, keyword, text, phone no ..."></textarea>
                                     <br>
                                     <button type="button" class="btn btn-primary btn-sm btn-analyze btn-analyze2">Analyze</button>
@@ -182,17 +182,17 @@
                                             <h1 class="lead">Categories</h1>
 
                                             <table id="table-result" class="table table-hover table-striped table-result">
-                                                <thead>
-                                                <tr>
-                                                    <th style="border-radius: 7px 0 0 0;">#</th>
-                                                    <th>Name</th>
-                                                    <th>Score</th>
-                                                    <th style="border-radius: 0 7px 0 0;">Confident ?</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr></tr>
-                                                </tbody>
+                                                {{--<thead>--}}
+                                                {{--<tr>--}}
+                                                    {{--<th style="border-radius: 7px 0 0 0;">#</th>--}}
+                                                    {{--<th>Name</th>--}}
+                                                    {{--<th>Score</th>--}}
+                                                    {{--<th style="border-radius: 0 7px 0 0;">Confident ?</th>--}}
+                                                {{--</tr>--}}
+                                                {{--</thead>--}}
+                                                {{--<tbody>--}}
+                                                    {{--<tr></tr>--}}
+                                                {{--</tbody>--}}
                                             </table>
                                             <br>
                                             <br>

@@ -70,10 +70,8 @@ def processData_url(filename_in='./input.txt'):
     with open('./temp-processing-data/01_raw-data-keyword/'+filename_in) as pearl:
         keyword = pearl.read().decode('utf-8','ignore').strip()
         if not keyword:
-            print "not have KEYWORD"
             hasKeyword = False
     if hasKeyword:
-        print "have KEYWORD"
         wordParser_API.parseAllDocuments(path_in='./temp-processing-data/01_raw-data-keyword/')
     else:
         wordParser_API.parseAllDocuments(path_in='./temp-processing-data/01_raw-data/')        

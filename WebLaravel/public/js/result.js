@@ -173,15 +173,39 @@ $(document).on('click','.btn-analyze',function(){
                                                 <tbody>
                                                     <tr></tr>
                                                 </tbody>`)
+            var hasCat = false;
             result.category.forEach(function (val, index, arr) {
-                if(parseFloat(val.score)>0.2){
+                if(parseFloat(val.score)>0.1){
                     $('#table-result tr:last').after(`<tr>
                                                         <th scope="row">`+(index+1)+`</th>
                                                         <td>`+val.name+`</td>
                                                         <td>`+val.score+`</td>
                                                         <td>`+val.confidence+`</td>
                                                     </tr>`);
+                    hasCat = true
                 }
             })
+
+            if(!hasCat){
+                result.category.forEach(function (val, index, arr) {
+                    if(parseFloat(val.score)>0.00001){
+                        $('#table-result tr:last').after(`<tr>
+                                                        <th scope="row">`+(index+1)+`</th>
+                                                        <td>`+val.name+`</td>
+                                                        <td>`+val.score+`</td>
+                                                        <td>`+val.confidence+`</td>
+                                                    </tr>`);
+                        hasCat = true
+                    }
+                })
+            }
+            if(!hasCat){
+                $('#table-result tr:last').after(`<tr>
+                                                <th scope="row">`+(index+1)+`</th>
+                                                <td>Unknown</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>`);
+            }
     });
 });
