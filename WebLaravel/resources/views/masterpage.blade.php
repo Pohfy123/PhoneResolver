@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>InsighText - @yield('title')</title>
+    <title>InsightText - @yield('title')</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -83,7 +83,7 @@
             <div class="row">
                 <div class="col-md-3">
                     {{--<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#fh5co-navbar" aria-expanded="false" aria-controls="navbar"><span>Menu</span> <i></i></a>--}}
-                    <a href="/" class="navbar-brand"><span>InsighText</span></a>
+                    <a href="/" class="navbar-brand"><span>InsightText</span></a>
                 </div>
                 <div class="col-md-9">
                     <div style="float: right">
@@ -163,7 +163,7 @@
                         {{--</div>--}}
 
                         {{--<div class="col-md-3 col-sm-12 col-md-pull-9">--}}
-                            <div class="fh5co-footer-logo"><a href="index.html">InsighText</a></div>
+                            <div class="fh5co-footer-logo"><a href="index.html">InsightText</a></div>
                             <p class="fh5co-copyright"><small>&copy; 2015. All Rights Reserved. <br>	</small></p>
                             <p>powered by Roos &amp; Poh</p>
                         {{--<p class="fh5co-social-icons">--}}

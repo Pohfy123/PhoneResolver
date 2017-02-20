@@ -3,6 +3,7 @@
 from flask import request, url_for
 from flask_api import FlaskAPI, status, exceptions
 import single_keyword_classification
+import json
 
 app = FlaskAPI(__name__)
 
@@ -20,45 +21,50 @@ def note_repr(key):
     }
 
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/phone", methods=['POST'])
 def notes_list():
-    """
-    List or create notes.
-    """
-    if request.method == 'POST':
-        note = str(request.data.get('text', ''))
-        idx = max(notes.keys()) + 1
-        notes[idx] = note
-        return note_repr(idx), status.HTTP_201_CREATED
+    print json.dumps(request.json)
+    if not request.json or not 'input' in request.json:
+        return {
+                    'status':'400',
+                    'message':'Input is missing'    
+                }
 
-    # request.method == 'GET'
-    return [note_repr(idx) for idx in sorted(notes.keys())]
-
-
-@app.route("/<int:key>/", methods=['GET', 'PUT', 'DELETE'])
-def notes_detail(key):
-    """
-    Retrieve, update or delete note instances.
-    """
-    if request.method == 'PUT':
-        note = str(request.data.get('text', ''))
-        notes[key] = note
-        return note_repr(key)
-
-    elif request.method == 'DELETE':
-        notes.pop(key, None)
-        return '', status.HTTP_204_NO_CONTENT
-
-    # request.method == 'GET'
-    if key not in notes:
-        raise exceptions.NotFound()
     result = single_keyword_classification.run({
-        'input': {
-            'type': 'phone',
-            'value': '02-105-6234',
-        }
+        'input': request.json['input']
     })
+    # print json.dumps(result, sort_keys=False)
     return result
+
+    # request.method == 'GET'
+    # return [note_repr(idx) for idx in sorted(notes.keys())]
+
+
+# @app.route("/<int:key>/", methods=['GET', 'PUT', 'DELETE'])
+# def notes_detail(key):
+#     """
+#     Retrieve, update or delete note instances.
+#     """
+#     if request.method == 'PUT':
+#         note = str(request.data.get('text', ''))
+#         notes[key] = note
+#         return note_repr(key)
+
+#     elif request.method == 'DELETE':
+#         notes.pop(key, None)
+#         return '', status.HTTP_204_NO_CONTENT
+
+#     # request.method == 'GET'
+#     if key not in notes:
+#         raise exceptions.NotFound()
+#     result = single_keyword_classification.run({
+#         'input': {
+#             'type': 'phone',
+#             'value': '02-105-6234',
+#         }
+#     })
+#     # print json.dumps(result, sort_keys=False)
+#     return result
 
 
 if __name__ == "__main__":

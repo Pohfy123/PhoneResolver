@@ -20,6 +20,44 @@ class AnalyzeController extends Controller
         return preg_match('/^\+?([0-9]{1,4})\)?[-. ]?([0-9\-]){6,}[0-9]$/', $str);
     }
 
+    private function CallAPI($method, $url, $data = false)
+    {
+        set_time_limit (200);
+        $curl = curl_init();
+
+        switch ($method)
+        {
+            case "POST":
+                curl_setopt($curl, CURLOPT_POST, 1);
+
+                if ($data)
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+                break;
+            case "PUT":
+                curl_setopt($curl, CURLOPT_PUT, 1);
+                break;
+            default:
+                if ($data)
+                    $url = sprintf("%s?%s", $url, http_build_query($data));
+        }
+
+        // Optional Authentication:
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_USERPWD, "username:password");
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+
+        $result = curl_exec($curl);
+
+        curl_close($curl);
+
+        return $result;
+    }
+
+
     /**
      * @param Request $request
      * @return array|mixed
@@ -49,42 +87,52 @@ class AnalyzeController extends Controller
                 'value' => $input_val,
             )
         );
+//        $ch = curl_init();
+//        curl_setopt($ch, CURLOPT_URL, 'http://localhost:5000/2');
+//        curl_setopt($ch, CURLOPT_HEADER, true);
+//        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+//        $a = curl_exec($ch);
 
-        // Execute the python script with the JSON data
-        $result = shell_exec('python ./analytic/single_keyword_classification.py > log' . base64_encode(json_encode($data)));
+        $result = $this->CallAPI('POST','http://localhost:5000/phone',json_encode($data));
 
-        // Decode the result
-        $resultData = json_decode($result, true);
 
-        // This will contain: array('status' => 'Yes!')
-        $output = array(
-            "request" => array(
-                "input" => $input_val,
-                "type" => $input_type,
-                "api" => "analyze",
-                "version" => "1.0.0"
-            ),
-            "language" => "th",
-            "result" => $resultData['data']
-//            "result" => array(
-//                "keywords" => array(
-//                    "ร้านอาหาร",
-//                    "ร้านซูชิ",
-//                    "กรุงเทพมหานคร"
-//                ),
-//                "contents" => "ร้านอาหารแนะนำ ดูทั้งหมด  Recommended by JOHNNIE WALKER",
-//                "category" => array(
-//                    "d1" => array(
-//                        "confidence"=> 0.49049994349479675,
-//                        "value"=> "restaurant"
-//                    ),
-//                    "d2" => array(
-//                        "confidence"=> 0.31968462467193604,
-//                        "value"=> "seafood restaurant"
-//                    )
-//                )
-//            )
-        );
-        return $resultData;
+//
+//        // Execute the python script with the JSON data
+//        $result = shell_exec('python ./analytic/single_keyword_classification.py > log' . base64_encode(json_encode($data)));
+//
+//        // Decode the result
+//        $resultData = json_decode($result, true);
+//
+//        // This will contain: array('status' => 'Yes!')
+//        $output = array(
+//            "request" => array(
+//                "input" => $input_val,
+//                "type" => $input_type,
+//                "api" => "analyze",
+//                "version" => "1.0.0"
+//            ),
+//            "language" => "th",
+//            "result" => $resultData['data']
+////            "result" => array(
+////                "keywords" => array(
+////                    "ร้านอาหาร",
+////                    "ร้านซูชิ",
+////                    "กรุงเทพมหานคร"
+////                ),
+////                "contents" => "ร้านอาหารแนะนำ ดูทั้งหมด  Recommended by JOHNNIE WALKER",
+////                "category" => array(
+////                    "d1" => array(
+////                        "confidence"=> 0.49049994349479675,
+////                        "value"=> "restaurant"
+////                    ),
+////                    "d2" => array(
+////                        "confidence"=> 0.31968462467193604,
+////                        "value"=> "seafood restaurant"
+////                    )
+////                )
+////            )
+//        );
+        return $result;
     }
 }
