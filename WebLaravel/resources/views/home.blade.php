@@ -375,7 +375,7 @@
                 </div>
             </div>
 
-            <div id="fh5co-pricing" data-section="pricing">
+            <!--<div id="fh5co-pricing" data-section="pricing">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2 fh5co-section-heading text-center">
@@ -409,7 +409,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
             <!--<div id="fh5co-faqs"  data-section="faqs">
                 <div class="container">

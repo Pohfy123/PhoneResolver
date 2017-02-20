@@ -16,8 +16,9 @@
 @section('content')
 
     <div id="fh5co-main">
+        <!--DEMO INPUT PAGE-->
         <div id="demo-page-input" class="content content-demo-input">
-            <section id="fh5co-counter" class="fh5co-bg-section" style="background-image: url(outline/images/bg_1.jpg); background-attachment: fixed;">
+            <section id="fh5co-counter" class="fh5co-bg-section" style="background-image: url(outline/images/bg_2.jpg); background-attachment: fixed;">
                 <div class="fh5co-overlay"></div>
                 <div class="container">
                     <div class="row">
@@ -27,7 +28,6 @@
                                     <div class="col-md-12 text-center">
                                         <span class="demo-intro">AUTO TEXT CLASSIFICATION</span>
                                         <span class="demo-intro-label">LET US DO IT FOR YOU</span>
-
                                     </div>
                                 </div>
                             </div>
@@ -112,10 +112,25 @@
                 </div>
             </section>
         </div>
+
+        <!--RESULT PAGE-->
         <header id="fh5co-hero" role="banner" style="background: url(outline/images/bg_2.jpg) top left; background-size: cover;" >
             <div class="fh5co-overlay"></div>
                 <div class="fh5co-intro">
                     <div id="demo-page-result" class="hide content">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="fh5co-hero-wrap">
+                                            <div class="fh5co-hero-intro text-center">
+                                                <div class="col-md-12 text-center">
+                                                    <span class="demo-intro">AUTO TEXT CLASSIFICATION</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="container container-all row">
                                 <div class="col-md-4 container-left">
                                     <h3><b>Input</b> <span class="tag label label-warning input-tag">URL</span></h3>
