@@ -5,5 +5,7 @@ py-bing-search
 pandas
 sklearn
 nltk
+beautifulsoup4
+scipy
 # thrift_sasl
 # sasl
