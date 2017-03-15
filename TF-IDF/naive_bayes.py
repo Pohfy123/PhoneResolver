@@ -11,7 +11,11 @@ import os
 import itertools
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, f1_score
+from termcolor import colored
+import sklearn.datasets
+
+from collections import Counter
 
 
 # result_labels = ['1_Air Travel Ticket Agencies','2_Home Stay','3_Hotel','4_Travel Bureaus','5_Airline Companies','6_Resorts & Bungalows','7_Seafood','8_Sukiyaki Shabu','9_Lounge Hotel Restaurant','10_Bakery Cake','11_Barbeque Grill','12_Coffee Shop','13_Ice Cream','14_Japanese'] ## Edit here
@@ -102,6 +106,24 @@ def display_confusion_matrix(classifier, test_data, showGraphic=False):
         plt.show()
 
 
+def test_classifier(X_test, y_test, clf, test_size=0.4, y_names=None, confusion=False):
+            # train-test split
+            print 'test size is: %2.0f%%' % (test_size * 100)
+            y_predicted = clf.classify_many([fs for fs in X_test])
+
+            y_test = [int(y) for y in y_test]
+            y_predicted = [int(y) for y in y_predicted]
+
+            if not confusion:
+                print colored('Classification report:', 'magenta', attrs=['bold'])
+                print sklearn.metrics.classification_report(y_test, y_predicted, target_names=y_names)
+                print ">>>>> F1-SCORE : "+str(f1_score(y_test, y_predicted))+"  <<<<<<"
+                return f1_score(y_test, y_predicted)
+            else:
+                print colored('Confusion Matrix:', 'magenta', attrs=['bold'])
+                print sklearn.metrics.confusion_matrix(y_test, y_predicted)
+
+
 def k_fold_evaluation(datasets, labels, nfolds=5):
     # K-fold cross validation
     # cv = cross_validation.KFold(len(datasets), n_folds=nfolds, shuffle=True, random_state=None)
@@ -114,21 +136,28 @@ def k_fold_evaluation(datasets, labels, nfolds=5):
     for train_index, test_index in skf:
         train_data = [datasets[idx] for idx in train_index]
         test_data = [datasets[idx] for idx in test_index]
+        print "Train data distribution: "
+        print Counter([x[1] for x in train_data ])
+        print "Test data distribution: "
+        print Counter([x[1] for x in test_data ])
 
         # Train model
         classifier = train_model(train_data)
-        # classifier.show_most_informative_features()
 
-        # Accuracy test
-        score = nltk.classify.accuracy(classifier, test_data)
-        print 'TEST#%d: accuracy: %lf' % (fold_idx, score)
+        # Evaluate
+        X_test = [tc[0] for tc in test_data]
+        y_test = [tc[1] for tc in test_data]
+        score = test_classifier(X_test, y_test, classifier, test_size=0.2)
+        print 'TEST#%d: F1-SCORE: %lf' % (fold_idx, score)
         
         # Display confusion matrix
-        display_confusion_matrix(classifier, test_data, showGraphic=False)
+        # display_confusion_matrix(classifier, test_data, showGraphic=False)
 
         scores.append(score)
         fold_idx += 1
-    print 'TOTAL ACCURACY: %lf' % (sum(scores)/len(scores)) 
+    print '##############'
+    print 'TOTAL F1-SCORE: %lf' % (sum(scores)/len(scores)) 
+    print '##############'
 
 
 def train_model(train_data):    
@@ -212,10 +241,10 @@ if __name__ == '__main__':
         print "> Preprocessed data! (%f secs)" % (time.time() - start_time)
 
         # Train and save models
-        start_time = time.time()
-        classifier = train_model(datasets)
-        save_model(classifier, "model_"+('%02d'%file_id)+".pickle")
-        print "> Trained model! (%f secs)" % (time.time() - start_time)
+        # start_time = time.time()
+        # classifier = train_model(datasets)
+        # save_model(classifier, "model_"+('%02d'%file_id)+".pickle")
+        # print "> Trained model! (%f secs)" % (time.time() - start_time)
 
         # K-Fold Cross Validation (Accuracy test)
         start_time = time.time()
@@ -247,4 +276,3 @@ if __name__ == '__main__':
                 #     # print "\tlabel >>>",label," prob >>>" , dist.prob(label)
                 #     diff = abs(dist.prob(label)-diff)
                 # print "\tdiff",diff
-
