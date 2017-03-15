@@ -3,7 +3,21 @@
 # http://www.bogotobogo.com/python/NLTK/tf_idf_with_scikit-learn_NLTK.php
 import sys
 import os
-import one_vs_all
+
+def countFiles(current_dir_path,based_dir_path):
+    picked_files_num = {}
+    for dirpath, dirs, files in os.walk(based_dir_path):
+        # Root dir
+        if dirpath == based_dir_path or dirpath == current_dir_path:
+            # print 'dirpath',dirpath            
+            continue
+        deepestFolderName = os.path.split(dirpath)[-1]
+        classId = deepestFolderName.split('_')[0]
+        className = deepestFolderName.split('_')[1]
+        num_files = len([f for f in os.listdir(dirpath) if os.path.isfile(os.path.join(dirpath, f))])
+        picked_files_num[classId] = num_files
+    # print picked_files_num
+    return picked_files_num
 
 def mergeResultToCSV(input_path, output_path, file_name_path="train-model", limit_count_word=1000):
 
@@ -43,9 +57,10 @@ def mergeResultToCSV(input_path, output_path, file_name_path="train-model", limi
                 number_dic[fin_name] = [' '.join(words),1]
                 src_folder_id[fin_name] = classId
         
-        # one vs all
-        total_files = one_vs_all.count_total_files(dirpath,input_path)  
-        picked_files = one_vs_all.count_pickfiles(dirpath,total_files,input_path)
+        # # one vs all
+        # total_files = one_vs_all.count_total_files(dirpath,input_path)  
+        picked_files = countFiles(dirpath,input_path)
+
     # =============================================================
         for dirpath2, dirs2, files2 in os.walk(input_path):
             # Root dir
