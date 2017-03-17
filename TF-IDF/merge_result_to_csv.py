@@ -4,7 +4,7 @@
 import sys
 import os
 
-def mergeResultToCSV(input_path, output_path, file_name="train_for_test_level2.csv",limit_count_word=100):
+def mergeResultToCSV(input_path, output_path, file_name="train_all_model.csv",limit_count_word=100):
     foutname = os.path.join(output_path, file_name)
     o = open(foutname, 'w')
     number_dic = {}
@@ -36,7 +36,7 @@ def mergeResultToCSV(input_path, output_path, file_name="train_for_test_level2.c
                     # print freq
                     words.append(word.encode('utf-8')+':'+freq.encode('utf-8'))
                     count_word += 1
-                number_dic[fin_name] = [' '.join(words),0,0,0,0,0,0] # edit here
+                number_dic[fin_name] = [' '.join(words),0,0,0,0] # edit here
     for dirpath, dirs, files in os.walk(input_path):
         # Root dir
         if dirpath == input_path:
@@ -59,9 +59,7 @@ def mergeResultToCSV(input_path, output_path, file_name="train_for_test_level2.c
         data_col4 = str(number_dic[num][2]) # Result is_travel
         data_col5 = str(number_dic[num][3]) # Result is_travel
         data_col6 = str(number_dic[num][4]) # Result is_travel
-        data_col7 = str(number_dic[num][5]) # Result is_travel
-        data_col8 = str(number_dic[num][6]) # Result is_travel
-        o.write(data_col1+','+data_col2+','+data_col3+','+data_col4+','+data_col5+','+data_col6+','+data_col7+','+data_col8)
+        o.write(data_col1+','+data_col2+','+data_col3+','+data_col4+','+data_col5+','+data_col6)
         o.write('\n')
     o.close()
 
