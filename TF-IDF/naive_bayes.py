@@ -106,84 +106,78 @@ def display_confusion_matrix(classifier, test_data, showGraphic=False):
         plt.show()
 
 
-def test_classifier(X_test, y_test, clf, test_size=0.4, y_names=None, confusion=False):
-    # train-test split
-    print 'test size is: %2.0f%%' % (test_size * 100)
-    y_predicted = clf.classify_many([fs for fs in X_test])
-
-    y_test = [int(y) for y in y_test]
-    y_predicted = [int(y) for y in y_predicted]
-
-    if not confusion:
-        print colored('Classification report:', 'magenta', attrs=['bold'])
-        print sklearn.metrics.classification_report(y_test, y_predicted, target_names=y_names)
-        print ">>>>> F1-SCORE : "+str(f1_score(y_test, y_predicted))+"  <<<<<<"
-        return f1_score(y_test, y_predicted)
-    else:
-        print colored('Confusion Matrix:', 'magenta', attrs=['bold'])
-        print sklearn.metrics.confusion_matrix(y_test, y_predicted)
-
-
 def bin_list_to_dec(bin_list):
     return int(''.join(map(str, bin_list)),2)
 
 
 def k_fold_evaluation(featuresets, labels, nfolds=5):
     datasets = zip(featuresets, labels)
-    print "Datasets |N|=%d" % len(featuresets)
+    print colored("Datasets |N|=%d" % len(featuresets), 'blue', attrs=['bold'])
+    print colored("Class distribution: {}".format(Counter([bin_list_to_dec(label) for label in labels])), 'blue', attrs=['bold'])
 
     # Stratified K-fold cross validation
     labels_dec = [bin_list_to_dec(y) for y in labels]
     skf = StratifiedKFold(labels_dec, n_folds=nfolds)
 
-    scores = []
-    fold_idx = 1
-    for train_index, test_index in skf:
-        print "> Evaluate a model: Fold#{}".format(fold_idx) 
+    all_avg_classification_reports = ""
+    for class_id in range(NUMBER_OF_CLASSES):
+        print colored('Evaluate a Model#{} ({}): '.format(class_id+1, LABEL_NAMES[class_id]), 'red', attrs=['bold'])
+        this_class_labels = [label[class_id] for label in labels]
+        fold_idx = 1
+        scores = []
+        total_y_test = []
+        total_y_pred = []
         start_time = time.time()
+        for train_index, test_index in skf:
+            print colored("-------- \n > Fold#{}".format(fold_idx), attrs=['bold'])
 
-        train_data = [datasets[idx] for idx in train_index]
-        test_data = [datasets[idx] for idx in test_index]
-        print "Train data distribution: "
-        print Counter([bin_list_to_dec(x[1]) for x in train_data ])
-        print "Test data distribution: "
-        print Counter([bin_list_to_dec(x[1]) for x in test_data ])
+            X_train = [featuresets[idx] for idx in train_index]
+            y_train = [this_class_labels[idx] for idx in train_index]
+            train_data = zip(X_train, y_train)
 
-        # Train models
-        classifiers = []
-        for class_id in range(NUMBER_OF_CLASSES):
-            this_class_labels = [label[class_id] for label in labels]
-            classifier = train_model(zip(featuresets, this_class_labels))
-            classifiers.append(classifier)
+            X_test = [featuresets[idx] for idx in test_index]
+            y_test = [this_class_labels[idx] for idx in test_index]
+            test_data = zip(X_test, y_test)
 
-        X_pred = [featuresets[idx] for idx in test_index]
-        y_pred = []
-        for classifier in classifiers:
-            y_pred.append(classifier.classify_many(X_pred))
-        y_pred = zip(*y_pred)
-        
-        # Evaluate
-        # X_test = [tc[0] for tc in test_data]
-        # y_test = [tc[1] for tc in test_data]
-        # score = test_classifier(X_test, y_test, classifier, test_size=0.2)
+            print "Train data distribution: {}".format(Counter([bin_list_to_dec(labels[x]) for x in train_index]))
+            print "Test data distribution: {}".format(Counter([bin_list_to_dec(labels[x]) for x in test_index]))
 
-        y_test = [labels[idx] for idx in test_index]
-        y_pred_dec = [bin_list_to_dec(y) for y in y_pred]
-        y_test_dec = [bin_list_to_dec(y) for y in y_test]
-        print sklearn.metrics.classification_report(y_test_dec, y_pred_dec)
-        score = f1_score(y_test_dec, y_pred_dec)
-        print 'TEST#%d: F1-SCORE: %lf' % (fold_idx, score)
-        
-        # Display confusion matrix
-        # display_confusion_matrix(classifier, test_data, showGraphic=False)
+            # print "\n\n train"
+            # print y_train
+            # print "\n\n test"
+            # print y_test
 
-        scores.append(score)
+            # Train models
+            classifier = train_model(train_data)
+            y_pred = classifier.classify_many(X_test)
 
+            # print "\n\n predict"
+            # print y_pred
+            
+            # Evaluate
+            y_pred_int = map(int, y_pred)
+            y_test_int = map(int, y_test)
+            
+            print colored('Classification report:', 'magenta', attrs=['bold'])
+            print sklearn.metrics.classification_report(y_test_int, y_pred_int)
+            print colored('Confusion Matrix:', 'magenta', attrs=['bold'])
+            print sklearn.metrics.confusion_matrix(y_test_int, y_pred_int)
+            
+            total_y_test.extend(y_test_int)
+            total_y_pred.extend(y_pred_int)
+            score = f1_score(y_test_int, y_pred_int, average=None)
+            # print 'TEST#{}: F1-SCORE: {}'.format(fold_idx, score)
+            scores.append(score)
+            fold_idx += 1
+        print colored('##############', 'red', attrs=['bold'])
+        print colored('TOTAL Metrics of Model#{}: '.format(class_id+1), 'red', attrs=['bold'])
+        this_report = sklearn.metrics.classification_report(total_y_test, total_y_pred)
+        print colored(this_report, 'red')
+        print colored('##############', 'red', attrs=['bold'])
         print "--- Evaluate a model! ({} secs) ---".format(time.time() - start_time)
-        fold_idx += 1
-    print '##############'
-    print 'TOTAL F1-SCORE: %lf' % (sum(scores)/len(scores)) 
-    print '##############'
+        print '\n'*3
+        all_avg_classification_reports += '\n\nModel#{}: \n'.format(class_id+1) + this_report
+    print colored(all_avg_classification_reports, 'blue')
 
 
 def train_model(train_data):    
