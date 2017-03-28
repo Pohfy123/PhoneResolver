@@ -15,7 +15,7 @@ def searchBing(search_term):
 
     params = urllib.urlencode({
         # Request parameters
-        'q': '02-107-1409',
+        'q': search_term,
         'count': '50',
         'offset': '0',
         'mkt': 'en-us',
@@ -100,4 +100,4 @@ def runBingSearch(path_number_list='./number_input.txt',path_url='./temp-process
             break
 
 if __name__ == "__main__":
-    runBingSearch('test_number.txt','test_output_bing/00_url')
+    runBingSearch('test_output_bing/police.txt','test_output_bing/00_url')
