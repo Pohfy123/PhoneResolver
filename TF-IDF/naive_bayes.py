@@ -16,6 +16,8 @@ from termcolor import colored
 import sklearn.datasets
 
 from collections import Counter
+# from imblearn.over_sampling import RandomOverSampler
+import random_over_sampler
 
 NUMBER_OF_CLASSES = 4 # Edit here
 LABEL_NAMES = ['01_Airline','02_Accommodation','03_Tourism','04_Restaurant & Delivery'] ## Edit here
@@ -37,73 +39,6 @@ def load_model(filename_in='my_classifier.pickle'):
     classifier = pickle.load(f)
     f.close()
     return classifier
-
-
-
-def plot_confusion_matrix(cm, classes,
-                          normalize=False,
-                          title='Confusion matrix',
-                          cmap=plt.cm.Blues,
-                          showGraphic=True):
-    """
-    This function prints and plots the confusion matrix.
-    Normalization can be applied by setting `normalize=True`.
-    """
-    
-    if showGraphic:
-        plt.imshow(cm, interpolation='nearest', cmap=cmap)
-        plt.title(title)
-        plt.colorbar()
-        tick_marks = np.arange(len(classes))
-        plt.xticks(tick_marks, classes, rotation=45)
-        plt.yticks(tick_marks, classes)
-
-    if normalize:
-        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-        print("Normalized confusion matrix")
-    else:
-        print('Confusion matrix, without normalization')
-
-    print(cm)
-
-    if showGraphic:
-        thresh = cm.max() / 2.
-        for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-            plt.text(j, i, cm[i, j],
-                     horizontalalignment="center",
-                     color="white" if cm[i, j] > thresh else "black")
-
-        plt.tight_layout()
-        plt.ylabel('True label')
-        plt.xlabel('Predicted label')
-
-        
-def display_confusion_matrix(classifier, test_data, showGraphic=False):
-    # Compute confusion matrix
-    y_pred = []
-    y_test = []
-    for tc in test_data:
-        dist = classifier.prob_classify(tc[0])
-        y_pred.append( dist.max() )
-        y_test.append( tc[1] )
-
-    cnf_matrix = confusion_matrix(y_test, y_pred)
-    np.set_printoptions(precision=2)
-
-    # Plot non-normalized confusion matrix
-    if showGraphic:
-        plt.figure()
-    plot_confusion_matrix(cnf_matrix, classes="Class",
-                        title='Confusion matrix, without normalization', showGraphic=showGraphic)
-
-    # Plot normalized confusion matrix
-    if showGraphic:
-        plt.figure()
-    plot_confusion_matrix(cnf_matrix, classes="Class", normalize=True,
-                        title='Normalized confusion matrix', showGraphic=showGraphic)
-
-    if showGraphic:
-        plt.show()
 
 
 def bin_list_to_dec(bin_list):
@@ -131,6 +66,7 @@ def k_fold_evaluation(featuresets, labels, nfolds=5):
         for train_index, test_index in skf:
             print colored("-------- \n > Fold#{}".format(fold_idx), attrs=['bold'])
 
+            # Seperate between training data and test data
             X_train = [featuresets[idx] for idx in train_index]
             y_train = [this_class_labels[idx] for idx in train_index]
             train_data = zip(X_train, y_train)
@@ -142,26 +78,26 @@ def k_fold_evaluation(featuresets, labels, nfolds=5):
             print "Train data distribution: {}".format(Counter([bin_list_to_dec(labels[x]) for x in train_index]))
             print "Test data distribution: {}".format(Counter([bin_list_to_dec(labels[x]) for x in test_index]))
 
-            # print "\n\n train"
-            # print y_train
-            # print "\n\n test"
-            # print y_test
+            # Oversampling to adjust class distribution
+            # ros = RandomOverSampler()
+            # X_resampled, y_resampled = ros.fit_sample(X_train, y_train)
+            X_resampled, y_resampled = random_over_sampler.random_over_sample(X_train, y_train)
+            X_train = X_resampled
+            y_train = y_resampled
+            train_data = zip(X_resampled, y_resampled)
 
             # Train models
             classifier = train_model(train_data)
             y_pred = classifier.classify_many(X_test)
-
-            # print "\n\n predict"
-            # print y_pred
             
             # Evaluate
             y_pred_int = map(int, y_pred)
             y_test_int = map(int, y_test)
-            
-            print colored('Classification report:', 'magenta', attrs=['bold'])
-            print sklearn.metrics.classification_report(y_test_int, y_pred_int)
-            print colored('Confusion Matrix:', 'magenta', attrs=['bold'])
-            print sklearn.metrics.confusion_matrix(y_test_int, y_pred_int)
+
+            # print colored('Classification report:', 'magenta', attrs=['bold'])
+            # print sklearn.metrics.classification_report(y_test_int, y_pred_int)
+            # print colored('Confusion Matrix:', 'magenta', attrs=['bold'])
+            # print sklearn.metrics.confusion_matrix(y_test_int, y_pred_int)
             
             total_y_test.extend(y_test_int)
             total_y_pred.extend(y_pred_int)
@@ -183,24 +119,6 @@ def k_fold_evaluation(featuresets, labels, nfolds=5):
 def train_model(train_data):    
     classifier = nltk.NaiveBayesClassifier.train(train_data)
     return classifier
-
-
-def process_data(raw_datasets):
-    # Convert word freq to Sparse matrix
-
-    v = DictVectorizer(sparse=True)
-    DictVec = v.fit([document['words'] for document in raw_datasets])
-    for document in raw_datasets:
-        document['words'] = DictVec.transform(document['words'])
-    
-    # Convert to ready-for-train format :: labeled_featuresets: A list of tuples ``(featureset, label)``.
-    datasets = [ (DictVec.inverse_transform(data['words'])[0], data['result']) for data in raw_datasets ]
-    
-    # Save DictVectorizer model & word list
-    save_model(DictVec, 'dictvect_'+('%02d'%class_id)+'.pickle')
-    save_dict_words(DictVec.get_feature_names(), 'wordlist_'+('%02d'%class_id)+'.txt')
-
-    return datasets, DictVec
 
 
 def convert_to_sparse(featuresets):
@@ -258,14 +176,15 @@ if __name__ == '__main__':
     #     print "> Training a model :: Category #{} {}".format(class_id+1,LABEL_NAMES[class_id]) 
     #     start_time = time.time()
     #     this_class_labels = [label[class_id] for label in labels]
-    #     classifier = train_model(zip(featuresets, this_class_labels))
+    #     X_resampled, y_resampled = random_over_sampler.random_over_sample(featuresets, this_class_labels)
+    #     classifier = train_model(zip(X_resampled, y_resampled))
     #     save_model(classifier, "model_{:02d}.pickle".format(class_id+1))
     #     print "--- Trained a model! ({} secs) ---".format(time.time() - start_time)
     # print "\n"
 
     # K-Fold Cross Validation (Accuracy test)
     start_time = time.time()
-    k_fold_evaluation(featuresets, labels)
+    k_fold_evaluation(featuresets, labels, 10)
     print "--- Evaluation model! {} seconds ---\n\n".format(time.time() - start_time)
 
     print "========================"
