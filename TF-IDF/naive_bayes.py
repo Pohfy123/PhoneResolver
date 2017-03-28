@@ -184,7 +184,7 @@ if __name__ == '__main__':
 
     # K-Fold Cross Validation (Accuracy test)
     start_time = time.time()
-    k_fold_evaluation(featuresets, labels, 10)
+    k_fold_evaluation(featuresets, labels)
     print "--- Evaluation model! {} seconds ---\n\n".format(time.time() - start_time)
 
     print "========================"
