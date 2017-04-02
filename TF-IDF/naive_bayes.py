@@ -1,6 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import nltk
+
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import BernoulliNB
+
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.preprocessing import MultiLabelBinarizer
+from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.pipeline import Pipeline
+
 from sklearn.cross_validation import StratifiedKFold
 import pickle
 import time
@@ -19,9 +28,13 @@ from collections import Counter
 # from imblearn.over_sampling import RandomOverSampler
 import random_over_sampler
 
+SEED = 127
 NUMBER_OF_CLASSES = 4 # Edit here
 LABEL_NAMES = ['01_Airline','02_Accommodation','03_Tourism','04_Restaurant & Delivery'] ## Edit here
-train_data_file_name = './train-data/train_all_model.csv'
+# train_data_file_name = './train-data/train_all_model.csv'
+train_data_file_name = './train-data/20170309_train-data_content_keywords/train_all_model.csv'
+# train_data_file_name = './train-data/20170309_train-data_keywords/train_all_model.csv'
+# train_data_file_name = './train-data/20170312_train-data_content/train_all_model.csv'
 
 def save_dict_words(words_list, filename_out='word_list.txt'):
     with open('./model/'+filename_out, "w") as outfile:
@@ -47,12 +60,13 @@ def bin_list_to_dec(bin_list):
 
 def k_fold_evaluation(featuresets, labels, nfolds=5):
     datasets = zip(featuresets, labels)
-    print colored("Datasets |N|=%d" % len(featuresets), 'blue', attrs=['bold'])
-    print colored("Class distribution: {}".format(Counter([bin_list_to_dec(label) for label in labels])), 'blue', attrs=['bold'])
+    # print colored("Datasets |N|=%d" % len(featuresets), 'blue', attrs=['bold'])
+    # print colored("Class distribution: {}".format(Counter([bin_list_to_dec(label) for label in labels])), 'blue', attrs=['bold'])
 
     # Stratified K-fold cross validation
     labels_dec = [bin_list_to_dec(y) for y in labels]
-    skf = StratifiedKFold(labels_dec, n_folds=nfolds)
+    random_state = np.random.RandomState(SEED)
+    skf = StratifiedKFold(labels_dec, n_folds=nfolds, random_state=random_state)
 
     all_avg_classification_reports = ""
     for class_id in range(NUMBER_OF_CLASSES):
@@ -75,8 +89,8 @@ def k_fold_evaluation(featuresets, labels, nfolds=5):
             y_test = [this_class_labels[idx] for idx in test_index]
             test_data = zip(X_test, y_test)
 
-            print "Train data distribution: {}".format(Counter([bin_list_to_dec(labels[x]) for x in train_index]))
-            print "Test data distribution: {}".format(Counter([bin_list_to_dec(labels[x]) for x in test_index]))
+            # print "Train data distribution: {}".format(Counter([bin_list_to_dec(labels[x]) for x in train_index]))
+            # print "Test data distribution: {}".format(Counter([bin_list_to_dec(labels[x]) for x in test_index]))
 
             # Oversampling to adjust class distribution
             # ros = RandomOverSampler()
@@ -88,7 +102,7 @@ def k_fold_evaluation(featuresets, labels, nfolds=5):
 
             # Train models
             classifier = train_model(train_data)
-            y_pred = classifier.classify_many(X_test)
+            y_pred = classifier.predict(X_test)
             
             # Evaluate
             y_pred_int = map(int, y_pred)
@@ -105,36 +119,33 @@ def k_fold_evaluation(featuresets, labels, nfolds=5):
             # print 'TEST#{}: F1-SCORE: {}'.format(fold_idx, score)
             scores.append(score)
             fold_idx += 1
-        print colored('##############', 'red', attrs=['bold'])
-        print colored('TOTAL Metrics of Model#{}: '.format(class_id+1), 'red', attrs=['bold'])
+        # print colored('##############', 'red', attrs=['bold'])
+        # print colored('TOTAL Metrics of Model#{}: '.format(class_id+1), 'red', attrs=['bold'])
         this_report = sklearn.metrics.classification_report(total_y_test, total_y_pred)
-        print colored(this_report, 'red')
-        print colored('##############', 'red', attrs=['bold'])
-        print "--- Evaluate a model! ({} secs) ---".format(time.time() - start_time)
-        print '\n'*3
+        # print colored(this_report, 'red')
+        # print colored('##############', 'red', attrs=['bold'])
+        # print "--- Evaluate a model! ({} secs) ---".format(time.time() - start_time)
+        # print '\n'*3
         all_avg_classification_reports += '\n\nModel#{}: \n'.format(class_id+1) + this_report
     print colored(all_avg_classification_reports, 'blue')
 
 
-def train_model(train_data):    
-    classifier = nltk.NaiveBayesClassifier.train(train_data)
+def train_model(train_data, is_weighted=False):
+    if is_weighted:
+        classifier = Pipeline([
+            ('vectorizer', DictVectorizer()),
+            ('tfidf', TfidfTransformer(use_idf=False)),
+            # ('clf', OneVsRestClassifier(MultinomialNB()))])
+            ('clf', MultinomialNB())])
+    else:
+        classifier = Pipeline([
+            ('vectorizer', DictVectorizer()),
+            ('tfidf', TfidfTransformer(use_idf=False)),
+            # ('clf', OneVsRestClassifier(BernoulliNB()))])
+            ('clf', BernoulliNB())])
+    X_train, y_train = zip(*train_data)
+    classifier.fit(X_train, y_train)
     return classifier
-
-
-def convert_to_sparse(featuresets):
-    # Convert word freq to Sparse matrix
-    v = DictVectorizer(sparse=True)
-    dict_vec = v.fit(featuresets)
-
-    # NOTICE: uncomment if sparse matrix is supported
-    # featuresets = dict_vec.transform(featuresets)
-    # featuresets = dict_vec.inverse_transform(x)
-
-    # Save DictVectorizer model & word list
-    save_model(dict_vec, 'dict_vect_models.pickle')
-    save_dict_words(dict_vec.get_feature_names(), 'word_lists.txt')
-
-    return featuresets
 
 
 def import_training_data(filename, n_class=1):
@@ -149,15 +160,14 @@ def import_training_data(filename, n_class=1):
                 continue
             
             words = dict([x.split(':') for x in words.strip().split(' ')])
-            words = dict((k,1.0) for k,v in words.iteritems())
+            words = dict((k,float(v)) for k,v in words.iteritems())
 
             results = results.strip().split(",", n_class-1)
 
             featuresets.append(words)
             labels.append(results)
     
-    return (convert_to_sparse(featuresets), labels)
-
+    return (featuresets, labels)
 
 if __name__ == '__main__':
     print 'All phone categories :\n', '\n'.join(LABEL_NAMES) , '\n\n'
@@ -171,16 +181,17 @@ if __name__ == '__main__':
     print "> Imported & Preprocessed data! ({} secs)\n\n".format(time.time() - start_time)
 
     # Train and save models
-    # print "Start reading an input file . . ."
-    # for class_id in range(NUMBER_OF_CLASSES):
-    #     print "> Training a model :: Category #{} {}".format(class_id+1,LABEL_NAMES[class_id]) 
-    #     start_time = time.time()
-    #     this_class_labels = [label[class_id] for label in labels]
-    #     X_resampled, y_resampled = random_over_sampler.random_over_sample(featuresets, this_class_labels)
-    #     classifier = train_model(zip(X_resampled, y_resampled))
-    #     save_model(classifier, "model_{:02d}.pickle".format(class_id+1))
-    #     print "--- Trained a model! ({} secs) ---".format(time.time() - start_time)
-    # print "\n"
+    print "Start reading an input file . . ."
+    for class_id in range(NUMBER_OF_CLASSES):
+        print "> Training a model :: Category #{} {}".format(class_id+1,LABEL_NAMES[class_id]) 
+        start_time = time.time()
+        this_class_labels = [label[class_id] for label in labels]
+        X_resampled, y_resampled = random_over_sampler.random_over_sample(featuresets, this_class_labels)
+        classifier = train_model(zip(X_resampled, y_resampled))
+        save_model(classifier, "sklearn_model_{:02d}.pickle".format(class_id+1))
+        # save_model(classifier, "model_{:02d}.pickle".format(class_id+1))
+        print "--- Trained a model! ({} secs) ---".format(time.time() - start_time)
+    print "\n"
 
     # K-Fold Cross Validation (Accuracy test)
     start_time = time.time()
