@@ -56,7 +56,8 @@ def load_model(filename_in):
     return classifier
 
 def import_test_data(filename='./temp-processing-data/05_merge-csv/test_data.csv'):
-    datasets = []
+    featuresets = []
+    mobile_no = []
     with open(filename,'r') as fin:        
         for line in fin:
             num,words = line.split(",",1)
@@ -66,14 +67,11 @@ def import_test_data(filename='./temp-processing-data/05_merge-csv/test_data.csv
                 words = dict()
             else:
                 words = dict([x.split(':') for x in words.strip().split(' ')])
-                words = dict((k,1.0) for k,v in words.iteritems())
+                words = dict((k,float(v)) for k,v in words.iteritems())
             
-            data = {
-                'phone_no' : phone_no, # no need
-                'words' : words
-            }
-            datasets.append(data)
-    return datasets
+            featuresets.append(words)
+            mobile_no.append(num)
+    return (mobile_no, featuresets)
 
 def processData(filename_in='./number_input.txt'):
     bing_search.runBingSearch(filename_in)
@@ -121,37 +119,33 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
     # Each model
     for model_id in range(1,N_MODEL+1,1):        
         # Load Classification Model
-        model_file_name = 'model_%02d.pickle' % model_id
+        model_file_name = 'sklearn_model_%02d.pickle' % model_id
+        # model_file_name = 'model_%02d.pickle' % model_id
         model_file_path = os.path.join(MODEL_DIR_PATH, model_file_name)
         print "Model#%d:" % model_id, model_file_path
         classifier = load_model(model_file_path)
         
-        # Load DictVectorizer Model
-        dv_model_file_name = 'dictvect_%02d.pickle' % model_id
-        dv_model_file_path = os.path.join(MODEL_DIR_PATH, dv_model_file_name)
-        DictVec = load_model(dv_model_file_path)
-        
         # Load Testing Data
-        test_data = import_test_data()
+        mobile_no, test_data = import_test_data()
 
-        for test_row in test_data:
+        proba_list = classifier.predict_proba(test_data)
+
+        for row_i in len(test_data):
+            this_mobile_no = mobile_no[row_i]
             if test_row['words'] == {}:
-                result[test_row['phone_no']].append('0')
+                result[this_mobile_no].append('0')
                 print 'phone number : ', test_row['phone_no']
                 print 'NOT FOUND'
             else:
                 dist = classifier.prob_classify(test_row['words'])
-                diff = abs(dist.prob('1')-dist.prob('0'))
+                diff = abs(proba_list[row_i][1]-proba_list[row_i][0])
                 if diff < 0.2:
-                    result[test_row['phone_no']].append(str(dist.prob('1')))
+                    result[this_mobile_no].append(proba_list[row_i][1])
                 else:
-                    result[test_row['phone_no']].append(str(dist.prob('1')))
+                    result[this_mobile_no].append(proba_list[row_i][1])
             
                 # Show Prediction Result
                 print 'phone number : ', test_row['phone_no']
-                print 'prediction :', dist.max()
-                for label in dist.samples():
-                    print "\tlabel >>>",label," prob >>>" , dist.prob(label)
 
     # Write Result
     with open(filename_out, 'w') as file_out:
