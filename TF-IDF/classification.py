@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import pickle
 import os
-import bing_search
+import new_bing_search
 import urlKeywordSearch
 import wordParser_LexTo
 import ngrams
@@ -74,7 +74,7 @@ def import_test_data(filename='./temp-processing-data/05_merge-csv/test_data.csv
     return (mobile_no, featuresets)
 
 def processData(filename_in='./number_input.txt'):
-    bing_search.runBingSearch(filename_in)
+    new_bing_search.runBingSearch(filename_in)
     urlKeywordSearch.search()
     wordParser_LexTo.parseAllDocuments(path_in='./temp-processing-data/01_raw-data-keyword/')
     ngrams.applyNgramAllDocuments()
