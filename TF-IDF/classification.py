@@ -128,55 +128,51 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
         # Load Testing Data
         mobile_no, test_data = import_test_data()
 
-        proba_list = classifier.predict_proba(test_data)
-
-        for row_i in len(test_data):
+        for row_i in range(len(test_data)):
             this_mobile_no = mobile_no[row_i]
-            if test_row['words'] == {}:
+            if test_data[row_i] == {}:
                 result[this_mobile_no].append('0')
-                print 'phone number : ', test_row['phone_no']
-                print 'NOT FOUND'
+                print 'phone number : ', this_mobile_no, " >> NOT FOUND"
             else:
-                dist = classifier.prob_classify(test_row['words'])
-                diff = abs(proba_list[row_i][1]-proba_list[row_i][0])
-                if diff < 0.2:
-                    result[this_mobile_no].append(proba_list[row_i][1])
-                else:
-                    result[this_mobile_no].append(proba_list[row_i][1])
-            
-                # Show Prediction Result
-                print 'phone number : ', test_row['phone_no']
+                result_class = classifier.predict(test_data[row_i])
+                result_class = result_class[0]
+                result[this_mobile_no].append(result_class)
+                print 'phone number : ', this_mobile_no, " >>", result_class 
 
     # Write Result
     with open(filename_out, 'w') as file_out:
-        CATEGORY = ['Airline','Accommodation','Tourism','Restaurant & Delivery']
-        for cat in CATEGORY:
-            file_out.write(','+cat)
-        for cat in CATEGORY:
-            file_out.write(',subcat_'+cat)
-        file_out.write(',other,\n')
-        key_str_list = result.keys()
+        CATEGORY = ['airline','accommodation','tourism','restaurant']
+        file_out.write('mobile_no,')
+        file_out.write(','.join(CATEGORY))
+        # for cat in CATEGORY:
+            # file_out.write(',subcat_'+cat)
+        # file_out.write(',other,')
+        file_out.write('\n')
+        key_str_list = [mobile_no.replace("-", "") for mobile_no in result.keys()]
         value_str_list = [','.join(result_row) for result_row in result.values()]
         pair_str_list = zip(key_str_list, value_str_list)
 
         result_str_list = [','.join(row) for row in pair_str_list]
+        print result_str_list
         file_out.write('\n'.join(result_str_list))
         file_out.write('\n')
         for num_key in phone_cat:
             # print '>>', num_key
-            file_out.write(num_key+','+('1' if len(phone_cat[num_key]['airline'])>0 else '0') +\
+            file_out.write( num_key.replace("-", "") + \
+            ','+ ('1' if len(phone_cat[num_key]['airline'])>0 else '0') +\
             ','+ ('1' if len(phone_cat[num_key]['accommodation'])>0 else '0') +\
             ','+ ('1' if len(phone_cat[num_key]['tourism'])>0 else '0') +\
-            ','+ ('1' if len(phone_cat[num_key]['restaurant'])>0 else '0') + ',' )
-            file_out.write('|'.join(phone_cat[num_key]['airline']))
-            file_out.write(',')
-            file_out.write('|'.join(phone_cat[num_key]['accommodation']))
-            file_out.write(',')
-            file_out.write('|'.join(phone_cat[num_key]['tourism']))
-            file_out.write(',')
-            file_out.write('|'.join(phone_cat[num_key]['restaurant']))
-            file_out.write(',')
-            file_out.write('|'.join(phone_cat[num_key]['other']))
+            ','+ ('1' if len(phone_cat[num_key]['restaurant'])>0 else '0') )
+            # file_out.write(',')
+            # file_out.write('|'.join(phone_cat[num_key]['airline']))
+            # file_out.write(',')
+            # file_out.write('|'.join(phone_cat[num_key]['accommodation']))
+            # file_out.write(',')
+            # file_out.write('|'.join(phone_cat[num_key]['tourism']))
+            # file_out.write(',')
+            # file_out.write('|'.join(phone_cat[num_key]['restaurant']))
+            # file_out.write(',')
+            # file_out.write('|'.join(phone_cat[num_key]['other']))
             file_out.write('\n')
 
 
