@@ -153,7 +153,6 @@ def predict(filename_in='./number_input.txt',filename_out='./results/result.csv'
         pair_str_list = zip(key_str_list, value_str_list)
 
         result_str_list = [','.join(row) for row in pair_str_list]
-        print result_str_list
         file_out.write('\n'.join(result_str_list))
         file_out.write('\n')
         for num_key in phone_cat:
