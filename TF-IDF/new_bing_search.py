@@ -75,7 +75,10 @@ def searchRelatedLinks(search_term_list, output_path, db_file_name="bing-search-
 def readPhoneNoList(path_input_file,done_list):
     with open(path_input_file, "r") as fi:  
         nums = fi.read()
-        numArr = nums.strip().split("\n")
+        if len(nums.strip()) == 0:
+            numArr = []
+        else:
+            numArr = nums.strip().split("\n")
         # print 'done',done_list
         new_num_arr = [num for num in numArr if num+'.txt' not in done_list]
     return new_num_arr
