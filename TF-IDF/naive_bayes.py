@@ -16,7 +16,6 @@ import time
 from sklearn.feature_extraction import DictVectorizer
 import os
 
-
 import itertools
 import numpy as np
 import matplotlib.pyplot as plt
@@ -25,16 +24,12 @@ from termcolor import colored
 import sklearn.datasets
 
 from collections import Counter
-# from imblearn.over_sampling import RandomOverSampler
 import random_over_sampler
 
 SEED = 127
 NUMBER_OF_CLASSES = 4 # Edit here
 LABEL_NAMES = ['01_Airline','02_Accommodation','03_Tourism','04_Restaurant & Delivery'] ## Edit here
-# train_data_file_name = './train-data/train_all_model.csv'
-train_data_file_name = './train-data/20170309_train-data_content_keywords/train_all_model.csv'
-# train_data_file_name = './train-data/20170309_train-data_keywords/train_all_model.csv'
-# train_data_file_name = './train-data/20170312_train-data_content/train_all_model.csv'
+train_data_file_name = './train-data/train_data.csv'
 
 def save_dict_words(words_list, filename_out='word_list.txt'):
     with open('./model/'+filename_out, "w") as outfile:
@@ -107,11 +102,6 @@ def k_fold_evaluation(featuresets, labels, nfolds=5):
             # Evaluate
             y_pred_int = map(int, y_pred)
             y_test_int = map(int, y_test)
-
-            # print colored('Classification report:', 'magenta', attrs=['bold'])
-            # print sklearn.metrics.classification_report(y_test_int, y_pred_int)
-            # print colored('Confusion Matrix:', 'magenta', attrs=['bold'])
-            # print sklearn.metrics.confusion_matrix(y_test_int, y_pred_int)
             
             total_y_test.extend(y_test_int)
             total_y_pred.extend(y_pred_int)

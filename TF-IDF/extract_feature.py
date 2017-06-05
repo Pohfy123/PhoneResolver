@@ -11,17 +11,10 @@ from operator import itemgetter
 
 token_dict = {}
 
-# <<<<<<<<<<<<<<<<<<<<<< TF-IDF : Old source <<<<<<<<<<<<<<<<<<<<<<
 
 def tokenize(x):
     return ( w for w in nltk.word_tokenize(x) if len(w) >=3)
 
-# def tokenize(text):
-#     tokens = nltk.word_tokenize(text)
-#     stems = []
-#     for item in tokens:
-#         stems.append(PorterStemmer().stem(item))
-#     return stems
 
 def tfidf(input_path, output_path, use_idf=True, limitTop=None):
     done_list = []
@@ -87,10 +80,10 @@ def tfidf(input_path, output_path, use_idf=True, limitTop=None):
                         o.write(row[0]+' - '+str(row[1])+'\n')
             o.close()
 
-# >>>>>>>>>>>>>>>>>>>>>> TF-IDF : Old source >>>>>>>>>>>>>>>>>>>>>>
 
 def tf(input_path, output_path):
     tfidf(input_path, output_path, False)
+
 
 def extract_feature(input_path='./temp-processing-data/03_n-gram-data-lexto/', output_path='./temp-processing-data/04_tf/', feature_mode=1, limitTop = None) :
     if(feature_mode == 1): # TF
