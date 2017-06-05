@@ -4,7 +4,7 @@ import httplib, urllib, base64
 import json
 import os
 
-BING_API_KEY = '339ac5e9ec89419e9a0e9850f393dd4b'
+BING_API_KEY = 'FILL-BING-KEY-HERE'
 
 
 def searchBing(search_term):
